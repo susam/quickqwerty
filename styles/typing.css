@@ -1,0 +1,11 @@
+#practicePanel {
+}
+
+#targetText {
+    font-family: monospace;
+    display: inline-block;
+    border: 3px solid #333333;
+    padding: 5px;
+    font-size: 40px;
+    line-height: 48px;
+}
