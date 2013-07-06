@@ -1,11 +1,74 @@
 #practicePanel {
+    display: inline-block;
+    margin-top: 5%;
+}
+
+#prevPane, #nextPane {
+    width: 0.5em;
+    display: inline-block;
+    vertical-align: top;
+    font-family: verdana;
+}
+
+#practicePane {
+    display: inline-block;
+}
+
+#subunitLinks {
+    text-align: justify;
+    height: 24px;
+}
+
+.subunitLink {
+    display: inline-block;
+    background: #cccccc;
+    border: 1px solid #aaaaaa;
+    width: 19%;
+    text-align: center;
+}
+
+.stretch {
+    display: inline-block;
+    width: 100%;
 }
 
 #targetText {
+    margin-top: 3%;
     font-family: monospace;
     display: inline-block;
     border: 3px solid #333333;
     padding: 5px;
     font-size: 40px;
     line-height: 48px;
+}
+
+#feedbackPane {
+    margin: 2% 0;
+    font-size: 12px;
+    line-height: 18px;
+    font-family: monospace;
+    overflow: hidden;
+}
+
+#statusPane {
+    float: left;
+    width: 35%;
+    text-align: left;
+}
+
+#progressPane {
+    display: inline-block;
+    width: 30%;
+}
+
+#resultPane {
+    float: right;
+    width: 35%;
+    text-align: right;
+}
+
+progress {
+    border: 1px solid #333333;
+    width: 100%;
+    background: #ffffff;
 }

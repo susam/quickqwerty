@@ -74,8 +74,46 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <div id="content">
         <div id="practicePanel">
-            <div id="targetText">asdf ;lkj asdf ;lkj asdf;</div>
-        </div>
+            <div id="prevPane">&laquo;</div>
+
+            <div id="practicePane">
+
+                <div id="subunitLinks">
+                    <div class="subunitLink">Grip</div>
+                    <div class="subunitLink">Words</div>
+                    <div class="subunitLink">Control</div>
+                    <div class="subunitLink">Sentences</div>
+                    <div class="subunitLink">Test</div>
+                    <div class="stretch"></div>
+                </div> <!-- End subunitLinks -->
+
+                <div id="targetText">asdf ;lkj asdf ;lkj asdf;</div>
+
+                <div id="feedbackPane">
+                    <div id="statusPane">
+                        <div>READY</div>
+                        <div>Need to reduce error</div>
+                        <div>Try again</div>
+                    </div>
+                    <div id="progressPane">
+                        <progress value="10" max="100"></progress>
+                        <div>10%</div>
+                    </div>
+                    <div id="resultPane">
+                        <div>0 cpm</div>
+                        <div>0 wpm</div>
+                        <div>0% error</div>
+                    </div>
+                </div> <!-- End statusPane -->
+
+                <div id="inputPane">
+                    <textarea rows="5" cols="80" autofocus></textarea>
+                </div> <!-- End inputPane -->
+
+            </div> <!-- End practicePane -->
+
+            <div id="nextPane">&raquo;</div>
+        </div> <!-- End practicePanel -->
     </div> <!-- End content -->
 
     <div id="sidebar">
