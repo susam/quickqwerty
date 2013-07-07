@@ -43,7 +43,7 @@
 }
 
 #feedbackPane {
-    margin: 2% 0;
+    margin: 3% 0;
     font-size: 12px;
     line-height: 18px;
     font-family: monospace;
@@ -51,8 +51,8 @@
 }
 
 #statusPane {
-    float: left;
-    width: 35%;
+    display: inline-block;
+    width: 30%;
     text-align: left;
 }
 
@@ -62,9 +62,13 @@
 }
 
 #resultPane {
-    float: right;
-    width: 35%;
+    display: inline-block;
+    width: 30%;
     text-align: right;
+}
+
+textarea {
+    width: 95%;
 }
 
 progress {
