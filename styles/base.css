@@ -9,6 +9,15 @@ body {
     min-width: 1024px;
 }
 
+a:link, a:visited {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
 /* Header */
 #header {
     background: #2E0854;
