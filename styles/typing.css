@@ -19,7 +19,7 @@
     height: 24px;
 }
 
-.subunitLink {
+#subunitLinks div {
     display: inline-block;
     background: #cccccc;
     border: 1px solid #aaaaaa;
@@ -28,7 +28,6 @@
 }
 
 .stretch {
-    display: inline-block;
     width: 100%;
 }
 
