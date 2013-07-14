@@ -27,8 +27,9 @@
     text-align: center;
 }
 
-.stretch {
+#subunitLinks div.stretch {
     width: 100%;
+    border: 0;
 }
 
 #targetText {
