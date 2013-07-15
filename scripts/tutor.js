@@ -27,27 +27,30 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-var unitLinksDiv // Element to display all unit numbers
+var unitLinksDiv    // To display all unit numbers
+var subunitLinksDiv // To display all subunits in a unit
 
 
 window.onload = init
 
 
-// Initializes the unit links.
+// Initialize the typing tutor
 function init()
 {
     unitLinksDiv = document.getElementById('unitLinks')
+    subunitLinksDiv = document.getElementById('subunitLinks')
     initUnitLinks()
+    initSubunitLinks(1)
 }
 
 
-// Initializes the unit links.
+// Initialize the unit links
 function initUnitLinks()
 {
     for (var i = 0; i < units.length; i++) {
         var divElement = document.createElement('div')
         divElement.className = 'unselected'
-        divElement.id = 'lesson' + (i + 1)
+        divElement.id = 'unit' + (i + 1)
 
         var anchorElement = document.createElement('a')
         anchorElement.href = "#" + (i + 1)
@@ -55,5 +58,44 @@ function initUnitLinks()
 
         divElement.appendChild(anchorElement)
         unitLinksDiv.appendChild(divElement)
+    }
+}
+
+
+// Initialize the subunit links
+//
+// Arguments:
+//   m -- Unit number
+function initSubunitLinks(m)
+{
+    // Get the subunit names
+    var subunit = units[m - 1].subunits
+    var subunitNames = []
+    for (name in subunit) {
+        subunitNames.push(name)
+    }
+
+    // Delete all existing subunit links
+    while (subunitLinksDiv.firstChild &&
+           subunitLinksDiv.firstChild.className != 'stretch') {
+        subunitLinksDiv.removeChild(subunitLinksDiv.firstChild)
+    }
+
+    // Create new subunit links for the unit m
+    for (var i = subunitNames.length - 1; i >= 0; i--) {
+        var whitespace = document.createTextNode('\n')
+        subunitLinksDiv.insertBefore(whitespace, subunitLinksDiv.firstChild)
+
+        var div = document.createElement('div')
+        div.className = 'unselected'
+        div.id = 'subunit' + (i + 1)
+        div.style.width = (95 / subunitNames.length) + '%'
+
+        var anchor = document.createElement('a')
+        anchor.href = '#' + m + '.' + (i + 1)
+        anchor.innerHTML = subunitNames[i]
+
+        div.appendChild(anchor)
+        subunitLinksDiv.insertBefore(div, subunitLinksDiv.firstChild)
     }
 }
