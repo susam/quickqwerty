@@ -29,6 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 var unitLinksDiv    // To display all unit numbers
 var subunitLinksDiv // To display all subunits in a unit
+var targetTextDiv   // To display the target text to be typed
+
+var subunitText     // Text to be typed by the user
 
 
 window.onload = init
@@ -39,8 +42,10 @@ function init()
 {
     unitLinksDiv = document.getElementById('unitLinks')
     subunitLinksDiv = document.getElementById('subunitLinks')
+    targetTextDiv = document.getElementById('targetText')
     initUnitLinks()
     initSubunitLinks(1)
+    setSubunit(1, 1)
 }
 
 
@@ -83,6 +88,8 @@ function initSubunitLinks(m)
 
     // Create new subunit links for the unit m
     for (var i = subunitNames.length - 1; i >= 0; i--) {
+        // Insert whitespaces between div elements, otherwise they would
+        // not be justified
         var whitespace = document.createTextNode('\n')
         subunitLinksDiv.insertBefore(whitespace, subunitLinksDiv.firstChild)
 
@@ -98,4 +105,92 @@ function initSubunitLinks(m)
         div.appendChild(anchor)
         subunitLinksDiv.insertBefore(div, subunitLinksDiv.firstChild)
     }
+}
+
+
+// Set the specified subunit.
+//
+// Arguments:
+//   m -- Unit number
+//   n -- Subunit number
+function setSubunit(m, n) {
+    // Get the subunit names
+    var subunit = units[m - 1].subunits
+    var subunitNames = []
+    for (name in subunit) {
+        subunitNames.push(name)
+    }
+
+    subunitText = units[m - 1].subunits[subunitNames[n - 1]]
+    setTargetText(0, 25)
+}
+
+
+// Set the target text to be typed.
+//
+// The target text consits of three parts:
+//   1. Prefix
+//   2. Target character
+//   3. Suffix
+//
+// The target character is the character the user should type to move
+// ahead in the subunit. The prefix and the suffix offer some context
+// around the target character to be typed. These three parts combined,
+// in the specified order above, is a substring from the subunit's text
+// from units.js.
+//
+// Arguments:
+//   index -- Index of the target character
+//   length -- Length of the target text
+function setTargetText(index, length) {
+    // Length of the target text should be odd as equal number of
+    // characters should be displayed on either side of the character to
+    // be typed
+    if (length % 2 == 0) {
+        length--
+    }
+
+    // Number of characters on either side of the character to be typed,
+    // assuming that the character to be typed is at the centre
+    var halfTextLength = (length - 1) / 2
+
+    // Calculate the start index and the end index of the substring to
+    // be selected from the subunit text to display as the target text
+    if (index <= halfTextLength) {
+        var startIndex = 0
+    } else if (index >= subunitText.length - 1 - halfTextLength) {
+        var startIndex = subunitText.length - length
+    } else {
+        var startIndex = index - halfTextLength
+    }
+    var endIndex = startIndex + length
+    
+    // Select prefix string
+    var prefix = subunitText.substring(startIndex, index)
+    prefix = prefix.replace(/ /g, '\u00a0')
+
+    // Select target character
+    var targetChar = subunitText.charAt(index)
+    if (targetChar == ' ')
+        targetChar = '\u00a0'
+
+    // Select suffix string
+    var suffix = subunitText.substring(index + 1, endIndex)
+    suffix = suffix.replace(/ /g, '\u00a0')
+
+    // Create prefix and suffix nodes
+    var prefixNode = document.createTextNode(prefix)
+    var suffixNode = document.createTextNode(suffix)
+
+    // Create target character element
+    var targetSpan = document.createElement('span')
+    targetSpan.className = 'targetChar'
+    var targetCharNode = document.createTextNode(targetChar)
+    targetSpan.appendChild(targetCharNode)
+
+    // Add prefix, target character and suffix to the target text
+    // element
+    targetTextDiv.appendChild(prefixNode)
+    targetTextDiv.appendChild(targetSpan)
+    targetTextDiv.appendChild(suffixNode)
 }
