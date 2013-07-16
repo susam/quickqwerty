@@ -27,11 +27,21 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-var unitLinksDiv    // To display all unit numbers
-var subunitLinksDiv // To display all subunits in a unit
-var targetTextDiv   // To display the target text to be typed
 
-var subunitText     // Text to be typed by the user
+// Global object with tutor properties shared across all functions
+var tutor = {
+    // Element to display all unit numbers
+    unitLinksDiv: null,
+
+    // Element to display all subunit titles
+    subunitLinksDiv: null,
+
+    // Element to display the target text to be typed by the user
+    targetTextDiv: null,
+
+    // Variable to save the subunit text for the current subunit
+    subunitText: ''
+}
 
 
 window.onload = init
@@ -40,9 +50,9 @@ window.onload = init
 // Initialize the typing tutor
 function init()
 {
-    unitLinksDiv = document.getElementById('unitLinks')
-    subunitLinksDiv = document.getElementById('subunitLinks')
-    targetTextDiv = document.getElementById('targetText')
+    tutor.unitLinksDiv = document.getElementById('unitLinks')
+    tutor.subunitLinksDiv = document.getElementById('subunitLinks')
+    tutor.targetTextDiv = document.getElementById('targetText')
     initUnitLinks()
     initSubunitLinks(1)
     setSubunit(1, 1)
@@ -62,7 +72,7 @@ function initUnitLinks()
         anchorElement.innerHTML = 'Unit ' + (i + 1)
 
         divElement.appendChild(anchorElement)
-        unitLinksDiv.appendChild(divElement)
+        tutor.unitLinksDiv.appendChild(divElement)
     }
 }
 
@@ -81,9 +91,11 @@ function initSubunitLinks(m)
     }
 
     // Delete all existing subunit links
-    while (subunitLinksDiv.firstChild &&
-           subunitLinksDiv.firstChild.className != 'stretch') {
-        subunitLinksDiv.removeChild(subunitLinksDiv.firstChild)
+    var linksDiv = tutor.subunitLinksDiv
+    while (linksDiv.firstChild &&
+           linksDiv.firstChild.className != 'stretch') {
+
+        linksDiv.removeChild(linksDiv.firstChild)
     }
 
     // Create new subunit links for the unit m
@@ -91,19 +103,19 @@ function initSubunitLinks(m)
         // Insert whitespaces between div elements, otherwise they would
         // not be justified
         var whitespace = document.createTextNode('\n')
-        subunitLinksDiv.insertBefore(whitespace, subunitLinksDiv.firstChild)
+        linksDiv.insertBefore(whitespace, linksDiv.firstChild)
 
-        var div = document.createElement('div')
-        div.className = 'unselected'
-        div.id = 'subunit' + (i + 1)
-        div.style.width = (95 / subunitNames.length) + '%'
+        var subunitDiv = document.createElement('div')
+        subunitDiv.className = 'unselected'
+        subunitDiv.id = 'subunit' + (i + 1)
+        subunitDiv.style.width = (95 / subunitNames.length) + '%'
 
         var anchor = document.createElement('a')
         anchor.href = '#' + m + '.' + (i + 1)
         anchor.innerHTML = subunitNames[i]
 
-        div.appendChild(anchor)
-        subunitLinksDiv.insertBefore(div, subunitLinksDiv.firstChild)
+        subunitDiv.appendChild(anchor)
+        linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
     }
 }
 
@@ -121,7 +133,7 @@ function setSubunit(m, n) {
         subunitNames.push(name)
     }
 
-    subunitText = units[m - 1].subunits[subunitNames[n - 1]]
+    tutor.subunitText = units[m - 1].subunits[subunitNames[n - 1]]
     setTargetText(0, 25)
 }
 
@@ -158,24 +170,24 @@ function setTargetText(index, length) {
     // be selected from the subunit text to display as the target text
     if (index <= halfTextLength) {
         var startIndex = 0
-    } else if (index >= subunitText.length - 1 - halfTextLength) {
-        var startIndex = subunitText.length - length
+    } else if (index >= tutor.subunitText.length - 1 - halfTextLength) {
+        var startIndex = tutor.subunitText.length - length
     } else {
         var startIndex = index - halfTextLength
     }
     var endIndex = startIndex + length
     
     // Select prefix string
-    var prefix = subunitText.substring(startIndex, index)
+    var prefix = tutor.subunitText.substring(startIndex, index)
     prefix = prefix.replace(/ /g, '\u00a0')
 
     // Select target character
-    var targetChar = subunitText.charAt(index)
+    var targetChar = tutor.subunitText.charAt(index)
     if (targetChar == ' ')
         targetChar = '\u00a0'
 
     // Select suffix string
-    var suffix = subunitText.substring(index + 1, endIndex)
+    var suffix = tutor.subunitText.substring(index + 1, endIndex)
     suffix = suffix.replace(/ /g, '\u00a0')
 
     // Create prefix and suffix nodes
@@ -190,7 +202,7 @@ function setTargetText(index, length) {
 
     // Add prefix, target character and suffix to the target text
     // element
-    targetTextDiv.appendChild(prefixNode)
-    targetTextDiv.appendChild(targetSpan)
-    targetTextDiv.appendChild(suffixNode)
+    tutor.targetTextDiv.appendChild(prefixNode)
+    tutor.targetTextDiv.appendChild(targetSpan)
+    tutor.targetTextDiv.appendChild(suffixNode)
 }
