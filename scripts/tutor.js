@@ -53,14 +53,14 @@ function init()
     tutor.unitLinksDiv = document.getElementById('unitLinks')
     tutor.subunitLinksDiv = document.getElementById('subunitLinks')
     tutor.targetTextDiv = document.getElementById('targetText')
-    initUnitLinks()
-    initSubunitLinks(1)
+    displayUnitLinks()
+    displaySubunitLinks(1)
     setSubunit(1, 1)
 }
 
 
 // Initialize the unit links
-function initUnitLinks()
+function displayUnitLinks()
 {
     for (var i = 0; i < units.length; i++) {
         var divElement = document.createElement('div')
@@ -81,7 +81,7 @@ function initUnitLinks()
 //
 // Arguments:
 //   m -- Unit number
-function initSubunitLinks(m)
+function displaySubunitLinks(m)
 {
     // Get the subunit names
     var subunit = units[m - 1].subunits
@@ -134,7 +134,7 @@ function setSubunit(m, n) {
     }
 
     tutor.subunitText = units[m - 1].subunits[subunitNames[n - 1]]
-    setTargetText(0, 25)
+    displayTargetText(0, 25)
 }
 
 
@@ -154,7 +154,7 @@ function setSubunit(m, n) {
 // Arguments:
 //   index -- Index of the target character
 //   length -- Length of the target text
-function setTargetText(index, length) {
+function displayTargetText(index, length) {
     // Length of the target text should be odd as equal number of
     // characters should be displayed on either side of the character to
     // be typed
