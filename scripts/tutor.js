@@ -28,6 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
+// Global object with tutor settings
+var settings = {
+    TARGET_TEXT_LENGTH: 25
+}
+
+
 // Global object with tutor properties shared across all functions
 var tutor = {
     // Element to display all unit numbers
@@ -39,8 +45,32 @@ var tutor = {
     // Element to display the target text to be typed by the user
     targetTextDiv: null,
 
-    // Variable to save the subunit text for the current subunit
-    subunitText: ''
+    // Current unit number
+    unitNo: 0,
+
+    // Current subunit number
+    subunitNo: 0,
+
+    // Current unit object
+    unit: null,
+
+    // Names of the subunits of the current unit
+    subunitTitles: [],
+
+    // Subunit text for the current subunit
+    subunitText: '',
+
+    // Part of the subunit text visible in the target text just before
+    // the target character
+    targetPrefix: '',
+
+    // Character in the target text to be typed immediately by the
+    // user
+    targetChar: '',
+
+    // Part of the subunit text visible in the target text just after
+    // the target character
+    targetSuffix: '',
 }
 
 
@@ -53,13 +83,16 @@ function init()
     tutor.unitLinksDiv = document.getElementById('unitLinks')
     tutor.subunitLinksDiv = document.getElementById('subunitLinks')
     tutor.targetTextDiv = document.getElementById('targetText')
-    displayUnitLinks()
-    displaySubunitLinks(1)
+
     setSubunit(1, 1)
+    setTargetText(0)
+    displayUnitLinks()
+    displaySubunitLinks()
+    displayTargetText()
 }
 
 
-// Initialize the unit links
+// Display the unit links
 function displayUnitLinks()
 {
     for (var i = 0; i < units.length; i++) {
@@ -77,19 +110,34 @@ function displayUnitLinks()
 }
 
 
-// Initialize the subunit links
+// Set the tutor properties for the specified unit and subunit numbers.
 //
 // Arguments:
 //   m -- Unit number
-function displaySubunitLinks(m)
+//   n -- Subunit number
+function setSubunit(m, n)
 {
-    // Get the subunit names
-    var subunit = units[m - 1].subunits
-    var subunitNames = []
-    for (name in subunit) {
-        subunitNames.push(name)
+    if (tutor.unitNo != m) {
+        tutor.unitNo = m
+        tutor.unit = units[m - 1]
+
+        for (var subunitTitle in tutor.unit.subunits) {
+            tutor.subunitTitles.push(subunitTitle)
+        }
     }
 
+    if (tutor.subunitNo != n) {
+        tutor.subunitNo = n
+
+        var subunitTitle = tutor.subunitTitles[n - 1]
+        tutor.subunitText = tutor.unit.subunits[subunitTitle]
+    }
+}
+
+
+// Display the subunit links for the current unit.
+function displaySubunitLinks()
+{
     // Delete all existing subunit links
     var linksDiv = tutor.subunitLinksDiv
     while (linksDiv.firstChild &&
@@ -99,7 +147,7 @@ function displaySubunitLinks(m)
     }
 
     // Create new subunit links for the unit m
-    for (var i = subunitNames.length - 1; i >= 0; i--) {
+    for (var i = tutor.subunitTitles.length - 1; i >= 0; i--) {
         // Insert whitespaces between div elements, otherwise they would
         // not be justified
         var whitespace = document.createTextNode('\n')
@@ -108,33 +156,15 @@ function displaySubunitLinks(m)
         var subunitDiv = document.createElement('div')
         subunitDiv.className = 'unselected'
         subunitDiv.id = 'subunit' + (i + 1)
-        subunitDiv.style.width = (95 / subunitNames.length) + '%'
+        subunitDiv.style.width = (95 / tutor.subunitTitles.length) + '%'
 
         var anchor = document.createElement('a')
-        anchor.href = '#' + m + '.' + (i + 1)
-        anchor.innerHTML = subunitNames[i]
+        anchor.href = '#' + tutor.subunitNo + '.' + (i + 1)
+        anchor.innerHTML = tutor.subunitTitles[i]
 
         subunitDiv.appendChild(anchor)
         linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
     }
-}
-
-
-// Set the specified subunit.
-//
-// Arguments:
-//   m -- Unit number
-//   n -- Subunit number
-function setSubunit(m, n) {
-    // Get the subunit names
-    var subunit = units[m - 1].subunits
-    var subunitNames = []
-    for (name in subunit) {
-        subunitNames.push(name)
-    }
-
-    tutor.subunitText = units[m - 1].subunits[subunitNames[n - 1]]
-    displayTargetText(0, 25)
 }
 
 
@@ -153,51 +183,58 @@ function setSubunit(m, n) {
 //
 // Arguments:
 //   index -- Index of the target character
-//   length -- Length of the target text
-function displayTargetText(index, length) {
+function setTargetText(index) {
+
     // Length of the target text should be odd as equal number of
     // characters should be displayed on either side of the character to
     // be typed
-    if (length % 2 == 0) {
-        length--
+    var targetLength = settings.TARGET_TEXT_LENGTH
+    if (targetLength % 2 == 0) {
+        targetLength--
     }
 
     // Number of characters on either side of the character to be typed,
     // assuming that the character to be typed is at the centre
-    var halfTextLength = (length - 1) / 2
+    var prefixLength = (targetLength - 1) / 2
 
     // Calculate the start index and the end index of the substring to
     // be selected from the subunit text to display as the target text
-    if (index <= halfTextLength) {
+    if (index <= prefixLength) {
         var startIndex = 0
-    } else if (index >= tutor.subunitText.length - 1 - halfTextLength) {
-        var startIndex = tutor.subunitText.length - length
+    } else if (index >= tutor.subunitText.length - 1 - prefixLength) {
+        var startIndex = tutor.subunitText.length - targetLength
     } else {
-        var startIndex = index - halfTextLength
+        var startIndex = index - prefixLength
     }
-    var endIndex = startIndex + length
+    var endIndex = startIndex + targetLength
     
     // Select prefix string
-    var prefix = tutor.subunitText.substring(startIndex, index)
-    prefix = prefix.replace(/ /g, '\u00a0')
+    tutor.targetPrefix = tutor.subunitText.substring(startIndex, index)
+    tutor.targetPrefix = tutor.targetPrefix.replace(/ /g, '\u00a0')
 
     // Select target character
-    var targetChar = tutor.subunitText.charAt(index)
-    if (targetChar == ' ')
-        targetChar = '\u00a0'
+    tutor.targetChar = tutor.subunitText.charAt(index)
+    if (tutor.targetChar == ' ') {
+        tutor.targetChar = '\u00a0'
+    }
 
     // Select suffix string
-    var suffix = tutor.subunitText.substring(index + 1, endIndex)
-    suffix = suffix.replace(/ /g, '\u00a0')
+    tutor.targetSuffix = tutor.subunitText.substring(index + 1, endIndex)
+    tutor.targetSuffix = tutor.targetSuffix.replace(/ /g, '\u00a0')
+}
 
+
+// Display the current target text
+function displayTargetText()
+{
     // Create prefix and suffix nodes
-    var prefixNode = document.createTextNode(prefix)
-    var suffixNode = document.createTextNode(suffix)
+    var prefixNode = document.createTextNode(tutor.targetPrefix)
+    var suffixNode = document.createTextNode(tutor.targetSuffix)
 
     // Create target character element
     var targetSpan = document.createElement('span')
+    var targetCharNode = document.createTextNode(tutor.targetChar)
     targetSpan.className = 'targetChar'
-    var targetCharNode = document.createTextNode(targetChar)
     targetSpan.appendChild(targetCharNode)
 
     // Add prefix, target character and suffix to the target text
