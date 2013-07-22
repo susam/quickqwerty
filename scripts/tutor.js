@@ -42,7 +42,10 @@ var tutor = {
     // Element to display all subunit titles
     subunitLinksDiv: null,
 
-    // Element to display tips
+    // Element to display the title of the current unit
+    unitHeading: null,
+
+    // Element to display tips for the current unit
     tipsTextDiv: null,
 
     // Element to display the target text to be typed by the user
@@ -56,6 +59,9 @@ var tutor = {
 
     // Current unit object
     unit: null,
+
+    // Title of the current unit
+    unitTitle: '',
 
     // Tips for the current unit
     tipsHTML: '',
@@ -88,6 +94,7 @@ function init()
 {
     tutor.unitLinksDiv = document.getElementById('unitLinks')
     tutor.subunitLinksDiv = document.getElementById('subunitLinks')
+    tutor.unitHeading = document.getElementById('unitTitle')
     tutor.tipsTextDiv = document.getElementById('tipsText')
     tutor.targetTextDiv = document.getElementById('targetText')
 
@@ -95,6 +102,7 @@ function init()
     setTargetText(0)
     displayUnitLinks()
     displaySubunitLinks()
+    displayUnitTitle()
     displayTips()
     displayTargetText()
 }
@@ -128,6 +136,7 @@ function setSubunit(m, n)
     if (tutor.unitNo != m) {
         tutor.unitNo = m
         tutor.unit = units[m - 1]
+        tutor.unitTitle = tutor.unit.title
         tutor.tipsHTML = tutor.unit.tips
 
         for (var subunitTitle in tutor.unit.subunits) {
@@ -174,6 +183,18 @@ function displaySubunitLinks()
         subunitDiv.appendChild(anchor)
         linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
     }
+}
+
+
+// Display title for the current unit.
+function displayUnitTitle() {
+    var unitNoText = document.createTextNode('Unit ' + tutor.unitNo)
+    var whitespace = document.createTextNode('\u00a0\u00a0')
+    var titleText = document.createTextNode('[' + tutor.unitTitle + ']')
+
+    tutor.unitHeading.appendChild(unitNoText)
+    tutor.unitHeading.appendChild(whitespace)
+    tutor.unitHeading.appendChild(titleText)
 }
 
 
