@@ -42,6 +42,9 @@ var tutor = {
     // Element to display all subunit titles
     subunitLinksDiv: null,
 
+    // Element to display tips
+    tipsTextDiv: null,
+
     // Element to display the target text to be typed by the user
     targetTextDiv: null,
 
@@ -53,6 +56,9 @@ var tutor = {
 
     // Current unit object
     unit: null,
+
+    // Tips for the current unit
+    tipsHTML: '',
 
     // Names of the subunits of the current unit
     subunitTitles: [],
@@ -82,12 +88,14 @@ function init()
 {
     tutor.unitLinksDiv = document.getElementById('unitLinks')
     tutor.subunitLinksDiv = document.getElementById('subunitLinks')
+    tutor.tipsTextDiv = document.getElementById('tipsText')
     tutor.targetTextDiv = document.getElementById('targetText')
 
     setSubunit(1, 1)
     setTargetText(0)
     displayUnitLinks()
     displaySubunitLinks()
+    displayTips()
     displayTargetText()
 }
 
@@ -120,6 +128,7 @@ function setSubunit(m, n)
     if (tutor.unitNo != m) {
         tutor.unitNo = m
         tutor.unit = units[m - 1]
+        tutor.tipsHTML = tutor.unit.tips
 
         for (var subunitTitle in tutor.unit.subunits) {
             tutor.subunitTitles.push(subunitTitle)
@@ -165,6 +174,12 @@ function displaySubunitLinks()
         subunitDiv.appendChild(anchor)
         linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
     }
+}
+
+
+// Display tips for the current unit.
+function displayTips() {
+   tutor.tipsTextDiv.innerHTML = tutor.tipsHTML
 }
 
 
