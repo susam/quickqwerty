@@ -60,12 +60,6 @@ var tutor = {
     // Current unit object
     unit: null,
 
-    // Title of the current unit
-    unitTitle: '',
-
-    // Tips for the current unit
-    tipsHTML: '',
-
     // Names of the subunits of the current unit
     subunitTitles: [],
 
@@ -177,8 +171,6 @@ function setSubunit(m, n)
     tutor.subunitNo = n
 
     tutor.unit = units[m - 1]
-    tutor.unitTitle = tutor.unit.title
-    tutor.tipsHTML = tutor.unit.tips
 
     tutor.subunitTitles.length = 0
     for (var subunitTitle in tutor.unit.subunits) {
@@ -229,7 +221,7 @@ function displayUnitTitle() {
     var unitNoText = document.createTextNode('Unit ' + tutor.unitNo +
                                              '.' + tutor.subunitNo)
     var whitespace = document.createTextNode('\u00a0\u00a0')
-    var titleText = document.createTextNode('[' + tutor.unitTitle + ']')
+    var titleText = document.createTextNode('[' + tutor.unit.title + ']')
 
     // Remove current unit title
     while (tutor.unitHeading.firstChild) {
@@ -245,7 +237,7 @@ function displayUnitTitle() {
 
 // Display tips for the current unit.
 function displayTips() {
-   tutor.tipsTextDiv.innerHTML = tutor.tipsHTML
+   tutor.tipsTextDiv.innerHTML = tutor.unit.tips
 }
 
 
