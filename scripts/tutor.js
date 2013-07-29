@@ -87,6 +87,7 @@ var tutor = {
 
 
 window.onload = init
+window.onhashchange = updateUnitFromURL
 
 
 // Initialize the typing tutor
@@ -98,13 +99,8 @@ function init()
     tutor.tipsTextDiv = document.getElementById('tipsText')
     tutor.targetTextDiv = document.getElementById('targetText')
 
-    setSubunit(1, 1)
-    setTargetText(0)
     displayUnitLinks()
-    displaySubunitLinks()
-    displayUnitTitle()
-    displayTips()
-    displayTargetText()
+    updateUnitFromURL()
 }
 
 
@@ -126,6 +122,50 @@ function displayUnitLinks()
 }
 
 
+// Parse the current URL and determine the current unit and subunit
+// numbers, and display the determined subunit.
+//
+// The fragment identifier in the URL may contain the current
+// unit and subunit numbers in m.n format where m is the current unit
+// number and n is the current subunit number.
+//
+// If the fragment identifier is absent, then the current unit is 1 and
+// the current subunit is 1.
+//
+// If the fragment identifier is a single integer m only, then the
+// current unit is m and the current subunit is 1.
+//
+// The following is a list of example URLs along with the unit number
+// they translate to.
+//
+//   http://quickqwerty.com/      -- Unit 1.1
+//   http://quickqwerty.com/#5    -- Unit 5.1
+//   http://quickqwerty.com/#5.1  -- Unit 5.1
+//   http://quickqwerty.com/#5.2  -- Unit 5.2
+function updateUnitFromURL()
+{
+    // Default lesson is Unit 1.1
+    var unit = 1
+    var subunit = 1
+
+    // Parse the fragment identifier in the URL and determine the unit
+    if (window.location.hash.length > 0) {
+        var fragmentID = window.location.hash.slice(1)
+        var tokens = fragmentID.split('.')
+        unit = parseInt(tokens[0])
+        if (tokens.length > 1)
+            subunit = parseInt(tokens[1])
+    }
+
+    setSubunit(unit, subunit)
+    setTargetText(0)
+    displaySubunitLinks()
+    displayUnitTitle()
+    displayTips()
+    displayTargetText()
+}
+
+
 // Set the tutor properties for the specified unit and subunit numbers.
 //
 // Arguments:
@@ -133,23 +173,20 @@ function displayUnitLinks()
 //   n -- Subunit number
 function setSubunit(m, n)
 {
-    if (tutor.unitNo != m) {
-        tutor.unitNo = m
-        tutor.unit = units[m - 1]
-        tutor.unitTitle = tutor.unit.title
-        tutor.tipsHTML = tutor.unit.tips
+    tutor.unitNo = m
+    tutor.subunitNo = n
 
-        for (var subunitTitle in tutor.unit.subunits) {
-            tutor.subunitTitles.push(subunitTitle)
-        }
+    tutor.unit = units[m - 1]
+    tutor.unitTitle = tutor.unit.title
+    tutor.tipsHTML = tutor.unit.tips
+
+    tutor.subunitTitles.length = 0
+    for (var subunitTitle in tutor.unit.subunits) {
+        tutor.subunitTitles.push(subunitTitle)
     }
 
-    if (tutor.subunitNo != n) {
-        tutor.subunitNo = n
-
-        var subunitTitle = tutor.subunitTitles[n - 1]
-        tutor.subunitText = tutor.unit.subunits[subunitTitle]
-    }
+    var subunitTitle = tutor.subunitTitles[n - 1]
+    tutor.subunitText = tutor.unit.subunits[subunitTitle]
 }
 
 
@@ -177,7 +214,7 @@ function displaySubunitLinks()
         subunitDiv.style.width = (95 / tutor.subunitTitles.length) + '%'
 
         var anchor = document.createElement('a')
-        anchor.href = '#' + tutor.subunitNo + '.' + (i + 1)
+        anchor.href = '#' + tutor.unitNo + '.' + (i + 1)
         anchor.innerHTML = tutor.subunitTitles[i]
 
         subunitDiv.appendChild(anchor)
@@ -188,10 +225,18 @@ function displaySubunitLinks()
 
 // Display title for the current unit.
 function displayUnitTitle() {
-    var unitNoText = document.createTextNode('Unit ' + tutor.unitNo)
+    // Create unit title nodes
+    var unitNoText = document.createTextNode('Unit ' + tutor.unitNo +
+                                             '.' + tutor.subunitNo)
     var whitespace = document.createTextNode('\u00a0\u00a0')
     var titleText = document.createTextNode('[' + tutor.unitTitle + ']')
 
+    // Remove current unit title
+    while (tutor.unitHeading.firstChild) {
+        tutor.unitHeading.removeChild(tutor.unitHeading.firstChild)
+    }
+
+    // Add current unit title
     tutor.unitHeading.appendChild(unitNoText)
     tutor.unitHeading.appendChild(whitespace)
     tutor.unitHeading.appendChild(titleText)
@@ -272,6 +317,11 @@ function displayTargetText()
     var targetCharNode = document.createTextNode(tutor.targetChar)
     targetSpan.className = 'targetChar'
     targetSpan.appendChild(targetCharNode)
+
+    // Remove current target text
+    while (tutor.targetTextDiv.firstChild) {
+        tutor.targetTextDiv.removeChild(tutor.targetTextDiv.firstChild)
+    }
 
     // Add prefix, target character and suffix to the target text
     // element
