@@ -44,6 +44,18 @@
     border: 3px solid #333333;
 }
 
+#targetText.error {
+    background: #ff8888;
+}
+
+#targetText.completed, textarea.completed {
+    background: #dddddd;
+}
+
+#targetText.completed span.targetChar {
+    border: 3px solid #dddddd;
+}
+
 #feedbackPane {
     margin: 3% 0;
     font-size: 12px;
@@ -71,6 +83,10 @@
 
 textarea {
     width: 95%;
+}
+
+textarea.error {
+    color: #ff0000;
 }
 
 progress {

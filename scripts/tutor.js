@@ -36,6 +36,7 @@ var settings = {
 
 // Global object with tutor properties shared across all functions
 var tutor = {
+
     // Element to display all unit numbers
     unitLinksDiv: null,
 
@@ -50,6 +51,9 @@ var tutor = {
 
     // Element to display the target text to be typed by the user
     targetTextDiv: null,
+
+    // Element where the user types the target text
+    inputTextArea: null,
 
     // Current unit number
     unitNo: 0,
@@ -77,6 +81,33 @@ var tutor = {
     // Part of the subunit text visible in the target text just after
     // the target character
     targetSuffix: '',
+
+    // Timestamp (in milliseconds) at which the user began typing the
+    // target text
+    startTime: 0,
+
+    // Number of characters in the target text typed correctly by the
+    // user
+    correctInputLength: 0,
+
+    // Possible states the tutor can be in
+    state: {
+        // The tutor is ready to be used but the user has not entered
+        // any input yet
+        READY: "ready",
+
+        // The user has entered input and there are no errors in the
+        // input, or any errors that occurred have been deleted
+        RUNNING: "running",
+
+        // The user has entered input and there are errors in the input
+        ERROR: "error",
+
+        // The user has completed the current subunit successfully
+        COMPLETED: "completed"
+    },
+
+    currentState: null
 }
 
 
@@ -92,9 +123,12 @@ function init()
     tutor.unitHeading = document.getElementById('unitTitle')
     tutor.tipsTextDiv = document.getElementById('tipsText')
     tutor.targetTextDiv = document.getElementById('targetText')
+    tutor.inputTextArea = document.getElementById('input')
 
     displayUnitLinks()
     updateUnitFromURL()
+
+    tutor.inputTextArea.onkeyup = updatePracticePane
 }
 
 
@@ -152,11 +186,29 @@ function updateUnitFromURL()
     }
 
     setSubunit(unit, subunit)
-    setTargetText(0)
+
     displaySubunitLinks()
     displayUnitTitle()
     displayTips()
-    displayTargetText()
+
+    resetSubunit()
+}
+
+
+// Reset the state of the current subunit.
+//
+// The following activities are performed while resetting the state of
+// the current subunit.
+//   1. Set the state of the tutor to READY.
+//   2. Clear the input textarea element.
+function resetSubunit()
+{
+    tutor.currentState = tutor.state.READY
+    tutor.inputTextArea.value = ''
+    tutor.inputTextArea.focus()
+
+    updatePracticePaneState()
+    updatePracticePane()
 }
 
 
@@ -253,10 +305,7 @@ function displayTips() {
 // around the target character to be typed. These three parts combined,
 // in the specified order above, is a substring from the subunit's text
 // from units.js.
-//
-// Arguments:
-//   index -- Index of the target character
-function setTargetText(index) {
+function setTargetText() {
 
     // Length of the target text should be odd as equal number of
     // characters should be displayed on either side of the character to
@@ -272,27 +321,32 @@ function setTargetText(index) {
 
     // Calculate the start index and the end index of the substring to
     // be selected from the subunit text to display as the target text
-    if (index <= prefixLength) {
+    var i = tutor.correctInputLength
+    if (i <= prefixLength) {
         var startIndex = 0
-    } else if (index >= tutor.subunitText.length - 1 - prefixLength) {
+    } else if (i >= tutor.subunitText.length - 1 - prefixLength) {
         var startIndex = tutor.subunitText.length - targetLength
     } else {
-        var startIndex = index - prefixLength
+        var startIndex = i - prefixLength
     }
     var endIndex = startIndex + targetLength
     
     // Select prefix string
-    tutor.targetPrefix = tutor.subunitText.substring(startIndex, index)
+    tutor.targetPrefix = tutor.subunitText.substring(startIndex, i)
     tutor.targetPrefix = tutor.targetPrefix.replace(/ /g, '\u00a0')
 
     // Select target character
-    tutor.targetChar = tutor.subunitText.charAt(index)
-    if (tutor.targetChar == ' ') {
-        tutor.targetChar = '\u00a0'
+    if (i < tutor.subunitText.length) {
+        tutor.targetChar = tutor.subunitText.charAt(i)
+        if (tutor.targetChar == ' ') {
+            tutor.targetChar = '\u00a0'
+        }
+    } else {
+        tutor.targetChar = ''
     }
 
     // Select suffix string
-    tutor.targetSuffix = tutor.subunitText.substring(index + 1, endIndex)
+    tutor.targetSuffix = tutor.subunitText.substring(i + 1, endIndex)
     tutor.targetSuffix = tutor.targetSuffix.replace(/ /g, '\u00a0')
 }
 
@@ -320,4 +374,97 @@ function displayTargetText()
     tutor.targetTextDiv.appendChild(prefixNode)
     tutor.targetTextDiv.appendChild(targetSpan)
     tutor.targetTextDiv.appendChild(suffixNode)
+}
+
+
+// Update practice pane after evaluating the user's input.
+//
+// The input typed by the user is evaluated for correctness and then the
+// practice pane is updated.
+function updatePracticePane()
+{
+    evaluateInput()
+    setTargetText()
+    displayTargetText()
+}
+
+
+// Evaluate the input typed by the user and change the practice panel
+// state if necessary.
+function evaluateInput()
+{
+    var inputText = tutor.inputTextArea.value
+    var inputLength = inputText.length
+
+    // If a user presses a modifier key such as Ctrl, Alt, etc. when the
+    // input textarea is empty, this function is called and the length
+    // of the input text is 0.
+    if (inputLength == 0) {
+        tutor.correctInputLength = 0
+        return
+    }
+
+    // This part of the code is executed only when a user has typed a
+    // character. Therefore, if the tutor is in READY state, set it to
+    // RUNNING state.
+    if (tutor.currentState == tutor.state.READY) {
+        tutor.startTime = new Date().getTime()
+        tutor.currentState = tutor.state.RUNNING
+    }
+
+    // Validate the input
+    tutor.correctInputLength = Util.common(tutor.subunitText, inputText)
+    if (tutor.correctInputLength == inputLength) {
+        // Clear error if any
+        if (tutor.currentState == tutor.state.ERROR) {
+            tutor.currentState = tutor.state.RUNNING
+            updatePracticePaneState()
+        }
+    } else {
+        // Set and display error
+        if (tutor.currentState == tutor.state.RUNNING) {
+            tutor.currentState = tutor.state.ERROR
+            tutor.errorCount++
+            updatePracticePaneState()
+        }
+    }
+
+    // Check if the complete target text has been typed successfully
+    if (tutor.correctInputLength == tutor.subunitText.length) {
+        tutor.currentState = tutor.state.COMPLETED
+        updatePracticePaneState()
+    }
+}
+
+
+// Update the state of the practice pane according to the current state
+// of the tutor.
+function updatePracticePaneState()
+{
+    switch (tutor.currentState) {
+
+        case tutor.state.READY:
+            tutor.targetTextDiv.className = ''
+            tutor.inputTextArea.className = ''
+            tutor.inputTextArea.disabled = false
+            break
+
+        case tutor.state.RUNNING:
+            tutor.targetTextDiv.className = ''
+            tutor.inputTextArea.className = ''
+            tutor.inputTextArea.disabled = false
+            break
+
+        case tutor.state.ERROR:
+            tutor.targetTextDiv.className = 'error'
+            tutor.inputTextArea.className = 'error'
+            tutor.inputTextArea.disabled = false
+            break
+
+        case tutor.state.COMPLETED:
+            tutor.targetTextDiv.className = 'completed'
+            tutor.inputTextArea.className = 'completed'
+            tutor.inputTextArea.disabled = true
+            break
+    }
 }

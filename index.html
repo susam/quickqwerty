@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <title>QuickQWERTY</title>
 <link rel="stylesheet" type="text/css" href="styles/base.css">
 <link rel="stylesheet" type="text/css" href="styles/typing.css">
+<script type="text/javascript" src="scripts/util.js"></script>
 <script type="text/javascript" src="scripts/units.js"></script>
 <script type="text/javascript" src="scripts/tutor.js"></script>
 </head>
@@ -82,9 +83,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 </div> <!-- End statusPane -->
 
                 <div id="inputPane">
-                    <textarea rows="5"
-                              spellcheck="false"
-                              autofocus></textarea>
+                    <textarea id="input" rows="5" autocomplete="off"
+                              spellcheck="false"></textarea>
                 </div> <!-- End inputPane -->
 
             </div> <!-- End practicePane -->
