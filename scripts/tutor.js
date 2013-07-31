@@ -317,7 +317,7 @@ var Tutor = function()
     function setTargetText() {
 
         // The target text should display at least one character
-        var targetLength = settings.TARGET_TEXT_LENGTH
+        var targetLength = Settings.TARGET_TEXT_LENGTH
         if (targetLength < 1) {
             targetLength = 1
         }
