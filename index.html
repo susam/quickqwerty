@@ -71,18 +71,19 @@ window.onload = Tutor.init
 
                 <div id="feedbackPane">
                     <div id="statusPane">
-                        <div>READY</div>
-                        <div>Need to reduce error</div>
-                        <div>Try again</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
                     </div>
                     <div id="progressPane">
-                        <progress value="10" max="100"></progress>
-                        <div>10%</div>
+                        <progress id="progressBar" value="0" max="100">
+                        </progress>
+                        <div><span id="progressPercent"></span>%</div>
                     </div>
                     <div id="resultPane">
-                        <div>0 cpm</div>
-                        <div>0 wpm</div>
-                        <div>0% error</div>
+                        <div><span id="cpm"></span> cpm</div>
+                        <div><span id="wpm"></span> wpm</div>
+                        <div><span id="error"></span>% error</div>
                     </div>
                 </div> <!-- End statusPane -->
 
@@ -106,7 +107,6 @@ window.onload = Tutor.init
     </div> <!-- End content -->
 
     <div id="sidebar">
-    SIDEBAR
     </div> <!-- End sidebar -->
 </div>
 

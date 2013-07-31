@@ -53,6 +53,25 @@ var Tutor = function()
 
             // Element where the user types the target text
             input: null,
+
+            // Progress bar to display how much of the target text has
+            // been correctly typed by the user
+            progressBar: null,
+
+            // Element to display how much of the target text has
+            // been correctly typed by the user in percent
+            progressPercent: null,
+
+            // Element to display the typing speed in characters per
+            // minute
+            cpm: null,
+
+            // Element to display the typing speed in words per
+            // minute
+            wpm: null,
+
+            // Element to display the errors made by the user in percent
+            error: null,
         },
 
         // Current properties of the tutor
@@ -87,6 +106,10 @@ var Tutor = function()
             // Timestamp (in milliseconds) at which the user began
             // typing the target text
             startTime: 0,
+
+            // Number of errors made while typing the current subunit
+            // text
+            errors: 0,
 
             // Number of characters in the target text typed correctly
             // by the user
@@ -124,6 +147,11 @@ var Tutor = function()
         my.html.tips = document.getElementById('tips')
         my.html.target = document.getElementById('target')
         my.html.input = document.getElementById('input')
+        my.html.progressBar = document.getElementById('progressBar')
+        my.html.progressPercent = document.getElementById('progressPercent')
+        my.html.cpm = document.getElementById('cpm')
+        my.html.wpm = document.getElementById('wpm')
+        my.html.error = document.getElementById('error')
 
         displayUnitLinks()
         updateUnitFromURL()
@@ -403,6 +431,7 @@ var Tutor = function()
         evaluateInput()
         setTargetText()
         displayTargetText()
+        updateResult()
     }
 
 
@@ -425,7 +454,7 @@ var Tutor = function()
         // a character. Therefore, if the tutor is in READY state, set
         // it to RUNNING STATE.
         if (my.current.state == my.STATE.READY) {
-            my.startTime = new Date().getTime()
+            my.current.startTime = new Date().getTime()
             my.current.state = my.STATE.RUNNING
         }
 
@@ -444,7 +473,7 @@ var Tutor = function()
             // Set and display error
             if (my.current.state == my.STATE.RUNNING) {
                 my.current.state = my.STATE.ERROR
-                my.errorCount++
+                my.current.errors++
                 updatePracticePaneState()
             }
         }
@@ -488,6 +517,49 @@ var Tutor = function()
                 break
         }
     }
+
+
+    // Update the typing speed (displayed in CPM as well as WPM) and the
+    // error percent.
+    function updateResult()
+    {
+        var goodChars = my.current.correctInputLength
+
+        // Update error rate
+        var error = '&infin; '
+        if (my.current.errors == 0) {
+            error = 0
+        } else if (goodChars > 0) {
+            error = Math.round(100 * my.current.errors / goodChars)
+        }
+        my.html.error.innerHTML = error
+
+        // CPM and WPM does not need to be updated on error
+        if (my.current.state == my.STATE.ERROR) {
+            return
+        }
+
+        // Determine the time elapsed since the user began typing
+        var currentTime = new Date().getTime()
+        var timeElapsed = (currentTime - my.current.startTime) / 60000
+
+        // Update CPM and WPM
+        var cpm = '&#infin;'
+        var wpm = '&#infin;'
+        if (timeElapsed > 0) {
+            cpm = Math.round(goodChars / timeElapsed)
+            wpm = Math.round(goodChars / 5 / timeElapsed)
+        }
+        my.html.cpm.innerHTML = cpm
+        my.html.wpm.innerHTML = wpm 
+
+        // Update progress bar
+        var textLength = my.current.subunitText.length
+        var progress = Math.round(100 * goodChars / textLength)
+        my.html.progressBar.value = progress
+        my.html.progressPercent.innerHTML = progress
+    }
+        
 
     return {
         init: init
