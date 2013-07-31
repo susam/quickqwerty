@@ -44,7 +44,7 @@
     border: 3px solid #333333;
 }
 
-#targetText.error {
+#targetText.error, textarea.error {
     background: #ff8888;
 }
 
@@ -83,10 +83,6 @@
 
 textarea {
     width: 95%;
-}
-
-textarea.error {
-    color: #ff0000;
 }
 
 progress {
