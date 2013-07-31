@@ -36,6 +36,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="scripts/units.js"></script>
 <script type="text/javascript" src="scripts/settings.js"></script>
 <script type="text/javascript" src="scripts/tutor.js"></script>
+<script type="text/javascript">
+window.onload = Tutor.init
+</script>
 </head>
 <body>
 
@@ -64,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     <div class="stretch"></div>
                 </div> <!-- End subunitLinks -->
 
-                <div id="targetText"></div>
+                <div id="target"></div>
 
                 <div id="feedbackPane">
                     <div id="statusPane">
@@ -97,7 +100,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <div id="tipsLink">
                 <p>Tips</p>
             </div>
-            <div id="tipsText"></div>
+            <div id="tips"></div>
         </div> <!-- End tipsPane -->
 
     </div> <!-- End content -->

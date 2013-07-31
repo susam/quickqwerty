@@ -31,7 +31,7 @@
     border: 0;
 }
 
-#targetText {
+#target {
     margin-top: 3%;
     font-family: monospace;
     display: inline-block;
@@ -40,19 +40,19 @@
     line-height: 48px;
 }
 
-#targetText, span.targetChar {
+#target, span.targetChar {
     border: 3px solid #333333;
 }
 
-#targetText.error, textarea.error {
+#target.error, textarea.error {
     background: #ff8888;
 }
 
-#targetText.completed, textarea.completed {
+#target.completed, textarea.completed {
     background: #dddddd;
 }
 
-#targetText.completed span.targetChar {
+#target.completed span.targetChar {
     border: 3px solid #dddddd;
 }
 
@@ -89,7 +89,7 @@ progress {
     width: 100%;
 }
 
-#tipsText {
+#tips {
     margin: 0 auto;
     width: 50%;
     text-align: justify;
