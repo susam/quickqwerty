@@ -301,10 +301,15 @@ function displayTips() {
 // from units.js.
 function setTargetText() {
 
+    // The target text should display at least one character
+    var targetLength = settings.TARGET_TEXT_LENGTH
+    if (targetLength < 1) {
+        targetLength = 1
+    }
+
     // Length of the target text should be odd as equal number of
     // characters should be displayed on either side of the character to
     // be typed
-    var targetLength = settings.TARGET_TEXT_LENGTH
     if (targetLength % 2 == 0) {
         targetLength--
     }
