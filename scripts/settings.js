@@ -30,5 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Global object with tutor settings
 var settings = {
+
+    // The length of the target text displayed to the user
     TARGET_TEXT_LENGTH: 25
 }
