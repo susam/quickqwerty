@@ -28,12 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-// Global object with tutor settings
-var settings = {
-    TARGET_TEXT_LENGTH: 25
-}
-
-
 // Global object with tutor properties shared across all functions
 var tutor = {
 
