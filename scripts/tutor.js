@@ -34,6 +34,11 @@ var Tutor = function()
     var my = {
 
         // HTML elements used by the tutor
+        //
+        // The property names in this object should match the ID of the
+        // corresponding HTML elements. This properties would be
+        // automatically set to the corresponding HTML element in the
+        // init function.
         html: {
             // Element to display all unit numbers
             unitLinks: null,
@@ -47,12 +52,26 @@ var Tutor = function()
             // Element to display tips for the current unit
             tips: null,
 
+            // Element that contains all the practice elements
+            practicePane: null,
+
             // Element to display the target text to be typed by the
             // user
             target: null,
 
             // Element where the user types the target text
             input: null,
+
+            // Element where the status of the tutor is showed
+            status: null,
+
+            // Element where a remark about the user's performance is
+            // shown after the complete subunit text is typed
+            remark: null,
+
+            // Element where the next step is suggested as a link to the
+            // user after the complete subunit text is typed
+            advice: null,
 
             // Progress bar to display how much of the target text has
             // been correctly typed by the user
@@ -61,6 +80,9 @@ var Tutor = function()
             // Element to display how much of the target text has
             // been correctly typed by the user in percent
             progressPercent: null,
+
+            // Element to display the subunit restart link
+            restartLink: null,
 
             // Element to display the typing speed in characters per
             // minute
@@ -71,7 +93,7 @@ var Tutor = function()
             wpm: null,
 
             // Element to display the errors made by the user in percent
-            error: null,
+            error: null
         },
 
         // Current properties of the tutor
@@ -141,23 +163,15 @@ var Tutor = function()
     // Initialize the typing tutor
     function init()
     {
-        my.html.unitLinks = document.getElementById('unitLinks')
-        my.html.subunitLinks = document.getElementById('subunitLinks')
-        my.html.unitTitle = document.getElementById('unitTitle')
-        my.html.tips = document.getElementById('tips')
-        my.html.target = document.getElementById('target')
-        my.html.input = document.getElementById('input')
-        my.html.progressBar = document.getElementById('progressBar')
-        my.html.progressPercent = document.getElementById('progressPercent')
-        my.html.cpm = document.getElementById('cpm')
-        my.html.wpm = document.getElementById('wpm')
-        my.html.error = document.getElementById('error')
+        for (var elementID in my.html) {
+            my.html[elementID] = document.getElementById(elementID)
+        }
 
         displayUnitLinks()
         updateUnitFromURL()
 
+        window.onhashchange = processURLChange
         my.html.input.onkeyup = updatePracticePane
-        window.onhashchange = updateUnitFromURL
     }
 
 
@@ -175,6 +189,46 @@ var Tutor = function()
 
             divElement.appendChild(anchorElement)
             my.html.unitLinks.appendChild(divElement)
+        }
+    }
+
+
+    // Return fragment identifier to be used in URL for the specified
+    // unit and subunit.
+    //
+    // Arguments:
+    //   m -- Unit number (number)
+    //   n -- Subunit number (number)
+    //
+    // Return value:
+    //   Fragment identifier to be used in URL (string)
+    function unitHref(m, n)
+    {
+        if (typeof m == 'undefined') {
+            return ''
+        } else if (typeof n == 'undefined') {
+            return '#' + m
+        } else {
+            return '#' + m + '.' + n
+        }
+    }
+
+
+    // Process the current URL and perform appropriate tasks.
+    //
+    // This function is called automatically when the fragment
+    // identifier in the current URL changes.
+    function processURLChange()
+    {
+        switch(window.location.hash) {
+
+            case '#restart':
+                window.location.href = unitHref(my.current.unitNo,
+                                                my.current.subunitNo)
+                break
+
+            default:
+                updateUnitFromURL()
         }
     }
 
@@ -290,7 +344,7 @@ var Tutor = function()
             subunitDiv.style.width = (95 / numberOfSubunits) + '%'
 
             var anchor = document.createElement('a')
-            anchor.href = '#' + my.current.unitNo + '.' + (i + 1)
+            anchor.href = unitHref(my.current.unitNo, i + 1)
             anchor.innerHTML = my.current.subunitTitles[i]
 
             subunitDiv.appendChild(anchor)
@@ -454,8 +508,10 @@ var Tutor = function()
         // a character. Therefore, if the tutor is in READY state, set
         // it to RUNNING STATE.
         if (my.current.state == my.STATE.READY) {
+
             my.current.startTime = new Date().getTime()
             my.current.state = my.STATE.RUNNING
+            updatePracticePaneState()
         }
 
         // Number of characters correctly typed by the user
@@ -464,14 +520,18 @@ var Tutor = function()
 
         // Validate the input
         if (goodChars == inputLength) {
+
             // Clear error if any
             if (my.current.state == my.STATE.ERROR) {
+
                 my.current.state = my.STATE.RUNNING
                 updatePracticePaneState()
             }
         } else {
+
             // Set and display error
             if (my.current.state == my.STATE.RUNNING) {
+
                 my.current.state = my.STATE.ERROR
                 my.current.errors++
                 updatePracticePaneState()
@@ -493,29 +553,70 @@ var Tutor = function()
         switch (my.current.state) {
 
             case my.STATE.READY:
-                my.html.target.className = ''
-                my.html.input.className = ''
+                my.html.practicePane.className = ''
                 my.html.input.disabled = false
+                my.html.status.innerHTML = 'READY'
+                my.html.restartLink.style.visibility = 'hidden'
                 break
 
             case my.STATE.RUNNING:
-                my.html.target.className = ''
-                my.html.input.className = ''
+                my.html.practicePane.className = ''
                 my.html.input.disabled = false
+                my.html.status.innerHTML = ''
+                my.html.restartLink.style.visibility = 'visible'
                 break
 
             case my.STATE.ERROR:
-                my.html.target.className = 'error'
-                my.html.input.className = 'error'
+                my.html.practicePane.className = 'error'
                 my.html.input.disabled = false
+                my.html.restartLink.style.visibility = 'visible'
+                my.html.status.innerHTML = 'ERROR!'
                 break
 
             case my.STATE.COMPLETED:
-                my.html.target.className = 'completed'
-                my.html.input.className = 'completed'
+                my.html.practicePane.className = 'completed'
                 my.html.input.disabled = true
+                my.html.restartLink.style.visibility = 'visible'
+                my.html.status.innerHTML = 'COMPLETED'
                 break
         }
+
+        updateRemarkAndAdvice()
+    }
+
+
+    // Update remark and advice link according the current state of the
+    // tutor and the performance of the user.
+    function updateRemarkAndAdvice()
+    {
+        // Remark and advice is displayed only when the current subunit
+        // text has been typed completely.
+        if (my.current.state != my.STATE.COMPLETED) {
+
+            my.html.remark.innerHTML = ''
+            while (my.html.advice.firstChild) {
+                my.html.advice.removeChild(my.html.advice.firstChild)
+            }
+
+            return
+        }
+
+        // Calculate error rate (in percent)
+        var error = 100 * my.current.errors / my.current.subunitText.length
+        error = Math.round(error)
+
+        // Update remark and advice
+        var anchorElement = document.createElement('a')
+        if (error > 0) {
+            my.html.remark.innerHTML = 'Reduce error'
+            anchorElement.href = '#restart'
+            anchorElement.innerHTML = 'Try again'
+        } else {
+            my.html.remark.innerHTML = 'Well done!'
+            anchorElement.href = '#next'
+            anchorElement.innerHTML = 'Next lesson'
+        }
+        my.html.advice.appendChild(anchorElement)
     }
 
 

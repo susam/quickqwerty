@@ -71,21 +71,26 @@ window.onload = Tutor.init
 
                 <div id="feedbackPane">
                     <div id="statusPane">
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
+                        <div id="status"></div>
+                        <div id="remark"></div>
+                        <div id="advice"></div>
                     </div>
                     <div id="progressPane">
                         <progress id="progressBar" value="0" max="100">
                         </progress>
-                        <div><span id="progressPercent"></span>%</div>
+                        <div>
+                            <span id="progressPercent"></span>%
+                        </div>
+                        <div id="restartLink">
+                            <a href="#restart">Restart</a>
+                        </div>
                     </div>
                     <div id="resultPane">
                         <div><span id="cpm"></span> cpm</div>
                         <div><span id="wpm"></span> wpm</div>
                         <div><span id="error"></span>% error</div>
                     </div>
-                </div> <!-- End statusPane -->
+                </div> <!-- End feedbackPane -->
 
                 <div id="inputPane">
                     <textarea id="input" rows="5" autocomplete="off"

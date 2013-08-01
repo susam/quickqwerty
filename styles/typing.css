@@ -44,23 +44,10 @@
     border: 3px solid #333333;
 }
 
-#target.error, textarea.error {
-    background: #ff8888;
-}
-
-#target.completed, textarea.completed {
-    background: #dddddd;
-}
-
-#target.completed span.targetChar {
-    border: 3px solid #dddddd;
-}
-
 #feedbackPane {
     margin: 3% 0;
-    font-size: 12px;
-    line-height: 18px;
-    font-family: monospace;
+    font-size: 14px;
+    line-height: 21px;
     overflow: hidden;
 }
 
@@ -68,6 +55,7 @@
     display: inline-block;
     width: 30%;
     text-align: left;
+    vertical-align: top;
 }
 
 #progressPane {
@@ -81,11 +69,20 @@
     text-align: right;
 }
 
-textarea {
+#status {
+    color: #008000;
+    font-weight: bold;
+}
+
+#restartLink {
+    visibility: hidden;
+}
+
+#input {
     width: 95%;
 }
 
-progress {
+#progressBar {
     width: 100%;
 }
 
@@ -95,3 +92,19 @@ progress {
     text-align: justify;
 }
 
+/* State changes */
+.error #target, .error #input {
+    background: #ff8888;
+}
+
+.completed #target, .completed #input {
+    background: #dddddd;
+}
+
+.completed span.targetChar {
+    border: 3px solid #dddddd;
+}
+
+.error #status {
+    color: #ff0000;
+}
