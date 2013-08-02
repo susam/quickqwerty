@@ -353,7 +353,7 @@ var Tutor = function()
 
         displayUnitLinks()
         displaySubunitLinks()
-        highlightUnitAndSubunit()
+        selectUnitAndSubunit()
 
         displayUnitTitle()
         displayTips()
