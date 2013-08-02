@@ -362,7 +362,8 @@ var Tutor = function()
     }
 
 
-    function highlightUnitAndSubunit()
+    // Mark the current unit and current subunit elements as selected.
+    function selectUnitAndSubunit()
     {
         var unitID = 'unit' + my.current.unitNo
         var unitDiv = document.getElementById(unitID)
