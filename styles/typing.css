@@ -3,7 +3,7 @@
     margin-top: 5%;
 }
 
-#prevPane, #nextPane {
+#previousLink, #nextLink {
     width: 0.5em;
     display: inline-block;
     vertical-align: top;
