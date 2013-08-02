@@ -92,7 +92,11 @@ var Tutor = function()
             speed: null,
 
             // Element to display the errors made by the user in percent
-            error: null
+            error: null,
+
+            // Element to display a smiley to reflect the user's
+            // performance
+            smiley: null
         },
 
         // Current properties of the tutor
@@ -136,6 +140,12 @@ var Tutor = function()
             // by the user
             correctInputLength: 0,
 
+            // Current typing speed of the user in words per minute
+            wpm: 0,
+
+            // Errors made by the user expressed in percent
+            errorRate: 0,
+
             // Current state of the tutor
             state: null
         },
@@ -156,6 +166,19 @@ var Tutor = function()
 
             // The user has completed the current subunit successfully
             COMPLETED: "completed"
+        },
+
+        // Smileys to display the performance of the user
+        SMILEY: {
+            VERY_HAPPY: '(\uff61\u0298\u203f\u0298\uff61)',
+
+            HAPPY: '(\u0298\u203f\u0298)',
+
+            UNHAPPY: '(\u2299_\u2299)',
+
+            WORRIED: '(\u2299\ufe4f\u2299)',
+
+            SAD: '(\u2299\u2054\u2299)'
         }
     }
 
@@ -583,6 +606,7 @@ var Tutor = function()
         updateProgress()
         updateSpeed()
         updateError()
+        updateSmiley()
     }
 
 
@@ -633,6 +657,11 @@ var Tutor = function()
                 my.current.errors++
                 updatePracticePaneState()
             }
+        }
+
+        // Update error rate
+        if (goodChars > 0) {
+            my.current.errorRate = 100 * my.current.errors / goodChars
         }
 
         // Check if the complete target text has been typed successfully
@@ -700,8 +729,7 @@ var Tutor = function()
         }
 
         // Calculate error rate (in percent)
-        var error = 100 * my.current.errors / my.current.subunitText.length
-        error = Math.round(error)
+        var error = Math.round(my.current.errorRate)
 
         // Update remark and advice
         var anchorElement = document.createElement('a')
@@ -766,6 +794,7 @@ var Tutor = function()
         var cpmInfo = '\u221e'
         if (timeElapsed > 0) {
             wpm = Math.round(goodChars / 5 / timeElapsed)
+            my.current.wpm = wpm
             wpmInfo = wpm
             cpmInfo = Math.round(goodChars / timeElapsed)
         }
@@ -791,8 +820,7 @@ var Tutor = function()
             errorRateRounded = 0
             accuracy = 100
         } else if (goodChars > 0) {
-            errorRate = 100 * my.current.errors / goodChars
-            errorRate = parseFloat(errorRate.toFixed(1))
+            errorRate = parseFloat(my.current.errorRate.toFixed(1))
             errorRateRounded = Math.round(errorRate)
             accuracy = 100 - errorRate
         }
@@ -815,6 +843,28 @@ var Tutor = function()
 
         my.html.error.title = title
     }
+
+
+    // Update the smiley to reflect the user's performance.
+    function updateSmiley()
+    {
+        var errorRate = Math.round(my.current.errorRate)
+
+        if (errorRate == 0) {
+            if (my.current.wpm >= 40) {
+                my.html.smiley.innerHTML = my.SMILEY.VERY_HAPPY
+            } else {
+                my.html.smiley.innerHTML = my.SMILEY.HAPPY
+            }
+        } else if (errorRate > 0 && errorRate <= 2) {
+            my.html.smiley.innerHTML = my.SMILEY.UNHAPPY
+        } else if (errorRate > 2 && errorRate <= 5) {
+            my.html.smiley.innerHTML = my.SMILEY.WORRIED 
+        } else {
+            my.html.smiley.innerHTML = my.SMILEY.SAD
+        }
+    }
+
 
     return {
         init: init

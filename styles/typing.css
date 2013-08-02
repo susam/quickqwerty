@@ -133,3 +133,8 @@
 .error #status {
     color: #ff0000;
 }
+
+#smiley {
+    font-size: 16px;
+    font-family: verdana;
+}
