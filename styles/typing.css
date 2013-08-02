@@ -1,3 +1,22 @@
+#unitLinks {
+    margin: 2% 0 0 2%;
+    float: left;
+    width: 18%;
+}
+
+#unitLinks div {
+    margin-bottom: 3px;
+    text-align: center;
+    background: #dddddd;
+    border: 1px solid #aaaaaa;
+    line-height: 21px;
+}
+
+#unitLinks div.selected {
+    background: lightcyan; 
+    border: 1px solid blue;
+}
+
 #practicePanel {
     display: inline-block;
     margin-top: 5%;
