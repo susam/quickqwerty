@@ -186,6 +186,7 @@ var Tutor = function()
         for (var i = 0; i < units.length; i++) {
             var divElement = document.createElement('div')
             divElement.id = 'unit' + (i + 1)
+            divElement.title = units[i].title
 
             var anchorElement = document.createElement('a')
             anchorElement.href = "#" + (i + 1)
