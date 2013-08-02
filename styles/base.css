@@ -83,6 +83,7 @@ a:hover, a:active {
     text-align: center;
     background: #dddddd;
     border: 1px solid #aaaaaa;
+    line-height: 21px;
 }
 
 #unitLinks div.selected {
