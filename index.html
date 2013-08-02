@@ -79,19 +79,20 @@ window.onload = Tutor.init
                         <div id="advice"></div>
                     </div>
                     <div id="progressPane">
-                        <progress id="progressBar" value="0" max="100">
-                        </progress>
-                        <div>
-                            <span id="progressPercent"></span>%
+                        <div id="progress">
+                            <progress id="progressBar" value="0" max="100">
+                            </progress>
+                            <div>
+                                <span id="progressPercent"></span>
+                            </div>
                         </div>
                         <div id="restartLink">
-                            <a href="#restart">Restart</a>
+                            <a href="#restart" title="Start over">Restart</a>
                         </div>
                     </div>
                     <div id="resultPane">
-                        <div><span id="cpm"></span> cpm</div>
-                        <div><span id="wpm"></span> wpm</div>
-                        <div><span id="error"></span>% error</div>
+                        <div id="speed"></div>
+                        <div id="error"></div>
                     </div>
                 </div> <!-- End feedbackPane -->
 

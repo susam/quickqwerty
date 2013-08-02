@@ -73,6 +73,10 @@ var Tutor = function()
             // user after the complete subunit text is typed
             advice: null,
 
+            // Element that contains the progress bar and the progress
+            // percent text
+            progress: null,
+
             // Progress bar to display how much of the target text has
             // been correctly typed by the user
             progressBar: null,
@@ -84,13 +88,8 @@ var Tutor = function()
             // Element to display the subunit restart link
             restartLink: null,
 
-            // Element to display the typing speed in characters per
-            // minute
-            cpm: null,
-
-            // Element to display the typing speed in words per
-            // minute
-            wpm: null,
+            // Element to display the typing speed
+            speed: null,
 
             // Element to display the errors made by the user in percent
             error: null
@@ -368,7 +367,6 @@ var Tutor = function()
         var unitID = 'unit' + my.current.unitNo
         var unitDiv = document.getElementById(unitID)
         unitDiv.className = 'selected'
-        console.log(unitDiv.style.className)
 
         var subunitID = 'subunit' + my.current.subunitNo
         var subunitDiv = document.getElementById(subunitID)
@@ -581,7 +579,9 @@ var Tutor = function()
         evaluateInput()
         setTargetText()
         displayTargetText()
-        updateResult()
+        updateProgress()
+        updateSpeed()
+        updateError()
     }
 
 
@@ -659,6 +659,7 @@ var Tutor = function()
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
                 my.html.status.innerHTML = ''
+                my.html.status.title = ''
                 my.html.restartLink.style.visibility = 'visible'
                 break
 
@@ -705,58 +706,114 @@ var Tutor = function()
         var anchorElement = document.createElement('a')
         if (error > 0) {
             my.html.remark.innerHTML = 'Reduce error'
+            my.html.remark.title = 'Your error rate should not ' +
+                                   'exceed 0%.'
+
             anchorElement.href = '#restart'
             anchorElement.innerHTML = 'Try again'
+            anchorElement.title = 'Please practice this lesson again.'
         } else {
             my.html.remark.innerHTML = 'Well done!'
+            my.html.remark.title = 'You have satisfactorily ' +
+                                   'completed this lesson.'
+
             anchorElement.href = '#next'
             anchorElement.innerHTML = 'Next lesson'
+            anchorElement.title = 'Please proceed with the next lesson.'
         }
         my.html.advice.appendChild(anchorElement)
     }
 
 
-    // Update the typing speed (displayed in CPM as well as WPM) and the
-    // error percent.
-    function updateResult()
+    // Update progress bar.
+    function updateProgress()
     {
         var goodChars = my.current.correctInputLength
+        var textLength = my.current.subunitText.length
 
-        // Update error rate
-        var error = '&infin; '
-        if (my.current.errors == 0) {
-            error = 0
-        } else if (goodChars > 0) {
-            error = Math.round(100 * my.current.errors / goodChars)
-        }
-        my.html.error.innerHTML = error
+        var progress = Math.round(100 * goodChars / textLength)
 
+        my.html.progressBar.value = progress
+        my.html.progressPercent.innerHTML = progress + '%'
+
+        var charNoun = textLength == 1 ? 'character' : 'characters'
+
+        my.html.progress.title =
+                'You have typed ' + goodChars + ' out of ' +
+                textLength + ' ' + charNoun + '.'
+                                 
+    }
+
+
+    // Update the typing speed.
+    function updateSpeed()
+    {
         // CPM and WPM does not need to be updated on error
         if (my.current.state == my.STATE.ERROR) {
             return
         }
+
+        var goodChars = my.current.correctInputLength
 
         // Determine the time elapsed since the user began typing
         var currentTime = new Date().getTime()
         var timeElapsed = (currentTime - my.current.startTime) / 60000
 
         // Update CPM and WPM
-        var cpm = '&#infin;'
         var wpm = '&#infin;'
+        var wpmInfo = '\u221e'
+        var cpmInfo = '\u221e'
         if (timeElapsed > 0) {
-            cpm = Math.round(goodChars / timeElapsed)
             wpm = Math.round(goodChars / 5 / timeElapsed)
+            wpmInfo = wpm
+            cpmInfo = Math.round(goodChars / timeElapsed)
         }
-        my.html.cpm.innerHTML = cpm
-        my.html.wpm.innerHTML = wpm 
-
-        // Update progress bar
-        var textLength = my.current.subunitText.length
-        var progress = Math.round(100 * goodChars / textLength)
-        my.html.progressBar.value = progress
-        my.html.progressPercent.innerHTML = progress
+        my.html.speed.innerHTML = wpm + ' wpm'
+        my.html.speed.title = 'Your typing speed is\n' +
+                            wpmInfo + ' words per minute, or\n' +
+                            cpmInfo + ' characters per minute.'
     }
         
+
+    // Update the error rate.
+    function updateError()
+    {
+        var goodChars = my.current.correctInputLength
+
+        var errorRate = '\u221e '
+        var errorRateRounded = '&infin; '
+        var accuracy = '0'
+
+        // Update error rate
+        if (my.current.errors == 0) {
+            errorRate = 0
+            errorRateRounded = 0
+            accuracy = 100
+        } else if (goodChars > 0) {
+            errorRate = 100 * my.current.errors / goodChars
+            errorRate = parseFloat(errorRate.toFixed(1))
+            errorRateRounded = Math.round(errorRate)
+            accuracy = 100 - errorRate
+        }
+
+        my.html.error.innerHTML = errorRateRounded + '% error'
+
+        var charNoun = goodChars == 1 ? 'character' : 'characters'
+        var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
+
+        var title =
+                'You have typed ' + goodChars + ' ' + charNoun +
+                ' correctly.\n' +
+                'You have made ' + my.current.errors + ' ' +
+                errorNoun + '.\n'
+
+        if (my.current.state != my.STATE.READY) {
+            title += 'Your error rate is ' + errorRate + '%.\n' +
+                     'Your accuracy is ' + accuracy + '%.\n'
+        }
+
+        my.html.error.title = title
+    }
 
     return {
         init: init

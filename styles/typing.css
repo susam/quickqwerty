@@ -91,6 +91,7 @@
     display: inline-block;
     width: 30%;
     text-align: right;
+    vertical-align: top;
 }
 
 #status {
