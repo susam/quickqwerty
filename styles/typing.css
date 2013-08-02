@@ -21,7 +21,7 @@
 
 #subunitLinks div {
     display: inline-block;
-    background: #cccccc;
+    background: #dddddd;
     border: 1px solid #aaaaaa;
     text-align: center;
 }
@@ -29,6 +29,11 @@
 #subunitLinks div.stretch {
     width: 100%;
     border: 0;
+}
+
+#subunitLinks div.selected {
+    background: lightcyan;
+    border: 1px solid blue;
 }
 
 #target {

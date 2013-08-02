@@ -167,7 +167,6 @@ var Tutor = function()
             my.html[elementID] = document.getElementById(elementID)
         }
 
-        displayUnitLinks()
         updateUnitFromURL()
 
         window.onhashchange = processURLChange
@@ -178,9 +177,15 @@ var Tutor = function()
     // Display the unit links
     function displayUnitLinks()
     {
+        // Delete all existing unit links
+        var linksDiv = my.html.unitLinks
+        while (linksDiv.firstChild) {
+            linksDiv.removeChild(linksDiv.firstChild)
+        }
+
+        // Create new unit links
         for (var i = 0; i < units.length; i++) {
             var divElement = document.createElement('div')
-            divElement.className = 'unselected'
             divElement.id = 'unit' + (i + 1)
 
             var anchorElement = document.createElement('a')
@@ -188,7 +193,7 @@ var Tutor = function()
             anchorElement.innerHTML = 'Unit ' + (i + 1)
 
             divElement.appendChild(anchorElement)
-            my.html.unitLinks.appendChild(divElement)
+            linksDiv.appendChild(divElement)
         }
     }
 
@@ -346,11 +351,27 @@ var Tutor = function()
 
         setSubunit(unit, subunit)
 
+        displayUnitLinks()
         displaySubunitLinks()
+        highlightUnitAndSubunit()
+
         displayUnitTitle()
         displayTips()
 
         resetSubunit()
+    }
+
+
+    function highlightUnitAndSubunit()
+    {
+        var unitID = 'unit' + my.current.unitNo
+        var unitDiv = document.getElementById(unitID)
+        unitDiv.className = 'selected'
+        console.log(unitDiv.style.className)
+
+        var subunitID = 'subunit' + my.current.subunitNo
+        var subunitDiv = document.getElementById(subunitID)
+        subunitDiv.className = 'selected'
     }
 
 
@@ -414,7 +435,6 @@ var Tutor = function()
             linksDiv.insertBefore(whitespace, linksDiv.firstChild)
 
             var subunitDiv = document.createElement('div')
-            subunitDiv.className = 'unselected'
             subunitDiv.id = 'subunit' + (i + 1)
             subunitDiv.style.width = (95 / numberOfSubunits) + '%'
 

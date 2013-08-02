@@ -81,7 +81,13 @@ a:hover, a:active {
 #unitLinks div {
     margin-bottom: 3px;
     text-align: center;
-    background: lightblue;
+    background: #dddddd;
+    border: 1px solid #aaaaaa;
+}
+
+#unitLinks div.selected {
+    background: lightcyan; 
+    border: 1px solid blue;
 }
 
 #content {
