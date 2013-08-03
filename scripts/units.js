@@ -402,7 +402,7 @@ var units = [
             /* Unit 7 - Sentences */
             'Sentences':
             'harry studied mathematics yesterday, this is the tyre, ' +
-            'sally likes chemistry, he hit them, let us fit it,' +
+            'sally likes chemistry, he hit them, let us fit it, ' +
             'hit the target accurately, let us catch the tram, ' +
             'matt has a yacht, she yelled at him, ' +
             'the teachers met everyday, this is my yacht',
