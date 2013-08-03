@@ -403,10 +403,12 @@ var Tutor = function()
     // The following activities are performed while resetting the state
     // of the current subunit.
     //   1. Set the state of the tutor to READY.
-    //   2. Clear the input textarea element.
+    //   2. Set the number of errors made to 0.
+    //   3. Clear the input textarea element.
     function resetSubunit()
     {
         my.current.state = my.STATE.READY
+        my.current.errors = 0
         my.html.input.value = ''
         my.html.input.focus()
 
@@ -616,14 +618,6 @@ var Tutor = function()
     {
         var inputText = my.html.input.value
         var inputLength = inputText.length
-
-        // If a user presses a modifier key such as Ctrl, Alt, etc. when
-        // the input textarea is empty, this function is called and the
-        // length of the input text is 0.
-        if (inputLength == 0) {
-            my.current.correctInputLength = 0
-            return
-        }
 
         // This part of the code is executed only when a user has typed
         // a character. Therefore, if the tutor is in READY state, set
