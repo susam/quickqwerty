@@ -660,7 +660,13 @@ var Tutor = function()
         }
 
         // Update error rate
-        if (goodChars > 0) {
+        if (goodChars == 0) {
+            if (my.current.errors == 0) {
+                my.current.errorRate = 0
+            } else {
+                my.current.errorRate = Number.POSITIVE_INFINITY
+            }
+        } else {
             my.current.errorRate = 100 * my.current.errors / goodChars
         }
 
@@ -712,8 +718,8 @@ var Tutor = function()
     }
 
 
-    // Update remark and advice link according the current state of the
-    // tutor and the performance of the user.
+    // Update remark and advice link according to the current state of
+    // the tutor and the performance of the user.
     function updateRemarkAndAdvice()
     {
         // Remark and advice is displayed only when the current subunit
@@ -810,22 +816,22 @@ var Tutor = function()
     {
         var goodChars = my.current.correctInputLength
 
-        var errorRate = '\u221e '
-        var errorRateRounded = '&infin; '
-        var accuracy = '0'
+        var errorRate
+        var errorRateTooltip
+        var accuracyTooltip
 
         // Update error rate
-        if (my.current.errors == 0) {
-            errorRate = 0
-            errorRateRounded = 0
-            accuracy = 100
-        } else if (goodChars > 0) {
-            errorRate = parseFloat(my.current.errorRate.toFixed(1))
-            errorRateRounded = Math.round(errorRate)
-            accuracy = 100 - errorRate
+        if (my.current.errorRate == Number.POSITIVE_INFINITY) {
+            errorRate = '&infin; '
+            errorRateTooltip = '\u221e'
+            accuracyTooltip = 0
+        } else {
+            errorRate = Math.round(my.current.errorRate)
+            errorRateTooltip = parseFloat(my.current.errorRate.toFixed(1))
+            accuracyTooltip = 100 - errorRateTooltip
         }
 
-        my.html.error.innerHTML = errorRateRounded + '% error'
+        my.html.error.innerHTML = errorRate + '% error'
 
         var charNoun = goodChars == 1 ? 'character' : 'characters'
         var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
@@ -837,8 +843,8 @@ var Tutor = function()
                 errorNoun + '.\n'
 
         if (my.current.state != my.STATE.READY) {
-            title += 'Your error rate is ' + errorRate + '%.\n' +
-                     'Your accuracy is ' + accuracy + '%.\n'
+            title += 'Your error rate is ' + errorRateTooltip + '%.\n' +
+                     'Your accuracy is ' + accuracyTooltip + '%.\n'
         }
 
         my.html.error.title = title
