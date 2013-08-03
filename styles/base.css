@@ -72,6 +72,13 @@ a:hover, a:active {
     overflow: hidden;
 }
 
+#navbar {
+    float: left;
+    width: 18%;
+    margin: 2% 0 0 2%;
+    overflow: hidden;
+}
+
 #content {
     margin: 2% 0 0 0;    
     float: left;
@@ -84,5 +91,4 @@ a:hover, a:active {
     float: right;
     width: 18%;
     text-align: center;
-    background: orange;
 }
