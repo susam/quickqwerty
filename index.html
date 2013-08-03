@@ -38,6 +38,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="scripts/settings.js"></script>
 <script type="text/javascript" src="scripts/tutor.js"></script>
 <script type="text/javascript">
+(function() {
+    var href = window.location.href
+    var webMode = href.search(/^https?:/i) >= 0
+    var comMode = href.search(/^.*\bquickqwerty.com\b/i) >= 0
+
+    // Redirect http://example.com/index.html to http://example.com/.
+    if (webMode && href.search(/\/index.html\b/i) >= 0) {
+        window.location.href = href.replace(/\/index.html/, '/')
+    }
+
+    // Redirect http://www.quickqwerty.com/ to http://quickqwerty.com/.
+    if (comMode && href.search(/^https?:\/\/www\./i) >= 0) {
+        window.location.href = href.replace(/:\/\/www\./i, '://')
+    }
+
+})()
 window.onload = Tutor.init
 </script>
 </head>
@@ -45,7 +61,7 @@ window.onload = Tutor.init
 
 <!-- Header -->
 <div id="header">
-    <h1><a href="/index.html">QuickQWERTY</a></h1>
+    <h1><a href="index.html">QuickQWERTY</a></h1>
     <h2 id="unitTitle"></h2>
     <div id="pageLinks">
         <a href="https://github.com/susam/quickqwerty/archive/master.zip">Download</a>
