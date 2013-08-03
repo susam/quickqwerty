@@ -70,8 +70,6 @@
 
 #feedbackPane {
     margin: 3% 0;
-    font-size: 14px;
-    line-height: 21px;
     overflow: hidden;
 }
 
@@ -135,6 +133,5 @@
 }
 
 #smiley {
-    font-size: 16px;
     font-family: verdana;
 }
