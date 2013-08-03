@@ -789,15 +789,26 @@ var Tutor = function()
         var timeElapsed = (currentTime - my.current.startTime) / 60000
 
         // Update CPM and WPM
-        var wpm = '&#infin;'
-        var wpmInfo = '\u221e'
-        var cpmInfo = '\u221e'
-        if (timeElapsed > 0) {
+        var wpm
+        var wpmInfo
+        var cpmInfo
+        if (timeElapsed == 0) {
+            if (goodChars == 0) {
+                wpm = 0
+                wpmInfo = 0
+                cpmInfo = 0
+            } else {
+                wpm = '&infin;'
+                wpmInfo = '\u221e'
+                cpmInfo = '\u221e'
+            }
+        } else {
             wpm = Math.round(goodChars / 5 / timeElapsed)
             my.current.wpm = wpm
             wpmInfo = wpm
             cpmInfo = Math.round(goodChars / timeElapsed)
         }
+
         my.html.speed.innerHTML = wpm + ' wpm'
         my.html.speed.title = 'Your typing speed is\n' +
                             wpmInfo + ' words per minute, or\n' +
