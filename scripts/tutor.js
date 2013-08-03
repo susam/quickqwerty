@@ -49,6 +49,9 @@ var Tutor = function()
             // Element to display the title of the current unit
             unitTitle: null,
 
+            // Element to display tips link
+            tipsLink: null,
+
             // Element to display tips for the current unit
             tips: null,
 
@@ -190,9 +193,11 @@ var Tutor = function()
         }
 
         updateUnitFromURL()
+        hideTips()
 
         window.onhashchange = processURLChange
         my.html.input.onkeyup = updatePracticePane
+        tipsLink.onclick = toggleTips
     }
 
 
@@ -333,6 +338,36 @@ var Tutor = function()
             n++
         }
         window.location.href = unitHref(m, n)
+    }
+
+    
+    // Hide typing tips
+    function hideTips()
+    {
+        tips.style.display = 'none'
+        tipsLink.innerHTML = 'Help'
+        return false
+    }
+
+
+    // Display typing tips
+    function showTips()
+    {
+        tips.style.display = ''
+        tipsLink.innerHTML = 'Hide Help'
+        return false
+    }
+
+
+    // Hide typing tips if they are already displayed.
+    // Show typing tips if they are hidden.
+    function toggleTips()
+    {
+        if (tips.style.display == 'none') {
+            return showTips()
+        } else {
+            return hideTips()
+        }
     }
 
 

@@ -109,9 +109,14 @@
     width: 100%;
 }
 
+#tipsPane {
+    margin-top: 3%;
+}
+
 #tips {
-    margin: 0 auto;
-    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
     text-align: justify;
 }
 
