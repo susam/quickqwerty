@@ -115,7 +115,7 @@
 }
 
 /* State changes */
-.error #target, .error #input {
+.error #target {
     background: #ff8888;
 }
 
