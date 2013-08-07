@@ -92,3 +92,11 @@ a:hover, a:active {
     width: 18%;
     text-align: center;
 }
+
+#noscript {
+    color: red;
+    font-weight: 700;
+    border: 5px double red;
+    padding: 20px;
+    display: inline-block;
+}
