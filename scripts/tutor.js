@@ -223,10 +223,10 @@ var Tutor = function()
         }
 
         // Create new unit links
-        for (var i = 0; i < units.length; i++) {
+        for (var i = 0; i < Units.main.length; i++) {
             var divElement = document.createElement('div')
             divElement.id = 'unit' + (i + 1)
-            divElement.title = units[i].title
+            divElement.title = Units.main[i].title
 
             var anchorElement = document.createElement('a')
             anchorElement.href = "#" + (i + 1)
@@ -311,7 +311,7 @@ var Tutor = function()
         } else if (n == 1) {
             // If the user is at unit M.1, go to unit (M - 1).L
             // where L is the last subunit of the previous unit.
-            previousUnit = units[m - 2]
+            previousUnit = Units.main[m - 2]
             var previousSubunitTitles = []
             for (var subunitTitle in previousUnit.subunits) {
                 previousSubunitTitles.push(subunitTitle)
@@ -336,7 +336,8 @@ var Tutor = function()
         var m = my.current.unitNo
         var n = my.current.subunitNo
 
-        if (m == units.length && n == my.current.subunitTitles.length) {
+        if (m == Units.main.length &&
+            n == my.current.subunitTitles.length) {
             // If the user is at the last subunit, there is no further
             // unit to go to.
             return
@@ -475,7 +476,7 @@ var Tutor = function()
         my.current.unitNo = m
         my.current.subunitNo = n
 
-        my.current.unit = units[m - 1]
+        my.current.unit = Units.main[m - 1]
 
         my.current.subunitTitles.length = 0
         for (var subunitTitle in my.current.unit.subunits) {
