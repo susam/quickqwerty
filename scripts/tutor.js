@@ -929,4 +929,4 @@ var Tutor = function()
     return {
         init: init
     }
-}();
+}()
