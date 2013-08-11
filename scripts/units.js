@@ -1131,9 +1131,18 @@ var Units = {
         }
     ],
 
+    // Label to be used to identify the main units
+    'mainLabel': '6-7 split',
+
+    // Label to be used to identify the alternate units
+    'alternateLabel': '5-7 split',
+
+    // Unit number where the alternate unit begins
+    'alternateStart': 16,
+
     // 5-6 split style (6 with right hand)
-    'alt': [
-        // Unit 16
+    'alternate': [
+        // Alt: Unit 16
         {
             'title': '47',
 
@@ -1143,7 +1152,7 @@ var Units = {
                     '</p>',
 
             'subunits': {
-                // Unit 16 - Grip
+                // Alt: Unit 16 - Grip
                 'Grip':
                 'f4f4 j7j7 f4f4 j7j7 f4f4 j7j7; ' +
                 '4f4f 7j7j 4f4f 7j7j 4f4f 7j7j; ' +
@@ -1154,25 +1163,25 @@ var Units = {
                 'a4r7 74u7 7747 74l4 447u4 4r74 47rl7 s4747k a4s7 ' +
                 'r4as7 s4l7r s474r d47k4 k74l4 r4l74 a7447 447a 7477',
 
-                // Unit 16 - Words
+                // Alt: Unit 16 - Words
                 'Words':
                 '4 books, 7 sentences, 47 words, 4747 students, 74 cars, ' +
                 '44 journals, 4 laptops, 47 bottles, 74 days, 44 years, ' +
                 '74 cities, 744 buildings, 477 pens, 747 trains, ' +
                 '474 buses',
 
-                // Unit 16 - Control
+                // Alt: Unit 16 - Control
                 'Control':
                 '4 47 474 4747 47474 474747 7 77 774 7744 77447 774474 ' +
                 '7 74 747 7474 74747 747474 4 44 447 4477 44774 447747',
 
-                // Unit 16 - Sentences
+                // Alt: Unit 16 - Sentences
                 'Sentences':
                 'John has about 44 science books. There are 7 days in a week. ' +
                 '47 candidates will be selected. I have 4 pens and 7 pencils. ' +
                 "47 is a prime number but 74 isn't",
 
-                // Unit 16 - Test
+                // Alt: Unit 16 - Test
                 'Test':
                 '4 47 474 74 74 47 74 74 47 477 477 744 7447 477 477 74; ' +
                 '4 books, 7 sentences, 47 words, 4747 students, 74 cars; ' +
@@ -1181,7 +1190,7 @@ var Units = {
             }
         },
 
-        // Unit 17
+        // Alt: Unit 17
         {
             'title': '38',
 
@@ -1191,7 +1200,7 @@ var Units = {
                     '</p>',
 
             'subunits': {
-                // Unit 17 - Grip
+                // Alt: Unit 17 - Grip
                 'Grip':
                 'd3d3 k8k8 d3d3 k8k8 d3d3 k8k8; ' +
                 '3d3d 8k8k 3d3d 8k8k 3d3d 8k8k; ' +
@@ -1202,24 +1211,24 @@ var Units = {
                 'a3r8 83u8 8838 83l3 338u3 3r83 38rl8 s3838k a3s8 ' +
                 'r3as8 s3l8r s383r d38k3 k83l3 r3l83 a8338 338a 8388',
 
-                // Unit 17 - Words
+                // Alt: Unit 17 - Words
                 'Words':
                 '3 pens, 8 pencils, 38 buses, 4834 items, 88 words, ' +
                 '33 hens, 34 tests, 83 samples, 8343 roads, 83 sticks, ' +
                 '434 villages, 843 seats, 88 constellations, 438 calls',
 
-                // Unit 17 - Control
+                // Alt: Unit 17 - Control
                 'Control':
                 '3 33 338 3388 33888 338884 8 83 838 8388 83884 838848 ' +
                 '8 88 883 8833 88334 883348 3 38 388 3888 38883 388834',
 
-                // Unit 17 - Sentences
+                // Alt: Unit 17 - Sentences
                 'Sentences':
                 'The sum of 33 and 44 is 77. 33 is one less than 34. ' +
                 '88 is one more than 87. 48 is a multiple of 3. ' +
                 'There are 88 constellations.',
 
-                // Unit 17 - Test
+                // Alt: Unit 17 - Test
                 'Test':
                 '3 38 83 8334 8833 8834 3488 8834 3348 3348 338 883 884; ' +
                 '3 pens, 34 tests, 4834 items, 88 words, 83 samples; ' +
@@ -1228,7 +1237,7 @@ var Units = {
             }
         },
 
-        // Unit 18
+        // Alt: Unit 18
         {
             'title': '56',
 
@@ -1238,7 +1247,7 @@ var Units = {
                     '</p>',
 
             'subunits': {
-                // Unit 18 - Grip
+                // Alt: Unit 18 - Grip
                 'Grip':
                 'f5f5 j6j6 f5f5 j6j6 f5f5 j6j6; ' +
                 '5f5f 6j6j 5f5f 6j6j 5f5f 6j6j; ' +
@@ -1249,24 +1258,24 @@ var Units = {
                 'a5r6 65u6 6656 65l5 556u5 5r65 56rl6 s5656j a5s6 ' +
                 'r5as6 s5l6r s565r f56j5 j65l5 r5l65 a6556 556a 6566',
 
-                // Unit 18 - Words
+                // Alt: Unit 18 - Words
                 'Words':
                 '5 horses, 6 dogs, 66 elephants, 56 pipes, 65 stones, ' +
                 '665 eggs, 655 pages, 45 chapters, 68 questions, ' +
                 '55 answers, 554 schools, 667 tricks, 58 pins, 586 bins',
 
-                // Unit 18 - Control
+                // Alt: Unit 18 - Control
                 'Control':
                 '5 55 556 5566 55664 556645 6 65 658 6588 65885 658856 ' +
                 '6 68 685 6875 68755 687556 5 58 586 5866 58665 586657',
 
-                // Unit 18 - Sentences
+                // Alt: Unit 18 - Sentences
                 'Sentences':
                 "56 is an even number but 65 isn't. 656 is a multiple of 8. " +
                 '565 is one less than 566. 6566 is a multiple of 67. ' +
                 'There are 366 days in a leap year.',
 
-                // Unit 18 - Test
+                // Alt: Unit 18 - Test
                 'Test':
                 '55 65 66 68 566 656 665 565 6655 558 485 6468 4588 455; ' +
                 '5 horses, 6 days, 554 schools, 665 tricks, 55 answers; ' +
@@ -1274,7 +1283,7 @@ var Units = {
             }
         },
 
-        // Unit 19
+        // Alt: Unit 19
         {
             'title': '29',
 
@@ -1284,7 +1293,7 @@ var Units = {
                     '</p>',
 
             'subunits': {
-                // Unit 19 - Grip
+                // Alt: Unit 19 - Grip
                 'Grip':
                 's2s2 l9l9 s2s2 l9l9 s2s2 l9l9; ' +
                 '2s2s 9l9l 2s2s 9l9l 2s2s 9l9l; ' +
@@ -1295,23 +1304,23 @@ var Units = {
                 'a2r9 92u9 9929 92l2 229u2 2r92 29rl9 s2929l a2s9 ' +
                 'q2ks9 s2l9n s292o w29l2 o92l2 m2l92 a9229 229a 9299',
 
-                // Unit 19 - Words
+                // Alt: Unit 19 - Words
                 'Words':
                 '29 days, 299 lions, 292 buses, 267 numbers, 79 years, ' +
                 '72 goals, 49 names, 82 bytes, 59 tables, 89 tables, ' +
                 '25 cars, 297 sets, 269 mails, 629 books, 295 diaries',
 
-                // Unit 19 - Control
+                // Alt: Unit 19 - Control
                 'Control':
                 '2 24 249 2499 24992 249925 9 92 928 9287 92879 928792 ' +
                 '9 97 976 9762 97622 976229 2 29 299 2992 29929 299292',
 
-                // Unit 19 - Sentences
+                // Alt: Unit 19 - Sentences
                 'Sentences':
                 "29 is a prime number but 92 isn't. 23 divides 92. " +
                 '9 does not divide 92. 992 is 3 more than 989.',
 
-                // Unit 19 - Test
+                // Alt: Unit 19 - Test
                 'Test':
                 '24 29 265 79 29 99 52 89 72 59 2589 2479 9974 7929 7927; ' +
                 '29 days, 629 books, 89 tables, 82 bytes, 297 sets, 25 cars; ' +
@@ -1319,7 +1328,7 @@ var Units = {
             }
         },
 
-        // Unit 20
+        // Alt: Unit 20
         {
             'title': '10',
 
@@ -1329,7 +1338,7 @@ var Units = {
                     '</p>',
 
             'subunits': {
-                // Unit 20 - Grip
+                // Alt: Unit 20 - Grip
                 'Grip':
                 'a1a1 q0q0 a1a1 q0q0 a1a1 q0q0; ' +
                 '1a1a 0q0q 1a1a 0q0q 1a1a 0q0q; ' +
@@ -1340,24 +1349,24 @@ var Units = {
                 'a1p0 01z0 0010 01q1 110u1 1r01 10rq0 a1010q a1a0 ' +
                 'q1ka0 a1q0n a101o j10q1 o01q1 m1q01 a0110 110a 0100',
 
-                // Unit 20 - Words
+                // Alt: Unit 20 - Words
                 'Words':
                 '100 days, 101 tricks, 10 weeks, 11 books, 1001 notes, ' +
                 '101 points, 130 trials, 80 tosses, 190 attempts, 21 pins, ' +
                 '14 stories, 511 passengers, 100 bottles, 811 buildings',
 
-                // Unit 20 - Control
+                // Alt: Unit 20 - Control
                 'Control':
                 '1 10 101 1018 10180 101800 0 07 071 0719 07190 071900 ' +
                 '0 04 041 0415 04158 041581 1 18 180 1801 18011 180110',
 
-                // Unit 20 - Sentences
+                // Alt: Unit 20 - Sentences
                 'Sentences':
                 'There are 12 months and 52 weeks in a year. Square of 101 ' +
                 'is 10201. 11 and 101 are prime numbers. 11001001 is a ' +
                 'multiple of 11.',
 
-                // Unit 20 - Test
+                // Alt: Unit 20 - Test
                 'Test':
                 '10 01 50 11 00 0 101 130 80 190 01 14 511 100 811 917 061; ' +
                 '100 days, 101 tricks, 80 tosses, 190 attempts, 1001 notes; ' +

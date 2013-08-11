@@ -134,3 +134,24 @@
 #smiley {
     font-family: verdana;
 }
+
+#alternateUnitLinks {
+    width: 95%;
+    margin-top: 1%;
+    display: inline-block;
+}
+
+#alternateUnitLinks div {
+    margin-right: 1em;
+    width: 20%;
+    text-align: center;
+    display: inline-block;
+    background: #dddddd;
+    border: 1px solid #aaaaaa;
+}
+
+#alternateUnitLinks div.selected {
+    background: lightcyan;
+    border: 1px solid blue;
+    font-weight: bold;
+}

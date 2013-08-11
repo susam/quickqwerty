@@ -49,6 +49,9 @@ var Tutor = function()
             // Element to display the title of the current unit
             unitTitle: null,
 
+            // Element to display links for main and alternate units
+            alternateUnitLinks: null,
+
             // Element to display tips link
             tipsLink: null,
 
@@ -157,6 +160,18 @@ var Tutor = function()
             state: null
         },
 
+        // User settings
+        settings: {
+            // Type of unit
+            unit: '',
+        },
+
+        // Possible type of units
+        UNIT: {
+            MAIN: 'main',
+            ALTERNATE: 'alternate'
+        },
+
         // Possible states the tutor can be in
         STATE: {
             // The tutor is ready to be used but the user has not
@@ -189,20 +204,80 @@ var Tutor = function()
         }
     }
 
+
     // Initialize the typing tutor
     function init()
     {
+        // Get all necessary HTML elements
         for (var elementID in my.html) {
             my.html[elementID] = document.getElementById(elementID)
         }
 
+        // Get user settings
+        resetSettings()
+        loadSettings()
+
+        // Initialize the user interface
         updateUnitFromURL()
         showPracticePanel()
         hideTips()
 
+        // Event handlers
         window.onhashchange = processURLChange
         my.html.input.onkeyup = updatePracticePane
         tipsLink.onclick = toggleTips
+    }
+
+
+    // Reset the user settings in my.settings to default values.
+    function resetSettings()
+    {
+        my.settings.unit = my.UNIT.MAIN
+    }
+
+
+    // Load settings from local storage to my.settings object.
+    function loadSettings()
+    {
+        if (typeof localStorage.unit != 'undefined') {
+            my.settings.unit = localStorage.unit
+        }
+    }
+
+
+    // Return unit number m.
+    //
+    // Argument:
+    //   m -- Unit number
+    //
+    // Return:
+    //   Unit object
+    function unit(m)
+    {
+        if (alternateUnitAvailable(m) &&
+            my.settings.unit == my.UNIT.ALTERNATE) {
+            return Units.alternate[m - Units.alternateStart]
+        } else {
+            return Units.main[m - 1]
+        }
+    }
+
+
+    // Return true if an alternate unit is available for unit number m.
+    //
+    // Argument:
+    //   m -- Unit number
+    //
+    // Return:
+    //   true if an alternate unit is available; false otherwise
+    function alternateUnitAvailable(m)
+    {
+        if (m >= Units.alternateStart &&
+            m < Units.alternateStart + Units.alternate.length) {
+            return true
+        } else {
+            return false
+        }
     }
 
 
@@ -226,7 +301,7 @@ var Tutor = function()
         for (var i = 0; i < Units.main.length; i++) {
             var divElement = document.createElement('div')
             divElement.id = 'unit' + (i + 1)
-            divElement.title = Units.main[i].title
+            divElement.title = unit(i + 1).title
 
             var anchorElement = document.createElement('a')
             anchorElement.href = "#" + (i + 1)
@@ -311,7 +386,7 @@ var Tutor = function()
         } else if (n == 1) {
             // If the user is at unit M.1, go to unit (M - 1).L
             // where L is the last subunit of the previous unit.
-            previousUnit = Units.main[m - 2]
+            previousUnit = unit(m - 1)
             var previousSubunitTitles = []
             for (var subunitTitle in previousUnit.subunits) {
                 previousSubunitTitles.push(subunitTitle)
@@ -407,29 +482,99 @@ var Tutor = function()
     function updateUnitFromURL()
     {
         // Default lesson is Unit 1.1
-        var unit = 1
-        var subunit = 1
+        var unitNo = 1
+        var subunitNo = 1
 
         // Parse the fragment identifier in the URL and determine the
         // unit
         if (window.location.hash.length > 0) {
             var fragmentID = window.location.hash.slice(1)
             var tokens = fragmentID.split('.')
-            unit = parseInt(tokens[0])
+            unitNo = parseInt(tokens[0])
             if (tokens.length > 1)
-                subunit = parseInt(tokens[1])
+                subunitNo = parseInt(tokens[1])
         }
 
-        setSubunit(unit, subunit)
+        setSubunit(unitNo, subunitNo)
 
         displayUnitLinks()
         displaySubunitLinks()
+        displayAlternateUnitLinks()
         selectUnitAndSubunit()
 
         displayUnitTitle()
         displayTips()
 
         resetSubunit()
+    }
+
+
+    // Display alternate unit links for units which alternate units are
+    // available. Display nothing otherwise.
+    function displayAlternateUnitLinks()
+    {
+        // If alternate unit is not available for the current unit,
+        // hide the alternate links element
+        if (!alternateUnitAvailable(my.current.unitNo)) {
+            alternateUnitLinks.style.visibility = 'hidden'
+            return
+        }
+
+        // Delete all existing alternate unit links
+        while (alternateUnitLinks.firstChild) {
+            alternateUnitLinks.removeChild(alternateUnitLinks.firstChild)
+        }
+
+        // Create div elements for the main unit and alternate unit
+        var mainUnitElement = document.createElement('div')
+        var alternateUnitElement = document.createElement('div')
+        mainUnitElement.id = 'mainUnit'
+        alternateUnitElement.id = 'alternateUnit'
+
+        if (my.settings.unit == my.UNIT.MAIN) {
+            var mainUnitSpanElement = document.createElement('span')
+            mainUnitSpanElement.innerHTML = Units.mainLabel
+            mainUnitElement.appendChild(mainUnitSpanElement)
+
+            var alternateUnitAnchorElement = document.createElement('a')
+            alternateUnitAnchorElement.href = '#'
+            alternateUnitAnchorElement.innerHTML = Units.alternateLabel
+            alternateUnitAnchorElement.onclick = toggleUnit
+            alternateUnitElement.appendChild(alternateUnitAnchorElement)
+
+            mainUnitElement.className = 'selected'
+        } else {
+            var alternateUnitSpanElement = document.createElement('span')
+            alternateUnitSpanElement.innerHTML = Units.alternateLabel
+            alternateUnitElement.appendChild(alternateUnitSpanElement)
+
+            var mainUnitAnchorElement = document.createElement('a')
+            mainUnitAnchorElement.href = '#'
+            mainUnitAnchorElement.innerHTML = Units.mainLabel
+            mainUnitAnchorElement.onclick = toggleUnit
+            mainUnitElement.appendChild(mainUnitAnchorElement)
+
+            alternateUnitElement.className = 'selected'
+        }
+
+        alternateUnitLinks.appendChild(mainUnitElement)
+        alternateUnitLinks.appendChild(alternateUnitElement)
+        alternateUnitLinks.style.visibility = 'visible'
+    }
+
+
+    // Toggle between main unit and alternate unit
+    function toggleUnit()
+    {
+        if (my.settings.unit == my.UNIT.MAIN) {
+            localStorage.unit = my.UNIT.ALTERNATE
+        } else {
+            localStorage.unit = my.UNIT.MAIN
+        }
+
+        loadSettings()
+        updateUnitFromURL()
+        return false
     }
 
 
@@ -476,7 +621,7 @@ var Tutor = function()
         my.current.unitNo = m
         my.current.subunitNo = n
 
-        my.current.unit = Units.main[m - 1]
+        my.current.unit = unit(m)
 
         my.current.subunitTitles.length = 0
         for (var subunitTitle in my.current.unit.subunits) {
@@ -531,6 +676,7 @@ var Tutor = function()
 
         // Create unit title nodes
         var unitNoText = document.createTextNode(unitNo)
+
         var whitespace = document.createTextNode('\u00a0\u00a0')
         var titleText = document.createTextNode(title)
 

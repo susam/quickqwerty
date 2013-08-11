@@ -59,17 +59,17 @@ style with 5–6 split. Which style you choose depends on your taste,
 convenience and the kind of keyboard you have. If you are confused about
 which style to choose, choose the traditional style with 6–7 split.
 
-This software supports both styles for the number keys. In units 16–19
-which involve the number keys, a link appears below the practice area to
-switch between the two styles. 
+This software supports both styles for the number keys. In units 16–20
+which introduce the number keys, a link appears below the practice area
+to switch between the two styles.
 
 
 License
 -------
 This is free software. You are permitted to redistribute and use it in
 source and binary forms, with or without modification, under the terms
-of the Simplified BSD License. See the LICENSE.txt file for the complete
-license.
+of the Simplified BSD License. See the LICENSE.html file for the
+complete license.
 
 This software is provided WITHOUT ANY WARRANTY; without even the implied
 warranties of MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE. See
