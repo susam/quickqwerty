@@ -925,6 +925,7 @@ var Tutor = function()
     }
 
 
+    // Tutor object
     return {
         init: init
     }

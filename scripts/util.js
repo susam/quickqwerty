@@ -51,6 +51,8 @@ var Util = function()
         return i
     }
 
+
+    // Util object
     return {
         common: common
     }
