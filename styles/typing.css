@@ -9,6 +9,7 @@
 #unitLinks div.selected {
     background: lightcyan; 
     border: 1px solid blue;
+    font-weight: bold;
 }
 
 #practicePanel {
@@ -47,6 +48,7 @@
 #subunitLinks div.selected {
     background: lightcyan;
     border: 1px solid blue;
+    font-weight: bold;
 }
 
 #target {

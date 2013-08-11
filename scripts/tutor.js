@@ -299,17 +299,54 @@ var Tutor = function()
 
         // Create new unit links
         for (var i = 0; i < Units.main.length; i++) {
-            var divElement = document.createElement('div')
+            var label = 'Unit ' + (i + 1)
+            var selected = (i + 1 == my.current.unitNo)
+            var href = unitHref(i + 1)
+
+            var divElement = boxedLink(label, selected, href)
             divElement.id = 'unit' + (i + 1)
             divElement.title = unit(i + 1).title
 
-            var anchorElement = document.createElement('a')
-            anchorElement.href = "#" + (i + 1)
-            anchorElement.innerHTML = 'Unit ' + (i + 1)
-
-            divElement.appendChild(anchorElement)
             linksDiv.appendChild(divElement)
         }
+    }
+
+
+    // Create an HTML div element containing a label if the div element
+    // is specified as selected, and/or a hyperlink if the div element
+    // is specified as not selected.
+    //
+    // Arguments:
+    //   label -- Label to be displayed inside the div element
+    //   selected -- Whether the div element should be marked selected
+    //   href -- Fragment identifier for the link to be created
+    //   clickHandler -- Function to be invoked when the link is clicked
+    //
+    // Return:
+    //   HTML div element with the label and/or link
+    function boxedLink(label, selected, href, clickHandler)
+    {
+        var divElement = document.createElement('div')
+
+        if (selected) {
+            var spanElement = document.createElement('span')
+            spanElement.innerHTML = label
+            divElement.appendChild(spanElement)
+
+            divElement.className = 'selected'
+        } else {
+            var anchorElement = document.createElement('a')
+            anchorElement.href = href
+            anchorElement.innerHTML = label
+
+            if (typeof clickHandler != 'undefined') {
+                anchorElement.onclick = clickHandler
+            }
+
+            divElement.appendChild(anchorElement)
+        }
+
+        return divElement
     }
 
 
@@ -526,36 +563,15 @@ var Tutor = function()
         }
 
         // Create div elements for the main unit and alternate unit
-        var mainUnitElement = document.createElement('div')
-        var alternateUnitElement = document.createElement('div')
-        mainUnitElement.id = 'mainUnit'
-        alternateUnitElement.id = 'alternateUnit'
+        var mainUnitElement =
+                boxedLink(Units.mainLabel,
+                          my.settings.unit == my.UNIT.MAIN,
+                          '#', toggleUnit)
 
-        if (my.settings.unit == my.UNIT.MAIN) {
-            var mainUnitSpanElement = document.createElement('span')
-            mainUnitSpanElement.innerHTML = Units.mainLabel
-            mainUnitElement.appendChild(mainUnitSpanElement)
-
-            var alternateUnitAnchorElement = document.createElement('a')
-            alternateUnitAnchorElement.href = '#'
-            alternateUnitAnchorElement.innerHTML = Units.alternateLabel
-            alternateUnitAnchorElement.onclick = toggleUnit
-            alternateUnitElement.appendChild(alternateUnitAnchorElement)
-
-            mainUnitElement.className = 'selected'
-        } else {
-            var alternateUnitSpanElement = document.createElement('span')
-            alternateUnitSpanElement.innerHTML = Units.alternateLabel
-            alternateUnitElement.appendChild(alternateUnitSpanElement)
-
-            var mainUnitAnchorElement = document.createElement('a')
-            mainUnitAnchorElement.href = '#'
-            mainUnitAnchorElement.innerHTML = Units.mainLabel
-            mainUnitAnchorElement.onclick = toggleUnit
-            mainUnitElement.appendChild(mainUnitAnchorElement)
-
-            alternateUnitElement.className = 'selected'
-        }
+        var alternateUnitElement =
+                boxedLink(Units.alternateLabel,
+                          my.settings.unit == my.UNIT.ALTERNATE,
+                          '#', toggleUnit)
 
         alternateUnitLinks.appendChild(mainUnitElement)
         alternateUnitLinks.appendChild(alternateUnitElement)
@@ -652,15 +668,14 @@ var Tutor = function()
             var whitespace = document.createTextNode('\n')
             linksDiv.insertBefore(whitespace, linksDiv.firstChild)
 
-            var subunitDiv = document.createElement('div')
+            var label = my.current.subunitTitles[i]
+            var selected = (i + 1 == my.current.subunitNo)
+            var href = unitHref(my.current.unitNo, i + 1)
+
+            var subunitDiv = boxedLink(label, selected, href)
             subunitDiv.id = 'subunit' + (i + 1)
             subunitDiv.style.width = (95 / numberOfSubunits) + '%'
 
-            var anchor = document.createElement('a')
-            anchor.href = unitHref(my.current.unitNo, i + 1)
-            anchor.innerHTML = my.current.subunitTitles[i]
-
-            subunitDiv.appendChild(anchor)
             linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
         }
     }
