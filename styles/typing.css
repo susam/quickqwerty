@@ -1,15 +1,41 @@
 #unitLinks div {
     margin-bottom: 3px;
     text-align: center;
-    background: #dddddd;
-    border: 1px solid #aaaaaa;
-    line-height: 21px;
 }
 
-#unitLinks div.selected {
-    background: lightcyan; 
-    border: 1px solid blue;
-    font-weight: bold;
+#subunitLinks {
+    text-align: justify;
+    height: 24px;
+}
+
+#subunitLinks div.stretch {
+    width: 100%;
+    border: 0;
+}
+
+#subunitLinks div {
+    display: inline-block;
+    text-align: center;
+}
+
+#alternateUnitLinks div {
+    margin-right: 1em;
+    width: 20%;
+    text-align: center;
+    display: inline-block;
+}
+
+#unitLinks div, #subunitLinks div, #alternateUnitLinks div {
+    background: #dddddd;
+    border: 1px solid #aaaaaa;
+    border-radius: 2px;
+}
+
+#unitLinks div.selected,
+#subunitLinks div.selected,
+#alternateUnitLinks div.selected {
+    background: #e0ffff;
+    border: 1px solid #108080;
 }
 
 #practicePanel {
@@ -28,29 +54,6 @@
     display: inline-block;
 }
 
-#subunitLinks {
-    text-align: justify;
-    height: 24px;
-}
-
-#subunitLinks div {
-    display: inline-block;
-    background: #dddddd;
-    border: 1px solid #aaaaaa;
-    text-align: center;
-}
-
-#subunitLinks div.stretch {
-    width: 100%;
-    border: 0;
-}
-
-#subunitLinks div.selected {
-    background: lightcyan;
-    border: 1px solid blue;
-    font-weight: bold;
-}
-
 #target {
     margin-top: 3%;
     font-family: monospace;
@@ -62,6 +65,7 @@
 
 #target, span.targetChar {
     border: 3px solid #333333;
+    border-radius: 2px;
 }
 
 #feedbackPane {
@@ -143,17 +147,3 @@
     display: inline-block;
 }
 
-#alternateUnitLinks div {
-    margin-right: 1em;
-    width: 20%;
-    text-align: center;
-    display: inline-block;
-    background: #dddddd;
-    border: 1px solid #aaaaaa;
-}
-
-#alternateUnitLinks div.selected {
-    background: lightcyan;
-    border: 1px solid blue;
-    font-weight: bold;
-}
