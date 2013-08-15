@@ -415,7 +415,7 @@ var Units = {
                 'tuesday, thursday, saturday, thirsty, year, hay, yet; ' +
                 'the, this, there, them, thus; this is the tyre, ' +
                 'harry studied mathematics yesterday, he hit them, ' +
-                'this is my yacht, the teachers met everday'
+                'this is my yacht, the teachers met everyday'
             }
         },
 
@@ -1135,7 +1135,7 @@ var Units = {
     'mainLabel': '6-7 split',
 
     // Label to be used to identify the alternate units
-    'alternateLabel': '5-7 split',
+    'alternateLabel': '5-6 split',
 
     // Unit number where the alternate unit begins
     'alternateStart': 16,
