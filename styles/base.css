@@ -1,5 +1,5 @@
 body {
-    background: #ffffff;
+    background: #2E0854;
     margin: 0;
     padding: 0;
     font-family: helvetica, arial, sans-serif;
@@ -18,17 +18,26 @@ a:hover, a:active {
     text-decoration: underline;
 }
 
+#noscript {
+    margin: 10% 0;
+    color: red;
+    font-weight: 700;
+    border: 5px double red;
+    padding: 20px;
+    display: inline-block;
+}
+
 /* Header */
 #header {
-    background: #2E0854;
+    padding: 0 2%;
     line-height: 80px;
     overflow: hidden;
 }
 
 #header h1 {
-    margin: 0 0 0 2%;
+    margin: 0;
     float: left;
-    width: 23%;
+    width: 27%;
     color: #eeeeee;
     font-size: 32px;
 }
@@ -36,20 +45,19 @@ a:hover, a:active {
 #header h2 {
     margin: 0;
     float: left;
-    width: 50%;
+    width: 46%;
     color: #eeeeee;
     font-size: 30px;
     text-align: center;
 }
 
-#header #pageLinks {
-    margin: 0 2% 0 0;
+#header #navigation {
     float: right;
-    width: 23%;
+    width: 27%;
     text-align: right;
 }
 
-#header #pageLinks a {
+#header #navigation a {
     margin-left: 1em;
 }
 
@@ -68,35 +76,60 @@ a:hover, a:active {
 }
 
 /* Main */
+#mainWrapper {
+    background: #ffffff;
+    padding: 2% 2% 3% 2%;
+}
+
 #main {
     overflow: hidden;
 }
 
-#navbar {
-    float: left;
-    width: 18%;
-    margin: 2% 0 0 2%;
-    overflow: hidden;
-}
-
 #content {
-    margin: 2% 0 0 0;    
     float: left;
-    width: 60%;
-    text-align: center;
+    width: 80%;
 }
 
 #sidebar {
-    margin: 2% 2% 0 0;    
     float: right;
-    width: 18%;
+    width: 20%;
     text-align: center;
 }
 
-#noscript {
-    color: red;
-    font-weight: 700;
-    border: 5px double red;
-    padding: 20px;
+/* Footer */
+#footer {
+    border-top: 2px double #0c0632;
+    color: #eeeeee;
+    text-align: center;
+    padding: 2%;
+}
+
+#footer #navigation a {
+    margin-left: 2em;
+}
+
+#footer #copyright {
+    margin-top: 2%;
+    width: 50%;
     display: inline-block;
+}
+
+#footer a:link, #footer a:visited {
+    color: #dddddd;
+    text-decoration: none;
+}
+
+#footer a:hover, #footer a:active {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+#copyright a:link, #copyright a:visited {
+    color: #add8e6;
+    text-decoration: none;
+}
+
+#copyright a:hover, #copyright a:active {
+    color: #cffbf8;
+    text-decoration: underline;
 }

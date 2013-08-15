@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <html>
 <head>
-<title>QuickQWERTY</title>
+<title>QuickQWERTY is released under Simplified BSD License</title>
 <meta charset="utf-8">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="styles/base.css">
@@ -41,15 +41,12 @@ log1x1('QuickQWERTY');
 </head>
 <body>
 
-<noscript>
-<img src="http://susam/1x1/?app=QuickQWERTY&NOSCRIPT">
-</noscript>
-
 <!-- Header -->
 <div id="header">
     <h1><a href="index.html">QuickQWERTY</a></h1>
     <h2 id="unitTitle"></h2>
-    <div id="pageLinks">
+    <div id="navigation">
+        <a href="index.html">Tutor</a>
         <a href="https://github.com/susam/quickqwerty/archive/master.zip">Download</a>
         <a href="LICENSE.html">License</a>
         <a href="README.html">About</a>
@@ -57,17 +54,12 @@ log1x1('QuickQWERTY');
 </div>
 
 <!-- Main -->
+<div id="mainWrapper">
 <div id="main">
-
-    <div id="navbar">
-        <div id="unitLinks"></div>
-    </div>
-
     <div id="content">
-
     <h2>Simplified BSD License</h2>
     <p>
-    Copyright &copy; 2008&ndash;2012 Susam Pal<br>
+    Copyright &copy; 2013 Susam Pal<br>
     All rights reserved.
     </p><p>
     Redistribution and use in source and binary forms, with or without
@@ -99,6 +91,10 @@ log1x1('QuickQWERTY');
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </p>
 
+    <noscript>
+    <img src="http://susam/1x1/?app=QuickQWERTY&NOSCRIPT">
+    </noscript>
+
     </div> <!-- End content -->
 
     <div id="sidebar">
@@ -107,7 +103,26 @@ log1x1('QuickQWERTY');
              data-width="292" data-show-faces="true" data-header="false"
              data-stream="false" data-show-border="true"></div>
     </div> <!-- End sidebar -->
-</div>
+</div> <!-- End main -->
+</div> <!-- End mainWrapper -->
+
+<!-- Footer -->
+<div id="footer">
+    <div id="navigation">
+        <a href="index.html">Tutor</a>
+        <a href="https://github.com/susam/quickqwerty/archive/master.zip">Download</a>
+        <a href="https://github.com/susam/quickqwerty">Source code</a>
+        <a href="LICENSE.html">License</a>
+        <a href="README.html">About</a>
+    </div> <!-- End navigation -->
+    <div id="copyright">
+        <p>Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a></p>
+        <p>This is free software. You are permitted to redistribute and
+        use it in source and binary forms, with or without modification,
+        under the terms of the <a href="LICENSE.html">Simplified BSD
+        License</a>.</p>
+    </div> <!-- End copyright -->
+</div> <!-- End footer -->
 
 <!-- Facebook SDK -->
 <div id="fb-root"></div>

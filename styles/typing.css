@@ -1,3 +1,20 @@
+#unitLinks {
+    /* #sidebar is 20% the width of #main. #unitLinks is within #content
+     * which itself is 80% the width of #main. We want #unitLinks to be
+     * 20% of the width of #main. Since #unitLinks is contained within
+     * #content, #unitLinks needs to be 25% the width of #content, so
+     * that it is 20% the width of #main. 25% of 80% is 20%. */
+    width: 25%;
+    float: left;
+    text-align: left;
+}
+
+#practicePanelWrapper {
+    width: 75%;
+    float: right;
+    text-align: center;
+}
+
 #unitLinks div {
     margin-bottom: 3px;
     text-align: center;
