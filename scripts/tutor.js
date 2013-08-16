@@ -858,10 +858,9 @@ var Tutor = function()
         var inputText = my.html.input.value
         var inputLength = inputText.length
 
-        // This part of the code is executed only when a user has typed
-        // a character. Therefore, if the tutor is in READY state, set
-        // it to RUNNING STATE.
-        if (my.current.state == my.STATE.READY) {
+        // If the tutor is in READY state, and input has been entered,
+        // then set it to RUNNING STATE.
+        if (my.current.state == my.STATE.READY && inputLength > 0) {
 
             my.current.startTime = new Date().getTime()
             my.current.state = my.STATE.RUNNING
