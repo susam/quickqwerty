@@ -381,7 +381,7 @@ var Units = {
                 'asdft ;lkjy asdfy ;lkjt aedtf ;ikyj adert ;kiuy ' +
                 'afty ;jyt tety yjkt lyjt gyht athy sytg lhyg shdt svtm ' +
                 'ctym vtyy, ,gytyv crttys sctyt l;tiy, kyhat sytay sytty ' +
-                'lttys yytym mtyty syght ymtsy yctvy lytvy ;mtcvy sytaty ',
+                'lttys yytym mtyty syght ymtsy yctvy lytvy ;mtcvy sytaty',
 
                 // Unit 7 - Words
                 'Words':
@@ -703,7 +703,7 @@ var Units = {
                 "js'a pa'u do'a uy'b si'n ym'l pj's yn's wv'u ug'x tn'p " +
                 "ymo' aqo' wqp' pws' wip' yts' irm' ika' lkw' lrx' oip' " +
                 "fj'a mi's n'hs la'i w'by si'b 'ivk 'd'p '//' ''p/ ap/' " +
-                "'pa/ 'ox/ /aq' 'ixr ;';' ';p/ a';q rpx' g;x' b'y; e/d' ",
+                "'pa/ 'ox/ /aq' 'ixr ;';' ';p/ a';q rpx' g;x' b'y; e/d'",
 
                 // Unit 13 - Words
                 'Words':
@@ -879,7 +879,7 @@ var Units = {
                 'Sentences':
                 'John has about 55 science books. There are 8 planets. ' +
                 'There are 88 constellations. Area code 585 is a state ' +
-                'of New York are code. 58 candidates will be selected. ',
+                'of New York are code. 58 candidates will be selected.',
 
                 // Unit 16 - Test
                 'Test':
