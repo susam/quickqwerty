@@ -67,6 +67,7 @@ if (typeof log1x1 == 'function') {
 // Start tutor and set version
 window.onload = function()
 {
+    Tutor.setLogFunction(log1x1)
     Tutor.init()
     Version.set()
 }

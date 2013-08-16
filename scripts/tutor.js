@@ -166,6 +166,9 @@ var Tutor = function()
             unit: '',
         },
 
+        // Logging function
+        log: null,
+
         // Possible type of units
         UNIT: {
             MAIN: 'main',
@@ -226,6 +229,17 @@ var Tutor = function()
         window.onhashchange = processURLChange
         my.html.input.onkeyup = updatePracticePane
         tipsLink.onclick = toggleTips
+    }
+
+
+    // Set the logging function to be called to write usage logs to a
+    // remote web server.
+    //
+    // Argument:
+    //   logFunction -- Logging function
+    function setLogFunction(logFunction)
+    {
+        my.log = logFunction
     }
 
 
@@ -633,6 +647,10 @@ var Tutor = function()
         my.html.input.value = ''
         my.html.input.focus()
 
+        my.log('QuickQWERTY',
+               'READY-UNIT-' + my.current.unitNo + '.' +
+               my.current.subunitNo + '-' + my.settings.unit)
+
         updatePracticePaneState()
         updatePracticePane()
     }
@@ -848,6 +866,10 @@ var Tutor = function()
             my.current.startTime = new Date().getTime()
             my.current.state = my.STATE.RUNNING
             updatePracticePaneState()
+
+            my.log('QuickQWERTY',
+                   'RUN-UNIT-' + my.current.unitNo + '.' +
+                   my.current.subunitNo + '-' + my.settings.unit)
         }
 
         // Number of characters correctly typed by the user
@@ -889,6 +911,12 @@ var Tutor = function()
         if (goodChars == my.current.subunitText.length) {
             my.current.state = my.STATE.COMPLETED
             updatePracticePaneState()
+
+            my.log('QuickQWERTY',
+                   'DONE-UNIT-' + my.current.unitNo + '.' +
+                   my.current.subunitNo + '-' + my.settings.unit +
+                   '-WPM-' + my.current.wpm +
+                   '-ERROR-' + my.current.errorRate.toFixed(1))
         }
     }
 
@@ -1100,6 +1128,7 @@ var Tutor = function()
 
     // Tutor object
     return {
-        init: init
+        init: init,
+        setLogFunction: setLogFunction
     }
 }()
