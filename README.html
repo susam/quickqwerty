@@ -34,9 +34,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="styles/base.css">
 <link rel="stylesheet" type="text/css" href="styles/info.css">
+<script type="text/javascript" src="scripts/version.js"></script>
 <script type="text/javascript" src="http://susam.in/1x1/?js"></script>
 <script type="text/javascript">
-log1x1('QuickQWERTY');
+// Log request
+if (typeof log1x1 == 'function') {
+    log1x1('QuickQWERTY')
+}
+
+// Set version
+window.onload = function()
+{
+    Version.set()
+}
 </script>
 </head>
 <body>
@@ -189,7 +199,10 @@ log1x1('QuickQWERTY');
         <a href="README.html">About</a>
     </div> <!-- End navigation -->
     <div id="copyright">
-        <p>Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a></p>
+        <p>
+        QuickQWERTY <span id="version"></span><br>
+        Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a>
+        </p>
         <p>This is free software. You are permitted to redistribute and
         use it in source and binary forms, with or without modification,
         under the terms of the <a href="LICENSE.html">Simplified BSD

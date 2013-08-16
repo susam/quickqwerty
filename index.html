@@ -38,12 +38,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="scripts/units.js"></script>
 <script type="text/javascript" src="scripts/settings.js"></script>
 <script type="text/javascript" src="scripts/tutor.js"></script>
+<script type="text/javascript" src="scripts/version.js"></script>
 <script type="text/javascript" src="http://susam.in/1x1/?js"></script>
 <script type="text/javascript">
-log1x1('QuickQWERTY');
-</script>
-<script type="text/javascript">
-(function() {
+// Log request
+if (typeof log1x1 == 'function') {
+    log1x1('QuickQWERTY')
+}
+
+// Canonicalize URL
+;(function() {
     var href = window.location.href
     var webMode = href.search(/^https?:/i) >= 0
     var comMode = href.search(/^.*\bquickqwerty.com\b/i) >= 0
@@ -59,7 +63,13 @@ log1x1('QuickQWERTY');
     }
 
 })()
-window.onload = Tutor.init
+
+// Start tutor and set version
+window.onload = function()
+{
+    Tutor.init()
+    Version.set()
+}
 </script>
 </head>
 <body>
@@ -179,7 +189,10 @@ window.onload = Tutor.init
         <a href="README.html">About</a>
     </div> <!-- End navigation -->
     <div id="copyright">
-        <p>Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a></p>
+        <p>
+        QuickQWERTY <span id="version"></span><br>
+        Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a>
+        </p>
         <p>This is free software. You are permitted to redistribute and
         use it in source and binary forms, with or without modification,
         under the terms of the <a href="LICENSE.html">Simplified BSD
