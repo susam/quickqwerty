@@ -532,6 +532,18 @@ var Tutor = function()
                 subunitNo = parseInt(tokens[1])
         }
 
+        // Default to unit 1 if unit number could not be parsed
+        // correctly from the URL
+        if (isNaN(unitNo)) {
+            unitNo = 1
+        }
+
+        // Default to subunit 1 if unit number could not be parsed
+        // correctly from the URL
+        if (isNaN(subunitNo)) {
+            subunitNo = 1
+        }
+
         setSubunit(unitNo, subunitNo)
 
         displayUnitLinks()
