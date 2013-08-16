@@ -167,7 +167,7 @@ var Tutor = function()
         },
 
         // Logging function
-        log: null,
+        logFunction: null,
 
         // Possible type of units
         UNIT: {
@@ -232,14 +232,28 @@ var Tutor = function()
     }
 
 
-    // Set the logging function to be called to write usage logs to a
-    // remote web server.
+    // Set the logging function to be called to write logs.
     //
     // Argument:
     //   logFunction -- Logging function
     function setLogFunction(logFunction)
     {
-        my.log = logFunction
+        my.logFunction = logFunction
+    }
+
+
+    // Write logs via a configured logging function.
+    //
+    // Arguments:
+    //   key, value, ... -- An event number of string arguments
+    function log()
+    {
+        if (my.logFunction == null)
+            return
+
+        var meta = ['name', 'QuickQWERTY']
+        var data = Array.prototype.slice.call(arguments)
+        my.logFunction.apply(this, meta.concat(data))
     }
 
 
@@ -647,9 +661,9 @@ var Tutor = function()
         my.html.input.value = ''
         my.html.input.focus()
 
-        my.log('QuickQWERTY',
-               'READY-UNIT-' + my.current.unitNo + '.' +
-               my.current.subunitNo + '-' + my.settings.unit)
+        log('state', my.current.state.toUpperCase(),
+            'unit', my.current.unitNo + '.' + my.current.subunitNo,
+            'type', my.settings.unit)
 
         updatePracticePaneState()
         updatePracticePane()
@@ -866,9 +880,9 @@ var Tutor = function()
             my.current.state = my.STATE.RUNNING
             updatePracticePaneState()
 
-            my.log('QuickQWERTY',
-                   'RUN-UNIT-' + my.current.unitNo + '.' +
-                   my.current.subunitNo + '-' + my.settings.unit)
+            log('state', my.current.state.toUpperCase(),
+                'unit', my.current.unitNo + '.' + my.current.subunitNo,
+                'type', my.settings.unit)
         }
 
         // Number of characters correctly typed by the user
@@ -911,11 +925,11 @@ var Tutor = function()
             my.current.state = my.STATE.COMPLETED
             updatePracticePaneState()
 
-            my.log('QuickQWERTY',
-                   'DONE-UNIT-' + my.current.unitNo + '.' +
-                   my.current.subunitNo + '-' + my.settings.unit +
-                   '-WPM-' + my.current.wpm +
-                   '-ERROR-' + my.current.errorRate.toFixed(1))
+            log('state', my.current.state.toUpperCase(),
+                'unit', my.current.unitNo + '.' + my.current.subunitNo,
+                'type', my.settings.unit,
+                'wpm', my.current.wpm,
+                'error', my.current.errorRate.toFixed(1))
         }
     }
 

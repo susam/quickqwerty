@@ -39,11 +39,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="scripts/settings.js"></script>
 <script type="text/javascript" src="scripts/tutor.js"></script>
 <script type="text/javascript" src="scripts/version.js"></script>
-<script type="text/javascript" src="http://susam.in/1x1/?js"></script>
+<script type="text/javascript" src="http://susam.in/onepixel/?js"></script>
 <script type="text/javascript">
 // Log request
-if (typeof log1x1 == 'function') {
-    log1x1('QuickQWERTY')
+if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
+
+    OnePixel.log('name', 'QuickQWERTY',
+                 'version', Version.NUMBER)
+
+    Tutor.setLogFunction(OnePixel.log)
 }
 
 // Canonicalize URL
@@ -67,7 +71,6 @@ if (typeof log1x1 == 'function') {
 // Start tutor and set version
 window.onload = function()
 {
-    Tutor.setLogFunction(log1x1)
     Tutor.init()
     Version.set()
 }
@@ -91,7 +94,6 @@ window.onload = function()
 <div id="mainWrapper">
 <div id="main">
     <div id="content">
-
         <!-- 
         Place a blank space here, so that the noscript element
         appears to be centered when JavaScript is disabled.
@@ -162,13 +164,11 @@ window.onload = function()
         <noscript>
         <p id="noscript">
         JavaScript should be enabled to run this application.
-        <img src="http://susam/1x1/?app=QuickQWERTY&NOSCRIPT">
+        <img src="http://susam.in/onepixel/?name=QuickQWERTY&NOSCRIPT">
         </p>
         </noscript>
 
         </div> <!-- End practicePanelWrapper -->
-
-
     </div> <!-- End content -->
 
     <div id="sidebar">

@@ -35,11 +35,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="stylesheet" type="text/css" href="styles/base.css">
 <link rel="stylesheet" type="text/css" href="styles/info.css">
 <script type="text/javascript" src="scripts/version.js"></script>
-<script type="text/javascript" src="http://susam.in/1x1/?js"></script>
+<script type="text/javascript" src="http://susam.in/onepixel/?js"></script>
 <script type="text/javascript">
 // Log request
-if (typeof log1x1 == 'function') {
-    log1x1('QuickQWERTY')
+if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
+
+    OnePixel.log('name', 'QuickQWERTY',
+                 'version', Version.NUMBER)
+
+    Tutor.setLogFunction(OnePixel.log)
 }
 
 // Set version
@@ -102,9 +106,8 @@ window.onload = function()
     </p>
 
     <noscript>
-    <img src="http://susam/1x1/?app=QuickQWERTY&NOSCRIPT">
+    <img src="http://susam.in/onepixel/?name=QuickQWERTY&NOSCRIPT">
     </noscript>
-
     </div> <!-- End content -->
 
     <div id="sidebar">
