@@ -59,7 +59,7 @@
 }
 
 #unitLinks div, #subunitLinks div, #alternateUnitLinks div {
-    background: #e8e8e8;
+    background: #e0e0e0;
     border: 1px solid #aaaaaa;
     border-radius: 2px;
 }
@@ -76,8 +76,8 @@
 #unitLinks div.selected,
 #subunitLinks div.selected,
 #alternateUnitLinks div.selected {
-    background: #efcfff;
-    border: 1px solid #333333;
+    background: #e0ffff;
+    border: 1px solid #108080;
 }
 
 #practicePanel {
