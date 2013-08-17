@@ -98,7 +98,7 @@ window.onload = function()
         Place a blank space here, so that the noscript element
         appears to be centered when JavaScript is disabled.
         -->
-        <div id="unitLinks">&nbsp;</div>
+        <div id="unitLinks"></div>
 
         <div id="practicePanelWrapper">
         <div id="practicePanel">
@@ -160,15 +160,17 @@ window.onload = function()
             </div>
             <div id="tips"></div>
         </div> <!-- End tipsPane -->
-
-        <noscript>
-        <p id="noscript">
-        JavaScript should be enabled to run this application.
-        <img src="http://susam.in/onepixel/?name=QuickQWERTY&NOSCRIPT">
-        </p>
-        </noscript>
-
         </div> <!-- End practicePanelWrapper -->
+
+        <div id="noscriptWrapper">
+        <noscript>
+            <p id="noscript">
+            JavaScript should be enabled to run this application.
+            <img src="http://susam.in/onepixel/?name=QuickQWERTY&NOSCRIPT">
+            </p>
+        </noscript>
+        </div>
+
     </div> <!-- End content -->
 
     <div id="sidebar">

@@ -18,15 +18,6 @@ a:hover, a:active {
     text-decoration: underline;
 }
 
-#noscript {
-    margin: 10% 0;
-    color: red;
-    font-weight: 700;
-    border: 5px double red;
-    padding: 20px;
-    display: inline-block;
-}
-
 /* Header */
 #header {
     padding: 0 2%;

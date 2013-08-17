@@ -13,6 +13,22 @@
     width: 75%;
     float: right;
     text-align: center;
+    display: none;
+}
+
+#noscriptWrapper {
+    width: 75%;
+    float: right;
+    text-align: center;
+    margin: 10% 0;
+}
+
+#noscript {
+    color: red;
+    font-weight: bold; 
+    border: 5px double red;
+    padding: 1.5em;
+    display: inline-block;
 }
 
 #unitLinks div {
@@ -65,7 +81,7 @@
 }
 
 #practicePanel {
-    display: none;
+    display: inline-block;
     margin-top: 5%;
 }
 

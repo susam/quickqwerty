@@ -60,7 +60,7 @@ var Tutor = function()
 
             // Element that contains previous and next links along with
             // the practice pane
-            practicePanel: null,
+            practicePanelWrapper: null,
 
             // Element that contains all the practice elements
             practicePane: null,
@@ -222,7 +222,7 @@ var Tutor = function()
 
         // Initialize the user interface
         updateUnitFromURL()
-        showPracticePanel()
+        showPracticePanelWrapper()
         hideTips()
 
         // Event handlers
@@ -310,9 +310,9 @@ var Tutor = function()
 
 
     // Display practice panel
-    function showPracticePanel()
+    function showPracticePanelWrapper()
     {
-        my.html.practicePanel.style.display = 'inline-block'
+        my.html.practicePanelWrapper.style.display = 'inline-block'
     }
 
 
