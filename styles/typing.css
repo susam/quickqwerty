@@ -43,16 +43,25 @@
 }
 
 #unitLinks div, #subunitLinks div, #alternateUnitLinks div {
-    background: #dddddd;
+    background: #e8e8e8;
     border: 1px solid #aaaaaa;
     border-radius: 2px;
 }
 
+#unitLinks a:link, #subunitLinks a:link, #alternateUnitLinks a:link,
+#unitLinks a:visited, #subunitLinks a:visited, #alternateUnitLinks a:visited {
+}
+
+#unitLinks a:hover, #subunitLinks a:hover, #alternateUnitLinks a:hover,
+#unitLinks a:active, #subunitLinks a:active, #alternateUnitLinks a:active {
+}
+
+
 #unitLinks div.selected,
 #subunitLinks div.selected,
 #alternateUnitLinks div.selected {
-    background: #e0ffff;
-    border: 1px solid #108080;
+    background: #efcfff;
+    border: 1px solid #333333;
 }
 
 #practicePanel {
