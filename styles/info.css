@@ -7,3 +7,12 @@
     width: 30%;
     text-align: right;
 }
+
+/* Facebook */
+.fb-like-box span, .fb-like-box iframe {
+    /* The following properties need to be set in order for Facebook
+       like box to have non-zero dimensions when QuickQWERTY is accessed
+       from local storage, i.e. non-HTTP access. */
+    width: 292px !important;
+    height: 241px !important;
+}
