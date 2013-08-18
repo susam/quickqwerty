@@ -20,10 +20,10 @@
     width: 75%;
     float: right;
     text-align: center;
-    margin: 10% 0;
 }
 
 #noscript {
+    margin: 10% 0%;
     color: red;
     font-weight: bold; 
     border: 5px double red;
