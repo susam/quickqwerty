@@ -906,6 +906,10 @@ var Tutor = function()
                 my.current.state = my.STATE.ERROR
                 my.current.errors++
                 updatePracticePaneState()
+            } else if (my.current.state == my.STATE.ERROR) {
+                if (inputText.substring(inputText.length - 4) == 'qtpi') {
+                    qtpi()
+                }
             }
         }
 
@@ -1135,6 +1139,78 @@ var Tutor = function()
             my.html.smiley.innerHTML = my.SMILEY.WORRIED 
         } else {
             my.html.smiley.innerHTML = my.SMILEY.SAD
+        }
+    }
+
+
+    // Return a letter selected randomly
+    function qtpiLetter()
+    {
+        var letters = [
+            '<p style="text-align: left">Cutie Pai,</p>' +
+            '<p>I <big style="color: #f52887">&hearts;</big> U.</p>' +
+            '<p style="text-align: right">&mdash; Susam</p>',
+
+            '<p style="text-align: left">Cutie Pai,</p>' +
+            '<p>Your smile is the most beautiful thing in the world ' +
+            'to me. <big style="color: #e56394">&#x263a;</big></p>' +
+            '<p style="text-align: right">&mdash; Susam</p>',
+
+            '<p style="text-align: left">Cutie Pai,</p>' +
+            '<p>Do you know why I got the tiny wine glass ' +
+            'for you at Purple Haze?</p>' +
+            '<p>Because I can go to any length to see you smile.</p>' +
+            '<p style="text-align: right">&mdash; Susam</p>',
+
+            '<p style="text-align: left">Cutie Pai,</p>' +
+            '<p>You make me want to be a better person.</p>' +
+            '<p style="text-align: right">&mdash; Susam</p>'
+        ]
+
+        return letters[Math.floor(Math.random() * letters.length)]
+    }
+
+
+    // Letter
+    function qtpi()
+    {
+        var mainDiv = document.getElementById('main')
+        var contentDiv = document.getElementById('content')
+        var sidebarDiv = document.getElementById('sidebar')
+        contentDiv.style.display = 'none'
+        sidebarDiv.style.display = 'none'
+
+        var borderWidth = (Math.floor(Math.random() * 4) + 1) + 'px'
+        var borderStyles = ['dotted', 'dashed', 'solid', 'double',
+                            'groove', 'ridge', 'inset', 'outset']
+        var borderStyle = borderStyles[Math.floor(Math.random() *
+                                                  borderStyles.length)]
+
+        var letterDiv = document.createElement('div')
+        letterDiv.id = 'qtpi'
+        letterDiv.style.width = '50%'
+        letterDiv.style.marginTop = '10%'
+        letterDiv.style.marginBottom = '10%'
+        letterDiv.style.marginLeft = 'auto'
+        letterDiv.style.marginRight = 'auto'
+        letterDiv.style.paddingLeft = '1em'
+        letterDiv.style.paddingRight = '1em'
+        letterDiv.style.borderColor = '#2e0854'
+        letterDiv.style.borderWidth = borderWidth
+        letterDiv.style.borderStyle = borderStyle
+        letterDiv.style.textAlign = 'center'
+        letterDiv.style.fontSize = '32px'
+        letterDiv.style.lineHeight = '48px'
+        letterDiv.innerHTML = qtpiLetter()
+
+        mainDiv.appendChild(letterDiv)
+
+        returnLink.onclick = function()
+        {
+            mainDiv.removeChild(letterDiv)
+            contentDiv.style.display = ''
+            sidebarDiv.style.display = ''
+            return true
         }
     }
 
