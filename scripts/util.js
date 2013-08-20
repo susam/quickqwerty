@@ -52,8 +52,32 @@ var Util = function()
     }
 
 
+    // Return a random element from the specified a.
+    //
+    // Argument:
+    //   a -- An array
+    //
+    // Return:
+    //   An element selected randomly from the array a
+    function random(a, b)
+    {
+        if (typeof a == 'number') {
+            if (typeof b == 'number') {
+                a = Math.floor(a)
+                b = Math.floor(b)
+                return Math.floor(Math.random() * (b - a + 1) + a)
+            } else {
+                return Number.NaN
+            }
+        } else if (a instanceof Array) {
+            return a[Math.floor(Math.random() * a.length)]
+        }
+    }
+
+
     // Util object
     return {
-        common: common
+        common: common,
+        random: random
     }
 }()

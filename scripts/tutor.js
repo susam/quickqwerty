@@ -902,14 +902,11 @@ var Tutor = function()
 
             // Set and display error
             if (my.current.state == my.STATE.RUNNING) {
-
                 my.current.state = my.STATE.ERROR
                 my.current.errors++
                 updatePracticePaneState()
             } else if (my.current.state == my.STATE.ERROR) {
-                if (inputText.substring(inputText.length - 4) == 'qtpi') {
-                    qtpi()
-                }
+                processInputCommand()
             }
         }
 
@@ -1143,75 +1140,142 @@ var Tutor = function()
     }
 
 
-    // Return a letter selected randomly
-    function qtpiLetter()
+    // Process command entered by the user in the input textarea
+    // element when the tutor is in error state. Once the tutor enters
+    // the error state, the supported commands are searched at the end
+    // of the erroneous input. If a supported command is found at the
+    // end of the erroneous input, the command is processed.
+    //
+    // The following is a list of the supported commands:
+    //   restart  restart the current subunit
+    //   reset    same as the 'restart' command
+    //   fix      remove errors from the input text
+    //   xxx      same as the 'fix' command
+    function processInputCommand()
     {
-        var letters = [
-            '<p style="text-align: left">Cutie Pai,</p>' +
-            '<p>I <big style="color: #f52887">&hearts;</big> U.</p>' +
-            '<p style="text-align: right">&mdash; Susam</p>',
+        var inputText = my.html.input.value
+        var goodChars = my.current.correctInputLength
 
-            '<p style="text-align: left">Cutie Pai,</p>' +
-            '<p>Your smile is the most beautiful thing in the world ' +
-            'to me. <big style="color: #e56394">&#x263a;</big></p>' +
-            '<p style="text-align: right">&mdash; Susam</p>',
-
-            '<p style="text-align: left">Cutie Pai,</p>' +
-            '<p>Do you know why I got the tiny wine glass ' +
-            'for you at Purple Haze?</p>' +
-            '<p>Because I can go to any length to see you smile.</p>' +
-            '<p style="text-align: right">&mdash; Susam</p>',
-
-            '<p style="text-align: left">Cutie Pai,</p>' +
-            '<p>You make me want to be a better person.</p>' +
-            '<p style="text-align: right">&mdash; Susam</p>'
-        ]
-
-        return letters[Math.floor(Math.random() * letters.length)]
+        if (inputCommandIs('restart') || inputCommandIs('reset')) {
+            location.href = '#restart'
+        } else if (inputCommandIs('fix') || inputCommandIs('xxx')){
+            my.html.input.value = inputText.substring(0, goodChars)
+            updatePracticePane()
+        } else if (inputCommandIs('qtpi')) {
+            qtpi()
+        }
     }
 
 
-    // Letter
+    // Check if the input entered by the user contains the specified
+    // command. The specified command is considered to be contained in
+    // the input if the input ends with the specified command.
+    //
+    // Return:
+    //   true if the specified command is present in the input;
+    //   false otherwise
+    function inputCommandIs(command)
+    {
+        var input = my.html.input.value
+        return input.substring(input.length - command.length) == command
+    }
+
+
+    // Return a message selected randomly or a message selected based on
+    // time.
+    //
+    // Return:
+    //   Randomly selected message
+    function qtpiLetter()
+    {
+        var pLeft = '<p style="text-align: left">'
+        var pCenter = '<p style="text-align: center">'
+        var pRight = '<p style="text-align: right">'
+        var pEnd = '</p>'
+
+        var d = new Date()
+        var meridiem = d.getHours() < 12 ? 'a.m.' : 'p.m.'
+
+        if (d.getMinutes() == 14 && (d.getHours() == 3 ||
+                                     d.getHours() == 15)) {
+
+            return pLeft + 'Cutie Pai,' + pEnd + pCenter +
+                   'Happy <big style="font-family: serif">&pi;</big> ' +
+                   meridiem + pEnd + pRight + '&mdash; Susam' + pEnd
+        }
+
+        var letters = [
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'I <span style="color: #f52887; font-size: 110%">&#x2764;' +
+            '</span> U!' + pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'I <span style="color: #f52887; font-size: 130%">&hearts;' +
+            '</span> U!' + pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'I love you!' + pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pLeft +
+            'Your smile is the most beautiful thing in the ' +
+            'world to me. <big style="color: #a53364">&#x263a;</big>' +
+            pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pLeft +
+            'Do you know why I got the tiny wine glass for you at ' +
+            'Purple Haze?' + pEnd + pLeft +
+            'Because I can go to any length to see you smile.' +
+            pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'You make me want to be a better person.' +
+            pEnd + pRight + '&mdash; Susam' + pEnd
+        ]
+
+        return Util.random(letters)
+    }
+
+
+    // Display letter.
     function qtpi()
     {
-        var mainDiv = document.getElementById('main')
-        var contentDiv = document.getElementById('content')
-        var sidebarDiv = document.getElementById('sidebar')
-        contentDiv.style.display = 'none'
-        sidebarDiv.style.display = 'none'
-
-        var borderWidth = (Math.floor(Math.random() * 4) + 1) + 'px'
-        var borderStyles = ['dotted', 'dashed', 'solid', 'double',
-                            'groove', 'ridge', 'inset', 'outset']
-        var borderStyle = borderStyles[Math.floor(Math.random() *
-                                                  borderStyles.length)]
+        // Hide content and sidebar
+        document.getElementById('content').style.display = 'none'
+        document.getElementById('sidebar').style.display = 'none'
 
         var letterDiv = document.createElement('div')
-        letterDiv.id = 'qtpi'
         letterDiv.style.width = '50%'
-        letterDiv.style.marginTop = '10%'
-        letterDiv.style.marginBottom = '10%'
         letterDiv.style.marginLeft = 'auto'
         letterDiv.style.marginRight = 'auto'
-        letterDiv.style.paddingLeft = '1em'
-        letterDiv.style.paddingRight = '1em'
         letterDiv.style.borderColor = '#2e0854'
-        letterDiv.style.borderWidth = borderWidth
-        letterDiv.style.borderStyle = borderStyle
-        letterDiv.style.textAlign = 'center'
-        letterDiv.style.fontSize = '32px'
-        letterDiv.style.lineHeight = '48px'
+        letterDiv.style.borderWidth = '5px'
+        letterDiv.style.borderStyle = Util.random(['solid', 'double',
+                                                   'ridge', 'groove'])
+        var fontSize = 32
+        letterDiv.style.fontSize = fontSize + 'px'
+        letterDiv.style.lineHeight = (1.5 * fontSize) + 'px'
+        letterDiv.style.paddingLeft = fontSize + 'px'
+        letterDiv.style.paddingRight = fontSize + 'px'
+        letterDiv.style.color = '#2e0854'
         letterDiv.innerHTML = qtpiLetter()
 
+        var mainDiv = document.getElementById('main')
         mainDiv.appendChild(letterDiv)
 
-        returnLink.onclick = function()
-        {
-            mainDiv.removeChild(letterDiv)
-            contentDiv.style.display = ''
-            sidebarDiv.style.display = ''
-            return true
+        var verticalMargin = (window.innerHeight -
+                              0.04 * window.innerWidth -
+                              letterDiv.offsetHeight - 160) / 2
+
+        if (verticalMargin <= 20) {
+            verticalMargin = '2%'
+        } else {
+            verticalMargin = Math.round(verticalMargin) + 'px'
         }
+
+        letterDiv.style.marginTop = verticalMargin
+        letterDiv.style.marginBottom = verticalMargin
+
+        log('qtpi', letterDiv.innerHTML.replace(/(<([^>]+)>)/ig, ' '))
     }
 
 
