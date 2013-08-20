@@ -11,6 +11,15 @@ key.
   [2]: http://susam.in/
 
 
+Contents
+--------
+* [Units](#units)
+* [5–6 split vs. 6–7 split](#5–6-split-vs-6–7-split)
+* [Commands](#commands)
+* [License](#license)
+* [Contact](#contact)
+
+
 Units
 -----
 The typing lessons available in this software are divided into units and
@@ -62,6 +71,28 @@ which style to choose, choose the traditional style with 6–7 split.
 This software supports both styles for the number keys. In units 16–20
 which introduce the number keys, a link appears below the practice area
 to switch between the two styles.
+
+
+Commands
+--------
+At any point while typing in the input box, you can type a command. The
+following is a list of the supported commands along with a description
+of what the command does.
+
+  * restart
+    - restart the current subunit
+  * reset
+    - same as the 'restart' command
+  * fix
+    - remove errors from the input text
+  * xxx
+    - same as the 'fix' command
+
+When you type a command in the input box, an error would be displayed
+because the software would be expecting you to type the text displayed
+above the input box instead of the command you are typing. This is okay
+and you can ignore the error and continue to type the command. As soon
+as you complete typing the command, your command would be executed.
 
 
 License

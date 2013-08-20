@@ -550,7 +550,7 @@ var Units = {
                 // Unit 10 - Words
                 'Words':
                 'axe axiom. latex maximum. axial exile. axion borax; ' +
-                'codex excel. fix six. mix xenon. toxin tax. linux unix; ' +
+                'codex excel. six. mix xenon. toxin tax. linux unix; ' +
                 'hoax fax. fox reflex. wax extra. xerox fedex. ox text; ' +
                 'exist exit. exert helix. galaxy hexadecimal. maxim tex; ' +
                 'next relax. texas exam. exclude lexical;',
@@ -558,7 +558,7 @@ var Units = {
 
                 // Unit 10 - Control
                 'Control':
-                'a ax axi axio axiom. x xe xen xeno xenon. f fi fix. ' +
+                'a ax axi axio axiom. x xe xen xeno xenon. s si six. ' +
                 'e ex ext extr extra. g ga gal gala galax galaxy. ' +
                 'h he hex hexa hexad hexade hexadec hexadeci hexadecim ' +
                 'hexadecima hexadecimal. t te tex texa texas. b bo box. ' +
