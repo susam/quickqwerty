@@ -245,7 +245,7 @@ var Tutor = function()
     // Write logs via a configured logging function.
     //
     // Arguments:
-    //   key, value, ... -- An event number of string arguments
+    //   key, value, ... -- An even number of string arguments
     function log()
     {
         if (my.logFunction == null)
@@ -622,12 +622,22 @@ var Tutor = function()
     // Toggle between main unit and alternate unit
     function toggleUnit()
     {
+        var newUnit
+        var confirmMessage
+
         if (my.settings.unit == my.UNIT.MAIN) {
-            localStorage.unit = my.UNIT.ALTERNATE
+            newUnit = my.UNIT.ALTERNATE
+            confirmMessage = Units.alternateConfirmMessage
         } else {
-            localStorage.unit = my.UNIT.MAIN
+            newUnit = my.UNIT.MAIN
+            confirmMessage = Units.mainConfirmMessage
         }
 
+        if (!confirm(confirmMessage)) {
+            return false
+        }
+
+        localStorage.unit = newUnit
         loadSettings()
         updateUnitFromURL()
         return false
@@ -1214,7 +1224,10 @@ var Tutor = function()
             '</span> U!' + pEnd + pRight + '&mdash; Susam' + pEnd,
 
             pLeft + 'Cutie Pai,' + pEnd + pCenter +
-            'I love you!' + pEnd + pRight + '&mdash; Susam' + pEnd,
+            'I love you! <span style="color: #f52887;">' +
+            '<span style="font-size: 60%">&hearts;</span>' +
+            '<span style="font-size: 100%">&hearts;</span></span>' +
+            pEnd + pRight + '&mdash; Susam' + pEnd,
 
             pLeft + 'Cutie Pai,' + pEnd + pLeft +
             'Your smile is the most beautiful thing in the ' +

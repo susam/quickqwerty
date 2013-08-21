@@ -1134,6 +1134,43 @@ var Units = {
     // Label to be used to identify the main units
     'mainLabel': '6-7 split',
 
+    // The message to be displayed to the user to make sure he really
+    // wants to move to the main units
+    'mainConfirmMessage':
+        'You are about to choose the 6-7 split style to type the ' +
+        'number keys. This means you are choosing to type the ' +
+        'numbers 1 to 6 with the left hand and the numbers 7 to 0 ' +
+        'with the right hand.\n\n' +
+        'This is the traditional style of typing the number keys, ' +
+        'and most ergonomic split keyboards support this style, i.e ' +
+        'they have the 6 key on the left side of the split and 7 on ' +
+        'the right side of the split.\n\n' +
+        'It is recommended that you learn only one split style and ' +
+        'stick with it. If you choose this style, there is no ' +
+        'need to learn the 5-6 style later.\n\n' +
+        'Do you want to proceed with learning to touch type the ' +
+        'number keys with the 6-7 split style?',
+
+    // The message to be displayed to the user to make sure he really
+    // wants to move to the main units
+    'alternateConfirmMessage':
+        'You are about to choose the 5-6 split style to type the ' +
+        'number keys. This means you are choosing to type the ' +
+        'numbers 1 to 5 with the left hand and the numbers 6 to 0 ' +
+        'with the right hand.\n\n' +
+        'Note that most ergonomic split keyboards have the 6 key ' +
+        'on the left side of the split. Also, most normal keyboards ' +
+        'have the 6 key closer to the F key than it is to the J key ' +
+        'Therefore, 6-7 split style is the recommended style to ' +
+        'learn typing the number keys. However, it is perfectly ' +
+        'fine to learn the 5-6 style if it is more convenient for ' +
+        'your keyboard.\n\n' +
+        'It is recommended that you learn only one split style and ' +
+        'stick with it. If you choose this style, there is no ' +
+        'need to learn the 6-7 style later.\n\n' +
+        'Do you want to proceed with learning to touch type the ' +
+        'number keys with the 5-6 split style?',
+
     // Label to be used to identify the alternate units
     'alternateLabel': '5-6 split',
 
