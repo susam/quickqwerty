@@ -1156,7 +1156,7 @@ var Tutor = function()
         var inputText = my.html.input.value
         var goodChars = my.current.correctInputLength
 
-        if (inputCommandIs('restart') || inputCommandIs('reset')) {
+        if (inputCommandIs('restart') || inputCommandIs('rst')) {
             location.href = '#restart'
         } else if (inputCommandIs('fix') || inputCommandIs('xxx')){
             my.html.input.value = inputText.substring(0, goodChars)
