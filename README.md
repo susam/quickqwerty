@@ -75,9 +75,9 @@ to switch between the two styles.
 
 Commands
 --------
-At any point while typing in the input box, you can type a command. The
-following is a list of the supported commands along with a description
-of what the command does.
+At any point while typing in the input box, you can type an input
+command. The following is a list of the supported commands along with a
+description of what each command does.
 
   * restart
     - restart the current subunit

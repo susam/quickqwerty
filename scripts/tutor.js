@@ -1194,14 +1194,13 @@ var Tutor = function()
     // Animate hearts across the page
     function qtpiAnimation()
     {
-        var ox = 320
-        var oy = 320
+        var ox = 0
+        var oy = 80
 
-        var w = window.innerWidth - 2 * ox
-        var h = window.innerHeight - 2 * oy
+        var w = document.body.clientWidth - 200
+        var h = document.body.clientHeight - 200
 
         var newInterval = Util.random(200, 2000)
-        var growInterval = Util.random(10, 50)
 
         window.setInterval(function()
         {
@@ -1215,8 +1214,10 @@ var Tutor = function()
             span.style.fontSize = '0%'
             span.innerHTML = '\u2665'
 
+            var growInterval = Util.random(10, 50)
             var i = 0
-            var id = window.setInterval(function() {
+            var id = window.setInterval(function()
+            {
                 i++
                 span.style.fontSize = (i * 20) + '%'
                 span.style.opacity = ((100 - i) / 100) + ''
@@ -1226,7 +1227,6 @@ var Tutor = function()
                 }
             }, growInterval)
         }, newInterval)
-
     }
 
     // Return a message selected randomly or a message selected based on
