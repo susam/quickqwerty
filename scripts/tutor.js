@@ -1191,41 +1191,117 @@ var Tutor = function()
     }
 
 
-    // Animate hearts across the page
-    function qtpiAnimation()
+    // Create an HTML element to display a pink heart and add it to the
+    // HTML page.
+    //
+    // Return:
+    //   HTML element with containing the heart
+    function createHeart()
+    {
+        var span = document.createElement('span')
+
+        span.style.position = 'absolute'
+        span.style.color = '#f52887'
+        span.style.opacity = '0'
+        span.innerHTML = '\u2665'
+
+        document.body.appendChild(span)
+        return span
+    }
+
+
+    // Display growing hearts all over the page.
+    function growingHearts()
     {
         var ox = 0
         var oy = 80
 
-        var w = document.body.clientWidth - 200
-        var h = document.body.clientHeight - 200
+        var w = document.body.clientWidth - ox - 200
+        var h = document.body.clientHeight - oy - 200
 
         var newInterval = Util.random(200, 2000)
 
         window.setInterval(function()
         {
-            var span = document.createElement('span')
-            document.body.appendChild(span)
 
-            span.style.position = 'absolute'
-            span.style.color = '#f52887'
-            span.style.left = Util.random(ox, ox + w) + 'px'
-            span.style.top = Util.random(oy, oy + h) + 'px'
-            span.style.fontSize = '0%'
-            span.innerHTML = '\u2665'
+            var heart = createHeart()
+            heart.style.fontSize = '0%'
+            heart.style.left = Util.random(ox, ox + w) + 'px'
+            heart.style.top = Util.random(oy, oy + h) + 'px'
 
             var growInterval = Util.random(10, 50)
+            var size = Util.random(200, 2000)
+            var i = 0
+            var id = window.setInterval(function()
+            {
+                i += 20
+                heart.style.fontSize = i + '%'
+
+                if (i < size / 2 ) {
+                    heart.style.opacity = '1'
+                } else {
+                    heart.style.opacity = (1 - (2 * i - size) / size ) + ''
+                }
+
+                if (i >= size) {
+                    window.clearInterval(id)
+                    document.body.removeChild(heart)
+                }
+            }, growInterval)
+        }, newInterval)
+    }
+
+
+    // Display hearts rising across the page
+    function risingHearts()
+    {
+        var ox = 0
+        var oy = 80
+
+        var w = document.body.clientWidth - ox - 200
+        var h = document.body.clientHeight - oy - 200
+
+        var newInterval = Util.random(200, 2000)
+
+        window.setInterval(function()
+        {
+            var x = Util.random(ox, ox + w)
+            var y = Util.random(oy + h - 100, oy + h)
+
+            var heart = createHeart()
+            heart.style.fontSize = Util.random(100, 2000) + '%'
+            heart.style.left = x + 'px'
+            heart.style.top = y + 'px'
+
+            var riseInterval = Util.random(10, 50)
+            var rise = Util.random(h / 4, h)
+            var drift = Util.random(-1, 1)
             var i = 0
             var id = window.setInterval(function()
             {
                 i++
-                span.style.fontSize = (i * 20) + '%'
-                span.style.opacity = ((100 - i) / 100) + ''
-                if (i == 100) {
-                    window.clearInterval(id)
-                    document.body.removeChild(span)
+                if (Util.random(1, 100) <= 1) {
+                    drift = (drift == Util.random(-1, 1) ? 1 : 0)
                 }
-            }, growInterval)
+
+                x = Math.min(Math.max(x + drift, ox), ox + w)
+
+                heart.style.left = x + 'px'
+                heart.style.top = (y - i) + 'px'
+
+                if (i < rise / 4) {
+                    heart.style.opacity = (4 * i / rise) + ''
+                } else if (i < rise / 2 ) {
+                    heart.style.opacity = '1'
+                } else {
+                    heart.style.opacity = (1 - (2 * i - rise) / rise ) + ''
+                }
+
+                if (i >= rise) {
+                    window.clearInterval(id)
+                    document.body.reriseChild(heart)
+                }
+            }, riseInterval)
         }, newInterval)
     }
 
@@ -1326,7 +1402,7 @@ var Tutor = function()
         letterDiv.style.marginTop = verticalMargin
         letterDiv.style.marginBottom = verticalMargin
 
-        qtpiAnimation()
+        Util.random([growingHearts, risingHearts, function(){}])()
         log('qtpi', letterDiv.innerHTML.replace(/(<([^>]+)>)/ig, ' '))
     }
 

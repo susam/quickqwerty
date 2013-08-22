@@ -65,7 +65,7 @@ var Util = function()
             if (typeof b == 'number') {
                 a = Math.floor(a)
                 b = Math.floor(b)
-                return Math.floor(Math.random() * (b - a + 1) + a)
+                return Math.floor(Math.random() * (b - a + 1)) + a
             } else {
                 return Number.NaN
             }

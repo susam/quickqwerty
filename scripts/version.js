@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 var Version = function()
 {
-    var NUMBER = '1.0.0-alpha'
+    var NUMBER = '1.0-alpha'
 
     function set()
     {

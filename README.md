@@ -104,9 +104,9 @@ complete license.
 
 This software is provided WITHOUT ANY WARRANTY; without even the implied
 warranties of MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE. See
-the LICENSE.txt file for the complete disclaimer.
+the LICENSE.html file for the complete disclaimer.
 
-If you do not have a copy of the LICENSE.txt file, please visit
+If you do not have a copy of the LICENSE.html file, please visit
 http://quickqwerty.com/LICENSE.html to obtain a copy of the license.
 
 
