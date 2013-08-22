@@ -81,7 +81,7 @@ of what the command does.
 
   * restart
     - restart the current subunit
-  * reset
+  * rst
     - same as the 'restart' command
   * fix
     - remove errors from the input text

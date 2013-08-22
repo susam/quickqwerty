@@ -1194,15 +1194,14 @@ var Tutor = function()
     // Animate hearts across the page
     function qtpiAnimation()
     {
-        var ox = 80
-        var oy = 160
+        var ox = 320
+        var oy = 320
 
         var w = window.innerWidth - 2 * ox
         var h = window.innerHeight - 2 * oy
 
         var newInterval = Util.random(200, 2000)
         var growInterval = Util.random(10, 50)
-        console.log(newInterval + ', ' + growInterval)
 
         window.setInterval(function()
         {
