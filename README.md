@@ -14,7 +14,7 @@ key.
 Contents
 --------
 * [Units](#units)
-* [5–6 split vs. 6–7 split](#5–6-split-vs-6–7-split)
+* [5–6 split vs. 6–7 split](#56-split-vs-67-split)
 * [Commands](#commands)
 * [License](#license)
 * [Contact](#contact)

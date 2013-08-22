@@ -1191,6 +1191,45 @@ var Tutor = function()
     }
 
 
+    // Animate hearts across the page
+    function qtpiAnimation()
+    {
+        var ox = 80
+        var oy = 160
+
+        var w = window.innerWidth - 2 * ox
+        var h = window.innerHeight - 2 * oy
+
+        var newInterval = Util.random(200, 2000)
+        var growInterval = Util.random(10, 50)
+        console.log(newInterval + ', ' + growInterval)
+
+        window.setInterval(function()
+        {
+            var span = document.createElement('span')
+            document.body.appendChild(span)
+
+            span.style.position = 'absolute'
+            span.style.color = '#f52887'
+            span.style.left = Util.random(ox, ox + w) + 'px'
+            span.style.top = Util.random(oy, oy + h) + 'px'
+            span.style.fontSize = '0%'
+            span.innerHTML = '\u2665'
+
+            var i = 0
+            var id = window.setInterval(function() {
+                i++
+                span.style.fontSize = (i * 20) + '%'
+                span.style.opacity = ((100 - i) / 100) + ''
+                if (i == 100) {
+                    window.clearInterval(id)
+                    document.body.removeChild(span)
+                }
+            }, growInterval)
+        }, newInterval)
+
+    }
+
     // Return a message selected randomly or a message selected based on
     // time.
     //
@@ -1288,6 +1327,7 @@ var Tutor = function()
         letterDiv.style.marginTop = verticalMargin
         letterDiv.style.marginBottom = verticalMargin
 
+        qtpiAnimation()
         log('qtpi', letterDiv.innerHTML.replace(/(<([^>]+)>)/ig, ' '))
     }
 
