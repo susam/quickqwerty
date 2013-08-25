@@ -17,30 +17,40 @@
     height: 241px !important;
 }
 
-h2 .downloadButton {
-    margin-bottom: 0.5em;
+.downloadWrapper {
+    display: inline-block;
 }
 
-.downloadButton {
+.downloadWrapper h2
+{
+    margin-bottom: 16px;
+}
+
+a.download {
     padding: 0.75em;
     border-width: 2px;
     border-style: outset;
     border-radius: 10px;
     color: white;
     font-weight: bold;
-    display: inline-block;
+    display: block;
+    margin-bottom: 16px;
 }
 
-a.downloadButton:link, 
-a.downloadButton:visited {
+a.download:last-child {
+    margin-bottom: 0;
+}
+
+a.download:link, 
+a.download:visited {
     color: #ffffff;
     background: #008000;
     border-color: #008000;
     text-decoration: none;
 }
 
-a.downloadButton:hover,
-a.downloadButton:active {
+a.download:hover,
+a.download:active {
     color: lightcyan;
     background: #009000;
     border-color: #009000;
@@ -51,15 +61,6 @@ a.downloadButton:active {
     margin-right: 0.5em;
 }
 
-.multipleDownloadButtons {
-    display: inline-block;
-}
-
-.multipleDownloadButtons a.downloadButton {
-    display: block;
-    margin-bottom: 1em;
-}
-
-.multipleDownloadButtons a.downloadButton:last-child {
-    margin-bottom: 0;
+.releaseDate {
+    text-align: center;    
 }

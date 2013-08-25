@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 var Version = function()
 {
     // Version of this application
-    var VERSION = '1.0-beta1'
+    var VERSION = '1.0-beta2'
 
 
     // Display this version number in an HTML element with its id as
