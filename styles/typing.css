@@ -188,3 +188,16 @@
     margin-top: 1%;
     display: inline-block;
 }
+
+#update {
+    display: none;
+    text-align: left;
+    width: 80%;
+    border: 3px double red;
+    background: #ffe0e0;
+    padding: 0 1em;
+}
+
+#update a {
+    margin-right: 2em;
+}

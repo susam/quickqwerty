@@ -34,18 +34,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="styles/base.css">
 <link rel="stylesheet" type="text/css" href="styles/typing.css">
-<script type="text/javascript" src="scripts/util.js"></script>
-<script type="text/javascript" src="scripts/units.js"></script>
-<script type="text/javascript" src="scripts/settings.js"></script>
-<script type="text/javascript" src="scripts/tutor.js"></script>
-<script type="text/javascript" src="scripts/version.js"></script>
-<script type="text/javascript" src="http://susam.in/onepixel/?js"></script>
-<script type="text/javascript">
+<script src="scripts/util.js"></script>
+<script src="scripts/units.js"></script>
+<script src="scripts/settings.js"></script>
+<script src="scripts/tutor.js"></script>
+<script src="scripts/version.js"></script>
+<script src="http://quickqwerty.com/scripts/update.js"></script>
+<script src="http://susam.in/onepixel/?js"></script>
+<script>
 // Log request
 if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
 
     OnePixel.log('name', 'QuickQWERTY',
-                 'version', Version.NUMBER)
+                 'version', Version.VERSION)
 
     Tutor.setLogFunction(OnePixel.log)
 }
@@ -68,11 +69,15 @@ if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
 
 })()
 
-// Start tutor and set version
+// Start tutor, set version and check for updates
 window.onload = function()
 {
     Tutor.init()
     Version.set()
+
+    if (typeof Update == 'object' && typeof Update.check == 'function') {
+        Update.check()
+    }
 }
 </script>
 </head>
@@ -94,13 +99,20 @@ window.onload = function()
 <div id="mainWrapper">
 <div id="main">
     <div id="content">
-        <!-- 
-        Place a blank space here, so that the noscript element
-        appears to be centered when JavaScript is disabled.
-        -->
         <div id="unitLinks"></div>
 
         <div id="practicePanelWrapper">
+        <div id="update">
+            <p>
+            A new version of QuickQWERTY is available. You are using
+            <strong>QuickQWERTY&nbsp;<span id="thisVersion"></span></strong>.
+            The latest stable version of this application is
+            <strong>QuickQWERTY&nbsp;<span id="stableVersion"></span></strong>.
+            </p><p>
+            <a id="downloadUpdate" href="#">Download</a>
+            <a id="ignoreUpdate" href="#">Hide this message</a>
+            </p>
+        </div>
         <div id="practicePanel">
             <div id="previousLink">
                 <a href="#previous">&laquo;</a>

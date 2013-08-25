@@ -30,8 +30,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 var Version = function()
 {
-    var NUMBER = '1.0-alpha'
+    // Version of this application
+    var VERSION = '1.0-alpha'
 
+
+    // Display this version number in an HTML element with its id as
+    // 'version'.
     function set()
     {
         var versionElement = document.getElementById('version')
@@ -39,11 +43,13 @@ var Version = function()
             return
         }
 
-        versionElement.innerHTML = NUMBER
+        versionElement.innerHTML = VERSION
     }
 
+
+    // Version object
     return {
-        NUMBER: NUMBER,
+        VERSION: VERSION,
         set: set
     }
 }()
