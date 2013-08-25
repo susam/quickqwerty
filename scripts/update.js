@@ -315,7 +315,6 @@ var Update = function()
     // beginning of the next new session.
     function check()
     {
-        console.log(sessionStorage.update)
         if (typeof sessionStorage.update != 'undefined' &&
             sessionStorage.update == 'no') {
             return

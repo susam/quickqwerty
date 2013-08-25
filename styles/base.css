@@ -133,3 +133,11 @@ a:hover, a:active {
     width: 239px !important;
     height: 241px !important;
 }
+
+.warning {
+    display: none;
+    text-align: left;
+    border: 3px double red;
+    background: #ffe0e0;
+    padding: 0 1em;
+}

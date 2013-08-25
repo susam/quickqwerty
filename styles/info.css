@@ -16,3 +16,50 @@
     width: 292px !important;
     height: 241px !important;
 }
+
+h2 .downloadButton {
+    margin-bottom: 0.5em;
+}
+
+.downloadButton {
+    padding: 0.75em;
+    border-width: 2px;
+    border-style: outset;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+a.downloadButton:link, 
+a.downloadButton:visited {
+    color: #ffffff;
+    background: #008000;
+    border-color: #008000;
+    text-decoration: none;
+}
+
+a.downloadButton:hover,
+a.downloadButton:active {
+    color: lightcyan;
+    background: #009000;
+    border-color: #009000;
+    text-decoration: none;
+}
+
+.downloadSymbol {
+    margin-right: 0.5em;
+}
+
+.multipleDownloadButtons {
+    display: inline-block;
+}
+
+.multipleDownloadButtons a.downloadButton {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.multipleDownloadButtons a.downloadButton:last-child {
+    margin-bottom: 0;
+}

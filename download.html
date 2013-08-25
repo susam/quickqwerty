@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <html>
 <head>
-<title>QuickQWERTY is released under Simplified BSD License</title>
+<title>Download QuickQWERTY</title>
 <meta charset="utf-8">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="styles/base.css">
@@ -48,6 +48,11 @@ if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
 window.onload = function()
 {
     Version.set()
+
+    var comMode = /\bquickqwerty.com$/i.test(window.location.hostname)
+    if (!comMode) {
+        document.getElementById('offlineWarning').style.display = 'block'
+    }
 }
 </script>
 </head>
@@ -56,7 +61,6 @@ window.onload = function()
 <!-- Header -->
 <div id="header">
     <h1><a href="index.html">QuickQWERTY</a></h1>
-    <h2 id="unitTitle"></h2>
     <div id="navigation">
         <a href="index.html">Tutor</a>
         <a href="download.html">Download</a>
@@ -69,38 +73,104 @@ window.onload = function()
 <div id="mainWrapper">
 <div id="main">
     <div id="content">
-    <h2>Simplified BSD License</h2>
+
+    <div id="offlineWarning" class="warning">
+        <p>
+        You are viewing an offline version of QuickQWERTY download page
+        from your computer or from a web server other than <a
+        href="http://quickqwerty.com/">quickqwerty.com</a>. The
+        download details mentioned in this page may be outdated.
+        </p><p>
+        Visit <a
+        href="http://quickqwerty.com/download.html"><!--
+        -->http://quickqwerty.com/download.html</a>
+        to read an up-to-date version of this page.
+        </p>
+    </div>
+
+    <h2>
+    <a class="downloadButton"
+       href="https://github.com/susam/quickqwerty/archive/1.0-beta1.zip"><!--
+       --><span class="downloadSymbol">&#x2b07;</span> Download
+       QuickQWERTY 1.0-beta1</a>
+    </h2>
+
+    <h3>Contents</h3>
+    <ul>
+        <li><a href="#stable">Latest stable release</a></li>
+        <li><a href="#development">Latest development release</a></li>
+        <li><a href="#online">Online release</a></li>
+        <li><a href="#all">All releases</a></li>
+    </ul>
+
+    <h3 id="stable">Latest stable release</h3>
     <p>
-    Copyright &copy; 2013 Susam Pal<br>
-    All rights reserved.
+    There is no stable release available yet.
     </p><p>
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are
-    met:
+    <!--
+    This is the recommended release for users who want to download
+    QuickQWERTY and save it on their computers for offline usage.  This
+    release has undergone significant real world testing to be
+    considered stable enough for regular usage by all users.
+    -->
     </p>
-    <ol>
-    <li>
-        Redistributions of source code must retain the above copyright
-        notice, this list of conditions and the following disclaimer.
-    </li><li>
-        Redistributions in binary form must reproduce the above copyright
-        notice, this list of conditions and the following disclaimer in
-        the documentation and/or other materials provided with the
-        distribution.
-    </li>
-    </ol>
+
+    <h3 id="development">Latest development release</h3>
+
+    <div class="multipleDownloadButtons">
+    <a class="downloadButton"
+       href="https://github.com/susam/quickqwerty/archive/1.0-beta1.zip"><!--
+       --><span class="downloadSymbol">&#x2b07;</span> Download
+       QuickQWERTY 1.0-beta1 (zip)</a>
+    <a class="downloadButton"
+       href="https://github.com/susam/quickqwerty/archive/1.0-beta1.tar.gz"><!--
+       --><span class="downloadSymbol">&#x2b07;</span> Download
+       QuickQWERTY 1.0-beta1 (tar.gz)</a>
+    </div>
+
     <p>
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-    HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    This is a beta release. This release is currently undergoing real
+    world testing. This release may be followed by more beta releases to
+    fix issues found in this release. If no major issues are found in
+    this release, then this release will be followed by a release
+    candidate.
+    <!--
+    This is a release candidate. This release is currently undergoing
+    real world testing. This release may be followed by more release
+    candidates to fix minor issues found in this release. If no minor
+    issues are found in this release, this release will be followed by a
+    stable release.
+    -->
+    </p><p>
+    This release is not considered stable enough for regular usage by
+    all users. This release is recommended only to those users who want
+    to use the new features that are present in this release but not
+    available in the stable release. The user must be aware that this
+    release is unstable, and therefore it may contain issues.
+    </p>
+
+    <h3 id="online">Online release</h3>
+    <p>
+    <a class="downloadButton"
+       href="http://quickqwerty.com/"><!--
+       --><span class="downloadSymbol">&#x25b6;</span>
+       Use QuickQWERTY online</a>
+    </p>
+    <p>
+    The online release of QuickQWERTY can always be accessed at
+    <a href="http://quickqwerty.com/">http://quickqwerty.com/</a>.
+    </p><p>
+    The online release is usually a snapshot of a recent development
+    release, or the latest stable release if no development release has
+    been made since the last stable release.
+    </p>
+
+    <h3 id="all">All releases</h3>
+    <p>
+    A list of links to the latest stable and development releases as
+    well as all other earlier releases can be found at <a
+    href="https://github.com/susam/quickqwerty/releases"><!--
+    -->https://github.com/susam/quickqwerty/releases</a>.
     </p>
 
     <noscript>
