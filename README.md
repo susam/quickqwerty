@@ -1,14 +1,13 @@
 QuickQWERTY
 ===========
-[QuickQWERTY][1] is a touch typing tutor written by [Susam Pal][2]. This
-software may be used to train your fingers to type without looking at
-the keys.  After completing all the units available in this software,
-one would know the location of the keys on the keyboard through muscle
-memory, and would be able to effortlessly use the right finger for each
-key.
+[QuickQWERTY][1] is a touch typing tutor that runs on a web browser with
+JavaScript enabled. This software may be used to train your fingers to
+type without looking at the keys.  After completing all the units
+available in this software, one would know the location of the keys on
+the keyboard through muscle memory, and would be able to effortlessly
+use the right finger for each key.
 
   [1]: http://quickqwerty.com/
-  [2]: http://susam.in/
 
 
 Contents
