@@ -955,7 +955,10 @@ var Tutor = function()
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
                 my.html.status.innerHTML = 'READY'
+                my.html.status.title = 'Type in the input box below ' +
+                                       'to begin this lesson.'
                 my.html.restartLink.style.visibility = 'hidden'
+                clearAdvice()
                 break
 
             case my.STATE.RUNNING:
@@ -964,6 +967,7 @@ var Tutor = function()
                 my.html.status.innerHTML = ''
                 my.html.status.title = ''
                 my.html.restartLink.style.visibility = 'visible'
+                clearAdvice()
                 break
 
             case my.STATE.ERROR:
@@ -971,6 +975,9 @@ var Tutor = function()
                 my.html.input.disabled = false
                 my.html.restartLink.style.visibility = 'visible'
                 my.html.status.innerHTML = 'ERROR!'
+                my.html.status.title = 'Fix errors in the input box ' +
+                                       'by pressing the backspace key.'
+                clearAdvice()
                 break
 
             case my.STATE.COMPLETED:
@@ -978,29 +985,28 @@ var Tutor = function()
                 my.html.input.disabled = true
                 my.html.restartLink.style.visibility = 'visible'
                 my.html.status.innerHTML = 'COMPLETED'
+                my.html.status.title = 'You have completed this lesson.'
+                displayAdvice()
                 break
         }
 
-        updateRemarkAndAdvice()
+    }
+
+
+    // Clear advice.
+    function clearAdvice()
+    {
+        my.html.remark.innerHTML = ''
+        while (my.html.advice.firstChild) {
+            my.html.advice.removeChild(my.html.advice.firstChild)
+        }
     }
 
 
     // Update remark and advice link according to the current state of
     // the tutor and the performance of the user.
-    function updateRemarkAndAdvice()
+    function displayAdvice()
     {
-        // Remark and advice is displayed only when the current subunit
-        // text has been typed completely.
-        if (my.current.state != my.STATE.COMPLETED) {
-
-            my.html.remark.innerHTML = ''
-            while (my.html.advice.firstChild) {
-                my.html.advice.removeChild(my.html.advice.firstChild)
-            }
-
-            return
-        }
-
         // Calculate error rate (in percent)
         var error = Math.round(my.current.errorRate)
 
