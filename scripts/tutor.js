@@ -221,8 +221,8 @@ var Tutor = function()
         loadSettings()
 
         // Initialize the user interface
-        updateUnitFromURL()
         showPracticePanelWrapper()
+        updateUnitFromURL()
         hideTips()
 
         // Event handlers
