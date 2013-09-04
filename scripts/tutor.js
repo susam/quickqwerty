@@ -580,7 +580,6 @@ var Tutor = function()
         displayUnitLinks()
         displaySubunitLinks()
         displayAlternateUnitLinks()
-        selectUnitAndSubunit()
         updateProgressTooltip()
 
         displayUnitTitle()
@@ -655,19 +654,6 @@ var Tutor = function()
         loadSettings()
         updateUnitFromURL()
         return false
-    }
-
-
-    // Mark the current unit and current subunit elements as selected.
-    function selectUnitAndSubunit()
-    {
-        var unitID = 'unit' + my.current.unitNo
-        var unitDiv = document.getElementById(unitID)
-        unitDiv.className = 'selected'
-
-        var subunitID = 'subunit' + my.current.subunitNo
-        var subunitDiv = document.getElementById(subunitID)
-        subunitDiv.className = 'selected'
     }
 
 
