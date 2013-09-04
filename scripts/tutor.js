@@ -153,6 +153,9 @@ var Tutor = function()
             // Current typing speed of the user in words per minute
             wpm: 0,
 
+            // Current typing speed of the user in characters per minute
+            cpm: 0,
+
             // Errors made by the user expressed in percent
             errorRate: 0,
 
@@ -578,11 +581,22 @@ var Tutor = function()
         displaySubunitLinks()
         displayAlternateUnitLinks()
         selectUnitAndSubunit()
+        updateProgressTooltip()
 
         displayUnitTitle()
         displayTips()
 
         resetSubunit()
+    }
+
+
+    // Display the number of characters in the current lesson as a
+    // tooltip for progress bar and progress percent.
+    function updateProgressTooltip()
+    {
+        my.html.progress.title =
+                'This lesson contains ' + my.current.subunitText.length +
+                ' characters.'
     }
 
 
@@ -935,6 +949,7 @@ var Tutor = function()
         if (goodChars == my.current.subunitText.length) {
             my.current.state = my.STATE.COMPLETED
             updatePracticePaneState()
+            updateResultPaneTooltips()
 
             log('state', my.current.state.toUpperCase(),
                 'unit', my.current.unitNo + '.' + my.current.subunitNo,
@@ -1043,20 +1058,13 @@ var Tutor = function()
 
         my.html.progressBar.value = progress
         my.html.progressPercent.innerHTML = progress + '%'
-
-        var charNoun = textLength == 1 ? 'character' : 'characters'
-
-        my.html.progress.title =
-                'You have typed ' + goodChars + ' out of ' +
-                textLength + ' ' + charNoun + '.'
-                                 
     }
 
 
     // Update the typing speed.
     function updateSpeed()
     {
-        // CPM and WPM does not need to be updated on error
+        // WPM and CPM does not need to be calculated on error
         if (my.current.state == my.STATE.ERROR) {
             return
         }
@@ -1067,31 +1075,18 @@ var Tutor = function()
         var currentTime = new Date().getTime()
         var timeElapsed = (currentTime - my.current.startTime) / 60000
 
-        // Update CPM and WPM
+        // Calculate WPM and CPM
         var wpm
-        var wpmInfo
-        var cpmInfo
         if (timeElapsed == 0) {
-            if (goodChars == 0) {
-                wpm = 0
-                wpmInfo = 0
-                cpmInfo = 0
-            } else {
-                wpm = '&infin;'
-                wpmInfo = '\u221e'
-                cpmInfo = '\u221e'
-            }
+            wpm = goodChars == 0 ? 0 : '&infin;'
         } else {
             wpm = Math.round(goodChars / 5 / timeElapsed)
             my.current.wpm = wpm
-            wpmInfo = wpm
-            cpmInfo = Math.round(goodChars / timeElapsed)
+            my.current.cpm = Math.round(goodChars / timeElapsed)
         }
 
+        // Display WPM
         my.html.speed.innerHTML = wpm + ' wpm'
-        my.html.speed.title = 'Your typing speed is\n' +
-                            wpmInfo + ' words per minute, or\n' +
-                            cpmInfo + ' characters per minute.'
     }
         
 
@@ -1107,31 +1102,12 @@ var Tutor = function()
         // Update error rate
         if (my.current.errorRate == Number.POSITIVE_INFINITY) {
             errorRate = '&infin; '
-            errorRateTooltip = '\u221e'
-            accuracyTooltip = 0
         } else {
             errorRate = Math.round(my.current.errorRate)
-            errorRateTooltip = parseFloat(my.current.errorRate.toFixed(1))
-            accuracyTooltip = 100 - errorRateTooltip
         }
 
+        // Display error rate
         my.html.error.innerHTML = errorRate + '% error'
-
-        var charNoun = goodChars == 1 ? 'character' : 'characters'
-        var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
-
-        var title =
-                'You have typed ' + goodChars + ' ' + charNoun +
-                ' correctly.\n' +
-                'You have made ' + my.current.errors + ' ' +
-                errorNoun + '.\n'
-
-        if (my.current.state != my.STATE.READY) {
-            title += 'Your error rate is ' + errorRateTooltip + '%.\n' +
-                     'Your accuracy is ' + accuracyTooltip + '%.\n'
-        }
-
-        my.html.error.title = title
     }
 
 
@@ -1153,6 +1129,44 @@ var Tutor = function()
         } else {
             my.html.smiley.innerHTML = my.SMILEY.SAD
         }
+    }
+
+
+    // Update the tooltips in result pane.
+    function updateResultPaneTooltips()
+    {
+        // Speed tooltip
+        my.html.speed.title = 'Your typing speed is\n' +
+                              my.current.wpm + ' words per minute, or\n' +
+                              my.current.cpm + ' characters per minute.'
+
+
+        // Error rate tooltip
+        var errorRateTooltip
+        var accuracyTooltip
+
+        // Update error rate
+        if (my.current.errorRate == Number.POSITIVE_INFINITY) {
+            errorRateTooltip = '\u221e'
+            accuracyTooltip = 0
+        } else {
+            errorRateTooltip = parseFloat(my.current.errorRate.toFixed(1))
+            accuracyTooltip = 100 - errorRateTooltip
+        }
+
+        var textLength = my.current.subunitText.length
+        var charNoun = textLength == 1 ? 'character' : 'characters'
+        var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
+
+        var title =
+                'You have typed ' + textLength + ' ' + charNoun +
+                ' correctly.\n' +
+                'You have made ' + my.current.errors + ' ' +
+                errorNoun + '.\n' +
+                'Your error rate is ' + errorRateTooltip + '%.\n' +
+                'Your accuracy is ' + accuracyTooltip + '%.\n'
+
+        my.html.error.title = title
     }
 
 
