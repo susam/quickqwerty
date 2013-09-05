@@ -438,6 +438,31 @@ var Tutor = function()
     }
 
 
+    // Check if the current unit is the first subunit among all the
+    // subunits.
+    //
+    // Return:
+    //   true if the current subunit is the first subunit;
+    //   false otherwise
+    function currentSubunitIsTheFirstSubunit()
+    {
+        return my.current.unitNo == 1 && my.current.subunitNo == 1
+    }
+
+
+    // Check if the current subunit is the last subunit among all the
+    // subunits.
+    //
+    // Return:
+    //   true if the current subunit is the last subunit;
+    //   false otherwise
+    function currentSubunitIsTheLastSubunit()
+    {
+        return my.current.unitNo == Units.main.length &&
+               my.current.subunitNo == my.current.subunitTitles.length
+    }
+
+
     // Go to previous subunit.
     //
     // Do nothing if the user is already at the first subunit of the
@@ -447,25 +472,24 @@ var Tutor = function()
         var m = my.current.unitNo
         var n = my.current.subunitNo
 
-        if (m == 1 && n == 1) {
-            // If the user is at unit 1.1, there is no further
-            // previous unit to go to.
-            return
-        } else if (n == 1) {
-            // If the user is at unit M.1, go to unit (M - 1).L
-            // where L is the last subunit of the previous unit.
-            previousUnit = unit(m - 1)
-            var previousSubunitTitles = []
-            for (var subunitTitle in previousUnit.subunits) {
-                previousSubunitTitles.push(subunitTitle)
-            }
+        if (!currentSubunitIsTheFirstSubunit()) {
+            if (n == 1) {
+                // If the user is at unit M.1, go to unit (M - 1).L
+                // where L is the last subunit of the previous unit.
+                previousUnit = unit(m - 1)
+                var previousSubunitTitles = []
+                for (var subunitTitle in previousUnit.subunits) {
+                    previousSubunitTitles.push(subunitTitle)
+                }
 
-            m--
-            n = previousSubunitTitles.length
-        } else {
-            // If the user is at unit M.N, go to unit M.(N - 1)
-            n--
+                m--
+                n = previousSubunitTitles.length
+            } else {
+                // If the user is at unit M.N, go to unit M.(N - 1)
+                n--
+            }
         }
+
         window.location.href = unitHref(m, n)
     }
 
@@ -479,20 +503,18 @@ var Tutor = function()
         var m = my.current.unitNo
         var n = my.current.subunitNo
 
-        if (m == Units.main.length &&
-            n == my.current.subunitTitles.length) {
-            // If the user is at the last subunit, there is no further
-            // unit to go to.
-            return
-        } else if (n == my.current.subunitTitles.length) {
-            // If the user is at unit M.L where L is the last subunit of
-            // unit M, then go to unit (M + 1).1.
-            m++
-            n = 1
-        } else {
-            // If the user is at unit M.N, then go to unit M.(N + 1).
-            n++
+        if (!currentSubunitIsTheLastSubunit()) {
+            if (n == my.current.subunitTitles.length) {
+                // If the user is at unit M.L where L is the last
+                // subunit of unit M, then go to unit (M + 1).1.
+                m++
+                n = 1
+            } else {
+                // If the user is at unit M.N, then go to unit M.(N + 1).
+                n++
+            }
         }
+
         window.location.href = unitHref(m, n)
     }
 
