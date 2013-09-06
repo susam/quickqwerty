@@ -691,7 +691,6 @@ var Tutor = function()
         my.current.state = my.STATE.READY
         my.current.errors = 0
         my.html.input.value = ''
-        my.html.input.focus()
 
         log('state', my.current.state.toUpperCase(),
             'unit', my.current.unitNo + '.' + my.current.subunitNo,
@@ -977,6 +976,7 @@ var Tutor = function()
             case my.STATE.READY:
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
+                my.html.input.focus()
                 my.html.status.innerHTML = 'READY'
                 my.html.status.title = 'Type in the input box below ' +
                                        'to begin this lesson.'
@@ -987,6 +987,7 @@ var Tutor = function()
             case my.STATE.RUNNING:
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
+                my.html.input.focus()
                 my.html.status.innerHTML = ''
                 my.html.status.title = ''
                 my.html.restartLink.style.visibility = 'visible'
@@ -996,6 +997,7 @@ var Tutor = function()
             case my.STATE.ERROR:
                 my.html.practicePane.className = 'error'
                 my.html.input.disabled = false
+                my.html.input.focus()
                 my.html.restartLink.style.visibility = 'visible'
                 my.html.status.innerHTML = 'ERROR!'
                 my.html.status.title = 'Fix errors in the input box ' +
@@ -1006,6 +1008,7 @@ var Tutor = function()
             case my.STATE.COMPLETED:
                 my.html.practicePane.className = 'completed'
                 my.html.input.disabled = true
+                my.html.input.blur()
                 my.html.restartLink.style.visibility = 'visible'
                 my.html.status.innerHTML = 'COMPLETED'
                 my.html.status.title = 'You have completed this lesson.'
