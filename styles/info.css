@@ -25,11 +25,6 @@ h3 {
     display: inline-block;
 }
 
-.downloadWrapper h2
-{
-    margin-bottom: 16px;
-}
-
 a.download {
     padding: 0.75em;
     border-width: 2px;
