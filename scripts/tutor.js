@@ -1171,7 +1171,7 @@ var Tutor = function()
 
         var title =
                 'You have typed ' + textLength + ' ' + charNoun +
-                ' correctly.\n' +
+                '.\n' +
                 'You have made ' + my.current.errors + ' ' +
                 errorNoun + '.\n' +
                 'Your error rate is ' + errorRateTooltip + '%.\n' +
