@@ -879,7 +879,7 @@ var Units = {
                 'Sentences':
                 'John has about 55 science books. There are 8 planets. ' +
                 'There are 88 constellations. Area code 585 is a state ' +
-                'of New York are code. 58 candidates will be selected.',
+                'of New York area code. 58 candidates will be selected.',
 
                 // Unit 16 - Test
                 'Test':
