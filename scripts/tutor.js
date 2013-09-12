@@ -150,6 +150,10 @@ var Tutor = function()
             // by the user
             correctInputLength: 0,
 
+            // Time elapsed since the first character was typed by the
+            // user
+            timeElapsed: 0,
+
             // Current typing speed of the user in words per minute
             wpm: 0,
 
@@ -893,6 +897,16 @@ var Tutor = function()
         updateSpeed()
         updateError()
         updateSmiley()
+
+        if (my.current.state == my.STATE.COMPLETED) {
+            setResultPaneTooltips()
+
+            log('state', my.current.state.toUpperCase(),
+                'unit', my.current.unitNo + '.' + my.current.subunitNo,
+                'type', my.settings.unit,
+                'wpm', my.current.wpm,
+                'error', my.current.errorRate.toFixed(1))
+        }
     }
 
 
@@ -956,13 +970,6 @@ var Tutor = function()
         if (goodChars == my.current.subunitText.length) {
             my.current.state = my.STATE.COMPLETED
             updatePracticePaneState()
-            updateResultPaneTooltips()
-
-            log('state', my.current.state.toUpperCase(),
-                'unit', my.current.unitNo + '.' + my.current.subunitNo,
-                'type', my.settings.unit,
-                'wpm', my.current.wpm,
-                'error', my.current.errorRate.toFixed(1))
         }
     }
 
@@ -1084,16 +1091,18 @@ var Tutor = function()
 
         // Determine the time elapsed since the user began typing
         var currentTime = new Date().getTime()
-        var timeElapsed = (currentTime - my.current.startTime) / 60000
+        my.current.timeElapsed = currentTime - my.current.startTime
+
+        var minutesElapsed = my.current.timeElapsed / 60000
 
         // Calculate WPM and CPM
         var wpm
-        if (timeElapsed == 0) {
+        if (minutesElapsed == 0) {
             wpm = goodChars == 0 ? 0 : '&infin;'
         } else {
-            wpm = Math.round(goodChars / 5 / timeElapsed)
+            wpm = Math.round(goodChars / 5 / minutesElapsed)
             my.current.wpm = wpm
-            my.current.cpm = Math.round(goodChars / timeElapsed)
+            my.current.cpm = Math.round(goodChars / minutesElapsed)
         }
 
         // Display WPM
@@ -1143,8 +1152,8 @@ var Tutor = function()
     }
 
 
-    // Update the tooltips in result pane.
-    function updateResultPaneTooltips()
+    // Set the tooltips in result pane.
+    function setResultPaneTooltips()
     {
         // Speed tooltip
         my.html.speed.title = 'Your typing speed is\n' +
