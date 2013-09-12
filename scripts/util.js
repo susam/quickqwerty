@@ -75,9 +75,67 @@ var Util = function()
     }
 
 
+    // Convert the specified duration specified as the number of
+    // milliseconds into a string that specifies the duration in days,
+    // hours, minutes and seconds.
+    //
+    // Argument:
+    //   milliseconds -- Duration specified as number of milliseconds
+    //                   (type: number)
+    //
+    // Return:
+    //   Duration specified in days, hours, minutes and seconds
+    //   (type: string)
+    function prettyTime(milliseconds, showMilliseconds)
+    {
+        if (typeof showMilliseconds == 'undefined') {
+            showMilliseconds = true
+        }
+
+        seconds = Math.floor(milliseconds / 1000)
+        minutes = Math.floor(seconds / 60)
+        hours = Math.floor(minutes / 60)
+        days = Math.floor(hours / 24)
+
+        milliseconds %= 1000
+        seconds %= 60
+        minutes %= 60
+        hours %= 24
+
+        if (showMilliseconds) {
+            seconds += (milliseconds / 1000)
+        }
+
+        var s = ''
+
+        if (days != 0) {
+            s += days + ' day' + (days > 1 ? 's' : '') + ' '
+        }
+
+        if (hours != 0) {
+            s += hours + ' hour' + (hours > 1 ? 's' : '') + ' '
+        }
+
+        if (minutes != 0) {
+            s += minutes + ' minute' + (minutes > 1 ? 's' : '') + ' '
+        }
+
+        if (seconds != 0) {
+            s += seconds + ' second' + (seconds > 1 ? 's' : '') + ' '
+        }
+
+        if (s.length == 0) {
+            return '0 second'
+        } else {
+            // Remove the trailing space and return the string
+            return s.substring(0, s.length - 1)
+        }
+    }
+
     // Util object
     return {
         common: common,
-        random: random
+        random: random,
+        prettyTime: prettyTime
     }
 }()

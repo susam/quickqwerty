@@ -702,6 +702,8 @@ var Tutor = function()
 
         updatePracticePaneState()
         updatePracticePane()
+        clearAdvice()
+        clearResultTooltips()
     }
 
 
@@ -899,7 +901,8 @@ var Tutor = function()
         updateSmiley()
 
         if (my.current.state == my.STATE.COMPLETED) {
-            setResultPaneTooltips()
+            displayAdvice()
+            setResultTooltips()
 
             log('state', my.current.state.toUpperCase(),
                 'unit', my.current.unitNo + '.' + my.current.subunitNo,
@@ -988,7 +991,6 @@ var Tutor = function()
                 my.html.status.title = 'Type in the input box below ' +
                                        'to begin this lesson.'
                 my.html.restartLink.style.visibility = 'hidden'
-                clearAdvice()
                 break
 
             case my.STATE.RUNNING:
@@ -998,7 +1000,6 @@ var Tutor = function()
                 my.html.status.innerHTML = ''
                 my.html.status.title = ''
                 my.html.restartLink.style.visibility = 'visible'
-                clearAdvice()
                 break
 
             case my.STATE.ERROR:
@@ -1009,7 +1010,6 @@ var Tutor = function()
                 my.html.status.innerHTML = 'ERROR!'
                 my.html.status.title = 'Fix errors in the input box ' +
                                        'by pressing the backspace key.'
-                clearAdvice()
                 break
 
             case my.STATE.COMPLETED:
@@ -1019,7 +1019,6 @@ var Tutor = function()
                 my.html.restartLink.style.visibility = 'visible'
                 my.html.status.innerHTML = 'COMPLETED'
                 my.html.status.title = 'You have completed this lesson.'
-                displayAdvice()
                 break
         }
 
@@ -1091,18 +1090,17 @@ var Tutor = function()
 
         // Determine the time elapsed since the user began typing
         var currentTime = new Date().getTime()
-        my.current.timeElapsed = currentTime - my.current.startTime
-
-        var minutesElapsed = my.current.timeElapsed / 60000
+        var timeElapsed = currentTime - my.current.startTime
+        my.current.timeElapsed = timeElapsed
 
         // Calculate WPM and CPM
         var wpm
-        if (minutesElapsed == 0) {
+        if (timeElapsed == 0) {
             wpm = goodChars == 0 ? 0 : '&infin;'
         } else {
-            wpm = Math.round(goodChars / 5 / minutesElapsed)
+            wpm = Math.round(60000 * goodChars / 5 / timeElapsed)
             my.current.wpm = wpm
-            my.current.cpm = Math.round(goodChars / minutesElapsed)
+            my.current.cpm = Math.round(60000 * goodChars / timeElapsed)
         }
 
         // Display WPM
@@ -1152,13 +1150,27 @@ var Tutor = function()
     }
 
 
-    // Set the tooltips in result pane.
-    function setResultPaneTooltips()
+    // Clear the tooltips in the result pane.
+    function clearResultTooltips()
     {
+        my.html.speed.title = ''
+        my.html.error.title = ''
+    }
+
+    // Set the tooltips in the result pane.
+    function setResultTooltips()
+    {
+        var textLength = my.current.subunitText.length
+        var charNoun = textLength == 1 ? 'character' : 'characters'
+
         // Speed tooltip
-        my.html.speed.title = 'Your typing speed is\n' +
-                              my.current.wpm + ' words per minute, or\n' +
-                              my.current.cpm + ' characters per minute.'
+        my.html.speed.title =
+                'You have typed ' + textLength + ' ' + charNoun +
+                ' in\n' +
+                Util.prettyTime(my.current.timeElapsed) + '.\n\n' +
+                'Your typing speed is\n' +
+                my.current.wpm + ' words per minute, or\n' +
+                my.current.cpm + ' characters per minute.'
 
 
         // Error rate tooltip
@@ -1174,8 +1186,6 @@ var Tutor = function()
             accuracyTooltip = 100 - errorRateTooltip
         }
 
-        var textLength = my.current.subunitText.length
-        var charNoun = textLength == 1 ? 'character' : 'characters'
         var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
 
         var title =
