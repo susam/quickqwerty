@@ -842,21 +842,19 @@ var Tutor = function()
 
         // Select prefix string
         var s = my.current.subunitText.substring(startIndex, i)
-        my.current.targetPrefix = s.replace(/ /g, '\u00a0')
+        my.current.targetPrefix = Util.visual(s)
 
         // Select target character
         if (i < textLength) {
-            my.current.targetChar = my.current.subunitText.charAt(i)
-            if (my.current.targetChar == ' ') {
-                my.current.targetChar = '\u00a0'
-            }
+            s = my.current.subunitText.charAt(i)
+            my.current.targetChar = Util.visual(s)
         } else {
             my.current.targetChar = ''
         }
 
         // Select suffix string
         s = my.current.subunitText.substring(i + 1, endIndex)
-        my.current.targetSuffix = s.replace(/ /g, '\u00a0')
+        my.current.targetSuffix = Util.visual(s)
     }
 
 

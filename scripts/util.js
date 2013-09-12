@@ -132,10 +132,28 @@ var Util = function()
         }
     }
 
+
+    // Return a visual representation of the specified string.
+    //
+    // In the returned string, all occurrences of spaces are replaced
+    // with no-break space, and all occurrences of newlines are replaced
+    // with return symbol.
+    //
+    // Argument:
+    //   s -- a string (type: string)
+    //
+    // Return:
+    //  Visual representation of the string (type: string)
+    function visual(s)
+    {
+        return s.replace(/ /g, '\u00a0').replace(/\n/g, '\u23ce')
+    }
+
     // Util object
     return {
         common: common,
         random: random,
-        prettyTime: prettyTime
+        prettyTime: prettyTime,
+        visual: visual
     }
 }()
