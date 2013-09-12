@@ -909,8 +909,8 @@ var Units = {
                 'd4r9 k9u4 d4r9 k9u4 d4r9 k9u4; ' +
                 'd4r8 k9u4 d4r8 k9u4 d8r9 k9u4; ' +
                 'a8dd4 8akk9 as5dr4 5akku9 5s8d4r 8a5k9u ' +
-                'a4r9 94u9 9949 94s4 449u4 4r94 49rd9 s4949k a4s9 ' +
-                'r4as9 s4a9r s494r d49k4 k94a4 r4a94 a9449 449a 9499',
+                'a4r9 94u8 9549 94s4 489u4 4r95 49rd5 s4549k a4s98 ' +
+                'r4as9 s4a98 s594r d49k5 k98a4 r5a94 a9849 849a 949598',
 
                 // Unit 17 - Words
                 'Words':
