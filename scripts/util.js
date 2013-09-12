@@ -97,14 +97,13 @@ var Util = function()
         hours = Math.floor(minutes / 60)
         days = Math.floor(hours / 24)
 
+
         milliseconds %= 1000
         seconds %= 60
         minutes %= 60
         hours %= 24
 
-        if (showMilliseconds) {
-            seconds += (milliseconds / 1000)
-        }
+        seconds += (milliseconds / 1000)
 
         var s = ''
 
@@ -121,7 +120,8 @@ var Util = function()
         }
 
         if (seconds != 0) {
-            s += seconds + ' second' + (seconds > 1 ? 's' : '') + ' '
+            s += seconds.toFixed(showMilliseconds ? 3 : 0) +
+                 ' second' + (seconds > 1 ? 's' : '') + ' '
         }
 
         if (s.length == 0) {
