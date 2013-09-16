@@ -1030,9 +1030,11 @@ var Tutor = function()
         // Calculate error rate (in percent)
         var error = Math.round(my.current.errorRate)
 
+        var repeatSubunit = error > 0
+
         // Update remark and advice
         var anchorElement = document.createElement('a')
-        if (error > 0) {
+        if (repeatSubunit) {
             my.html.remark.innerHTML = 'Reduce error'
             my.html.remark.title = 'Your error rate should not ' +
                                    'exceed 0%.'
@@ -1049,7 +1051,12 @@ var Tutor = function()
             anchorElement.innerHTML = 'Next lesson'
             anchorElement.title = 'Please proceed with the next lesson.'
         }
-        my.html.advice.appendChild(anchorElement)
+
+        // Do not display 'Next lesson' advice if the user is at the
+        // last subunit; display advice otherwise
+        if (!currentSubunitIsTheLastSubunit() || repeatSubunit) {
+            my.html.advice.appendChild(anchorElement)
+        }
     }
 
 
