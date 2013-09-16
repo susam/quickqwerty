@@ -149,11 +149,25 @@ var Util = function()
         return s.replace(/ /g, '\u00a0').replace(/\n/g, '\u23ce')
     }
 
+
+    // Remove all children of a DOM node
+    //
+    // Argument:
+    //   node -- Node in a DOM (type: Node)
+    function removeChildren(node)
+    {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild)
+        }
+    }
+
+
     // Util object
     return {
         common: common,
         random: random,
         prettyTime: prettyTime,
+        removeChildren: removeChildren,
         visual: visual
     }
 }()

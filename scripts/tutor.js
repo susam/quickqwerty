@@ -328,9 +328,7 @@ var Tutor = function()
     {
         // Delete all existing unit links
         var linksDiv = my.html.unitLinks
-        while (linksDiv.firstChild) {
-            linksDiv.removeChild(linksDiv.firstChild)
-        }
+        Util.removeChildren(linksDiv)
 
         // Create new unit links
         for (var i = 0; i < Units.main.length; i++) {
@@ -637,9 +635,7 @@ var Tutor = function()
         }
 
         // Delete all existing alternate unit links
-        while (alternateUnitLinks.firstChild) {
-            alternateUnitLinks.removeChild(alternateUnitLinks.firstChild)
-        }
+        Util.removeChildren(alternateUnitLinks)
 
         // Create div elements for the main unit and alternate unit
         var mainUnitElement =
@@ -777,9 +773,7 @@ var Tutor = function()
         var titleText = document.createTextNode(title)
 
         // Remove current unit title
-        while (my.html.unitTitle.firstChild) {
-            my.html.unitTitle.removeChild(my.html.unitTitle.firstChild)
-        }
+        Util.removeChildren(my.html.unitTitle)
 
         // Add current unit title
         my.html.unitTitle.appendChild(unitNoText)
@@ -872,9 +866,7 @@ var Tutor = function()
         target.appendChild(targetChar)
 
         // Remove current target text
-        while (my.html.target.firstChild) {
-            my.html.target.removeChild(my.html.target.firstChild)
-        }
+        Util.removeChildren(my.html.target)
 
         // Add prefix, target character and suffix to the target text
         // element
@@ -1027,9 +1019,7 @@ var Tutor = function()
     function clearAdvice()
     {
         my.html.remark.innerHTML = ''
-        while (my.html.advice.firstChild) {
-            my.html.advice.removeChild(my.html.advice.firstChild)
-        }
+        Util.removeChildren(my.html.advice)
     }
 
 
