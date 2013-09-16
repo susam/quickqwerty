@@ -65,6 +65,12 @@ var Tutor = function()
             // Element that contains all the practice elements
             practicePane: null,
 
+            // Element that displays the link to the previous subunit
+            previousLink: null,
+
+            // Element that displays the link to the next subunit
+            nextLink: null,
+
             // Element to display the target text to be typed by the
             // user
             target: null,
@@ -604,12 +610,33 @@ var Tutor = function()
         displayUnitLinks()
         displaySubunitLinks()
         displayAlternateUnitLinks()
+        updateNavigationLinks()
         updateProgressTooltip()
 
         displayUnitTitle()
         displayTips()
 
         resetSubunit()
+    }
+
+
+    // Update the visibility of the navigation links to the previous and
+    // the next subunits. Hide the link to the previous subunit when the
+    // user is at the first subunit. Hide the link to the next
+    // subunit when the user is already at the last subunit. Display
+    // both links otherwise.
+    function updateNavigationLinks()
+    {
+        if (currentSubunitIsTheFirstSubunit()) {
+            my.html.previousLink.style.visibility = 'hidden'
+            my.html.nextLink.style.visibility = 'visible'
+        } else if (currentSubunitIsTheLastSubunit()) {
+            my.html.previousLink.style.visibility = 'visible'
+            my.html.nextLink.style.visibility = 'hidden'
+        } else {
+            my.html.previousLink.style.visibility = 'visible'
+            my.html.nextLink.style.visibility = 'visible'
+        }
     }
 
 
