@@ -1062,8 +1062,9 @@ var Tutor = function()
 
         // Do not display 'Next lesson' advice if the user is at the
         // last subunit; display advice otherwise
-        if (!currentSubunitIsTheLastSubunit() || repeatSubunit) {
+        if (repeatSubunit || !currentSubunitIsTheLastSubunit()) {
             my.html.advice.appendChild(anchorElement)
+            anchorElement.focus()
         }
     }
 
