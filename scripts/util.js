@@ -150,7 +150,50 @@ var Util = function()
     }
 
 
-    // Remove all children of a DOM node
+    // Add children to a DOM node.
+    //
+    // This function accepts a variable number of arguments. The first
+    // argument must be a parent node to which the child nodes are to be
+    // added. The first argument is followed by one or more arguments,
+    // one argument each for every child node that must be added to the
+    // parent node.
+    //
+    // If any child node argument is not found to be an instance of
+    // Node, then a Text node is created from this argument after
+    // converting it into a string.
+    //
+    // If this function is called with 0 or 1 arguments, then this
+    // function does nothing.
+    //
+    // Arguments:
+    //   node -- Parent node (type: Node)
+    //   childNode, ... -- One or more child nodes (type: Node ...)
+    function addChildren()
+    {
+        // If no children nodes are specified, then there is nothing to
+        // do.
+        if (arguments.length <= 1) {
+            return
+        }
+
+        var node = arguments[0]
+        var childNodes = Array.prototype.slice.call(arguments, 1)
+        var childNode
+        var i
+
+        for (i = 0; i < childNodes.length; i++) {
+            childNode = childNodes[i]
+
+            if (childNode instanceof Node) {
+                node.appendChild(childNode)
+            } else {
+                node.appendChild(document.createTextNode(childNode + ''))
+            }
+        }
+    }
+
+
+    // Remove all children of a DOM node.
     //
     // Argument:
     //   node -- Node in a DOM (type: Node)
@@ -162,11 +205,44 @@ var Util = function()
     }
 
 
+    // Set children of a DOM node.
+    //
+    // This function removes the existing children of a DOM node and
+    // adds the specified child nodes.
+    //
+    // A call to the following function
+    //
+    //     setChildren(node, childNode1, childNode2)
+    //
+    // is equivalent to calls to the following two functions
+    //
+    //     removeChildren(node)
+    //     addChildren(node, childNode1, childNode2)
+    //
+    // Arguments:
+    //   node -- Parent node (type: Node)
+    //   childNode, ... -- One or more child nodes (type: Node ...)
+    function setChildren()
+    {
+        // If no children nodes are specified, then there is nothing to
+        // do.
+        if (arguments.length <= 1) {
+            return
+        }
+
+        // Remove existing children and add new children
+        removeChildren(arguments[0])
+        addChildren.apply(null, arguments)
+    }
+
+
     // Util object
     return {
         common: common,
         random: random,
         prettyTime: prettyTime,
+        addChildren: addChildren,
+        setChildren: setChildren,
         removeChildren: removeChildren,
         visual: visual
     }

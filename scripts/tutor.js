@@ -369,14 +369,14 @@ var Tutor = function()
 
         if (selected) {
             var spanElement = document.createElement('span')
-            spanElement.innerHTML = label
+            Util.addChildren(spanElement, label)
             divElement.appendChild(spanElement)
 
             divElement.className = 'selected'
         } else {
             var anchorElement = document.createElement('a')
             anchorElement.href = href
-            anchorElement.innerHTML = label
+            Util.addChildren(anchorElement, label)
 
             if (typeof clickHandler != 'undefined') {
                 anchorElement.onclick = clickHandler
@@ -526,12 +526,12 @@ var Tutor = function()
         window.location.href = unitHref(m, n)
     }
 
-    
+
     // Hide typing tips
     function hideTips()
     {
         tips.style.display = 'none'
-        tipsLink.innerHTML = 'Help'
+        Util.setChildren(tipsLink, 'Help')
         return false
     }
 
@@ -540,7 +540,7 @@ var Tutor = function()
     function showTips()
     {
         tips.style.display = ''
-        tipsLink.innerHTML = 'Hide Help'
+        Util.setChildren(tipsLink, 'Hide Help')
         return false
     }
 
@@ -791,21 +791,10 @@ var Tutor = function()
         // Parts of the unit title
         var unitNo = 'Unit ' + my.current.unitNo +
                      '.' + my.current.subunitNo
+        var space = '\u00a0\u00a0'
         var title = '[' + my.current.unit.title + ']'
 
-        // Create unit title nodes
-        var unitNoText = document.createTextNode(unitNo)
-
-        var whitespace = document.createTextNode('\u00a0\u00a0')
-        var titleText = document.createTextNode(title)
-
-        // Remove current unit title
-        Util.removeChildren(my.html.unitTitle)
-
-        // Add current unit title
-        my.html.unitTitle.appendChild(unitNoText)
-        my.html.unitTitle.appendChild(whitespace)
-        my.html.unitTitle.appendChild(titleText)
+        Util.setChildren(my.html.unitTitle, unitNo, space, title)
     }
 
 
@@ -882,24 +871,16 @@ var Tutor = function()
     // Display the current target text
     function displayTargetText()
     {
-        // Create prefix and suffix nodes
-        var prefix = document.createTextNode(my.current.targetPrefix)
-        var suffix = document.createTextNode(my.current.targetSuffix)
-
         // Create target character element
-        var target = document.createElement('span')
+        var targetCharElement = document.createElement('span')
         var targetChar = document.createTextNode(my.current.targetChar)
-        target.className = 'targetChar'
-        target.appendChild(targetChar)
+        targetCharElement.className = 'targetChar'
+        targetCharElement.appendChild(targetChar)
 
-        // Remove current target text
-        Util.removeChildren(my.html.target)
-
-        // Add prefix, target character and suffix to the target text
-        // element
-        my.html.target.appendChild(prefix)
-        my.html.target.appendChild(target)
-        my.html.target.appendChild(suffix)
+        // Set new target text
+        Util.setChildren(my.html.target, my.current.targetPrefix,
+                                         targetCharElement,
+                                         my.current.targetSuffix)
     }
 
 
@@ -1004,7 +985,7 @@ var Tutor = function()
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
                 my.html.input.focus()
-                my.html.status.innerHTML = 'READY'
+                Util.setChildren(my.html.status, 'READY')
                 my.html.status.title = 'Type in the input box below ' +
                                        'to begin this lesson.'
                 my.html.restartLink.style.visibility = 'hidden'
@@ -1014,7 +995,7 @@ var Tutor = function()
                 my.html.practicePane.className = ''
                 my.html.input.disabled = false
                 my.html.input.focus()
-                my.html.status.innerHTML = ''
+                Util.setChildren(my.html.status, '')
                 my.html.status.title = ''
                 my.html.restartLink.style.visibility = 'visible'
                 break
@@ -1024,7 +1005,7 @@ var Tutor = function()
                 my.html.input.disabled = false
                 my.html.input.focus()
                 my.html.restartLink.style.visibility = 'visible'
-                my.html.status.innerHTML = 'ERROR!'
+                Util.setChildren(my.html.status, 'ERROR!')
                 my.html.status.title = 'Fix errors in the input box ' +
                                        'by pressing the backspace key.'
                 break
@@ -1034,7 +1015,7 @@ var Tutor = function()
                 my.html.input.disabled = true
                 my.html.input.blur()
                 my.html.restartLink.style.visibility = 'visible'
-                my.html.status.innerHTML = 'COMPLETED'
+                Util.setChildren(my.html.status, 'COMPLETED')
                 my.html.status.title = 'You have completed this lesson.'
                 break
         }
@@ -1045,7 +1026,7 @@ var Tutor = function()
     // Clear advice.
     function clearAdvice()
     {
-        my.html.remark.innerHTML = ''
+        Util.removeChildren(my.html.remark)
         Util.removeChildren(my.html.advice)
     }
 
@@ -1062,20 +1043,20 @@ var Tutor = function()
         // Update remark and advice
         var anchorElement = document.createElement('a')
         if (repeatSubunit) {
-            my.html.remark.innerHTML = 'Reduce error'
+            Util.addChildren(my.html.remark, 'Reduce error')
             my.html.remark.title = 'Your error rate should not ' +
                                    'exceed 0%.'
 
+            Util.addChildren(anchorElement, 'Try again')
             anchorElement.href = '#restart'
-            anchorElement.innerHTML = 'Try again'
             anchorElement.title = 'Please practice this lesson again.'
         } else {
-            my.html.remark.innerHTML = 'Well done!'
+            Util.addChildren(my.html.remark, 'Well done!')
             my.html.remark.title = 'You have satisfactorily ' +
                                    'completed this lesson.'
 
+            Util.addChildren(anchorElement, 'Next lesson')
             anchorElement.href = '#next'
-            anchorElement.innerHTML = 'Next lesson'
             anchorElement.title = 'Please proceed with the next lesson.'
         }
 
@@ -1096,7 +1077,7 @@ var Tutor = function()
         var progress = Math.round(100 * goodChars / textLength)
 
         my.html.progressBar.value = progress
-        my.html.progressPercent.innerHTML = progress + '%'
+        Util.setChildren(my.html.progressPercent, progress + '%')
     }
 
 
@@ -1118,7 +1099,7 @@ var Tutor = function()
         // Calculate WPM and CPM
         var wpm
         if (timeElapsed == 0) {
-            wpm = goodChars == 0 ? 0 : '&infin;'
+            wpm = goodChars == 0 ? 0 : '\u221e'
         } else {
             wpm = Math.round(60000 * goodChars / 5 / timeElapsed)
             my.current.wpm = wpm
@@ -1126,9 +1107,8 @@ var Tutor = function()
         }
 
         // Display WPM
-        my.html.speed.innerHTML = wpm + ' wpm'
+        Util.setChildren(my.html.speed, wpm + ' wpm')
     }
-        
 
     // Update the error rate.
     function updateError()
@@ -1141,13 +1121,13 @@ var Tutor = function()
 
         // Update error rate
         if (my.current.errorRate == Number.POSITIVE_INFINITY) {
-            errorRate = '&infin; '
+            errorRate = '\u221e'
         } else {
             errorRate = Math.round(my.current.errorRate)
         }
 
         // Display error rate
-        my.html.error.innerHTML = errorRate + '% error'
+        Util.setChildren(my.html.error, errorRate + '% error')
     }
 
 
@@ -1155,20 +1135,22 @@ var Tutor = function()
     function updateSmiley()
     {
         var errorRate = Math.round(my.current.errorRate)
+        var smiley
 
         if (errorRate == 0) {
             if (my.current.wpm >= 40) {
-                my.html.smiley.innerHTML = my.SMILEY.VERY_HAPPY
+                smiley = my.SMILEY.VERY_HAPPY
             } else {
-                my.html.smiley.innerHTML = my.SMILEY.HAPPY
+                smiley = my.SMILEY.HAPPY
             }
         } else if (errorRate > 0 && errorRate <= 2) {
-            my.html.smiley.innerHTML = my.SMILEY.UNHAPPY
+            smiley = my.SMILEY.UNHAPPY
         } else if (errorRate > 2 && errorRate <= 5) {
-            my.html.smiley.innerHTML = my.SMILEY.WORRIED 
+            smiley = my.SMILEY.WORRIED
         } else {
-            my.html.smiley.innerHTML = my.SMILEY.SAD
+            smiley = my.SMILEY.SAD
         }
+        Util.setChildren(my.html.smiley, smiley)
     }
 
 
@@ -1275,7 +1257,7 @@ var Tutor = function()
         span.style.position = 'absolute'
         span.style.color = '#f52887'
         span.style.opacity = '0'
-        span.innerHTML = '\u2665'
+        Util.addChildren(span, '\u2665')
 
         document.body.appendChild(span)
         return span
@@ -1377,6 +1359,7 @@ var Tutor = function()
         }, newInterval)
     }
 
+
     // Return a message selected randomly or a message selected based on
     // time.
     //
@@ -1456,7 +1439,10 @@ var Tutor = function()
         letterDiv.style.paddingLeft = fontSize + 'px'
         letterDiv.style.paddingRight = fontSize + 'px'
         letterDiv.style.color = '#2e0854'
-        letterDiv.innerHTML = qtpiLetter()
+        Util.addChildren(letterDiv, qtpiLetter())
+
+        var letter = qtpiLetter()
+        letterDiv.innerHTML = letter
 
         var mainDiv = document.getElementById('main')
         mainDiv.appendChild(letterDiv)
@@ -1475,7 +1461,7 @@ var Tutor = function()
         letterDiv.style.marginBottom = verticalMargin
 
         Util.random([growingHearts, risingHearts, function(){}])()
-        log('qtpi', letterDiv.innerHTML.replace(/(<([^>]+)>)/ig, ' '))
+        log('qtpi', letter.replace(/(<([^>]+)>)/ig, ' '))
     }
 
 
