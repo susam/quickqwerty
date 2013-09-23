@@ -14,7 +14,7 @@ a:link, a:visited {
     text-decoration: none;
 }
 
-a:hover, a:active {
+a:focus, a:hover, a:active {
     text-decoration: underline;
 }
 
@@ -57,12 +57,12 @@ a:hover, a:active {
     text-decoration: none;
 }
 
-#header a:hover, #header a:active {
+#header a:focus, #header a:hover, #header a:active {
     color: #ffffff;
     text-decoration: underline;
 }
 
-#header h1 a:link, h1 a:visited, h1 a:hover, h1 a:active {
+#header h1 a:link, h1 a:visited, h1 a:focus, h1 a:hover, h1 a:active {
     text-decoration: none;
 }
 
@@ -110,7 +110,7 @@ a:hover, a:active {
     text-decoration: none;
 }
 
-#footer a:hover, #footer a:active {
+#footer a:focus, #footer a:hover, #footer a:active {
     color: #ffffff;
     text-decoration: underline;
 }
@@ -120,7 +120,7 @@ a:hover, a:active {
     text-decoration: none;
 }
 
-#copyright a:hover, #copyright a:active {
+#copyright a:focus, #copyright a:hover, #copyright a:active {
     color: #cffbf8;
     text-decoration: underline;
 }

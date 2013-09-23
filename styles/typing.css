@@ -64,15 +64,6 @@
     border-radius: 2px;
 }
 
-#unitLinks a:link, #subunitLinks a:link, #alternateUnitLinks a:link,
-#unitLinks a:visited, #subunitLinks a:visited, #alternateUnitLinks a:visited {
-}
-
-#unitLinks a:hover, #subunitLinks a:hover, #alternateUnitLinks a:hover,
-#unitLinks a:active, #subunitLinks a:active, #alternateUnitLinks a:active {
-}
-
-
 #unitLinks div.selected,
 #subunitLinks div.selected,
 #alternateUnitLinks div.selected {

@@ -48,6 +48,7 @@ a.download:visited {
     text-decoration: none;
 }
 
+a.download:focus,
 a.download:hover,
 a.download:active {
     color: lightcyan;
