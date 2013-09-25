@@ -61,6 +61,28 @@ a.download:active {
     margin-right: 0.5em;
 }
 
-.releaseDate {
+.downloadNotes {
     text-align: center;    
+}
+
+.releases {
+    list-style: none;
+}
+
+.releases li {
+    margin-bottom: 1em;
+}
+
+.type {
+    display: table-cell;
+    text-transform: uppercase;
+    width: 4em;
+}
+
+.description {
+    display: table-cell;
+}
+
+.new .type {
+    color: #008000;
 }
