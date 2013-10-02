@@ -28,8 +28,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var Tutor = function()
-{
+var Tutor = function() {
+
+    'use strict'
+
+
     // Global object with tutor properties shared across all functions
     var my = {
 
@@ -1354,7 +1357,7 @@ var Tutor = function()
 
                 if (i >= rise) {
                     window.clearInterval(id)
-                    document.body.reriseChild(heart)
+                    document.body.removeChild(heart)
                 }
             }, riseInterval)
         }, newInterval)

@@ -28,8 +28,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var Update = function()
-{
+var Update = function() {
+
+    'use strict'
+
+
     // Latest stable version
     var STABLE_VERSION = '0.4.1'
 

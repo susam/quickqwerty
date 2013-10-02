@@ -28,8 +28,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var Version = function()
-{
+var Version = function() {
+
+    'use strict'
+
+
     // Version of this application
     var VERSION = '1.0-beta3'
 

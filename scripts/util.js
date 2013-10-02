@@ -28,8 +28,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var Util = function()
-{
+var Util = function() {
+
+    'use strict'
+
+
     // Determine how many characters in the beginning of string a
     // are common with that of string b.
     //

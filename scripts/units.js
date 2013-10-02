@@ -27,6 +27,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
+'use strict'
+
+
 var Units = {
     // 6-7 split (6 with left hand)
     'main': [
