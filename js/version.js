@@ -35,7 +35,7 @@ var Version = function() {
 
 
     // Version of this application
-    var VERSION = '1.0-beta3'
+    var VERSION = '1.0-beta4'
 
 
     // Display this version number in an HTML element with its id as
