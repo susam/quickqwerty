@@ -33,6 +33,7 @@ var Tutor = function() {
 
     'use strict'
 
+    var VERSION = '1.0.0-beta4'
 
     // Global object with tutor properties shared across all functions
     var my = {
@@ -1472,6 +1473,7 @@ var Tutor = function() {
 
     // Tutor object
     return {
+        VERSION: VERSION,
         init: init,
         setLogFunction: setLogFunction
     }

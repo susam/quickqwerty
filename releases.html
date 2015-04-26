@@ -35,20 +35,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/info.css">
-<script src="js/version.js"></script>
 <script src="http://susam.in/onepixel/?js"></script>
 <script>
 // Log request
 if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
 
     OnePixel.log('name', 'QuickQWERTY',
-                 'version', Version.VERSION)
-}
-
-// Set version
-window.onload = function()
-{
-    Version.set()
+                 'version', Tutor.VERSION)
 }
 </script>
 </head>
@@ -174,7 +167,7 @@ window.onload = function()
     </div> <!-- End navigation -->
     <div id="copyright">
         <p>
-        QuickQWERTY <span id="version"></span><br>
+        QuickQWERTY 1.0.0-beta4<br>
         Copyright &copy; 2013 <a href="http://susam.in">Susam Pal</a>
         </p>
         <p>This is free software. You are permitted to redistribute and

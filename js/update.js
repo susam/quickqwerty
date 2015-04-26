@@ -324,17 +324,17 @@ var Update = function() {
             return
         }
 
-        // If the Version.VERSION string is not available, it is not
+        // If the Tutor.VERSION string is not available, it is not
         // possible to compare whether the latest stable version is
         // greater than it or not.
         if (typeof Version != 'object' ||
-            typeof Version.VERSION != 'string') {
+            typeof Tutor.VERSION != 'string') {
             return
         }
 
         // If the latest stable version is not greater than the version
         // of this application, then no update is required.
-        if (compareVersions(STABLE_VERSION, Version.VERSION) <= 0) {
+        if (compareVersions(STABLE_VERSION, Tutor.VERSION) <= 0) {
             return
         }
 
@@ -342,7 +342,7 @@ var Update = function() {
         updateDiv.style.display = 'inline-block'
 
         var thisVersionSpan = document.getElementById('thisVersion')
-        thisVersion.innerHTML = Version.VERSION
+        thisVersion.innerHTML = Tutor.VERSION
 
         var stableVersionSpan = document.getElementById('stableVersion')
         stableVersion.innerHTML = STABLE_VERSION
