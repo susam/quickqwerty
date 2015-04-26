@@ -1,7 +1,7 @@
 /*
 SIMPLIFIED BSD LICENSE
 
-Copyright (c) 2013 Susam Pal
+Copyright (c) 2008-2015 Susam Pal
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
