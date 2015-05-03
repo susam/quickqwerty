@@ -3,7 +3,7 @@
 # SIMPLIFIED BSD LICENSE
 # 
 # Copyright (c) 2008-2015 Susam Pal
-# All rights reserved.
+# All rights reservedu.
 # 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -43,58 +43,140 @@
 PROJECT=QuickQWERTY
 START_YEAR=2008
 CURRENT_YEAR=$(date +%Y)
-FILESPEC="*.html js/* css/* dev/*"
+CURRENT_DATE=$(date "+%Y-%m-%d")
+FILES="*.html js/* css/* dev/*"
 VERSION=$(sed -n "/VERSION/ s/.*'\(.*\)'/\1/p" js/tutor.js)
 
-# Each substitution is expressed in three lines.
+# Each substitution rule is expressed in five lines.
 #
-#   1. A short comment describing what is to be substituted.
-#   2. Regular expression that matches what is to substituted.
-#   3. Replacement expression.
+#   1. Comment describing what is to be substituted.
+#   2. String that must match the pattern specified below for
+#      substitution to occur. If this string does not match the pattern
+#      below it, then the substitution does not occur, i.e. the
+#      substitution rule is not run.
+#   3. Regular expression that the above string must match for
+#      substitution to occur. If the string above does not match this
+#      pattern, then the the substitution does not occur.
+#   4. Regular expression that matches what is to substituted.
+#   5. Replacement expression that substitution the string matched by
+#      the above regular expression.
 #
 # Blank lines or lines consisting only of whitespaces are ignored.
-SUBSTITUTIONS="
+SUBSTITUTION_RULES="
 Version in footer
+none
+none
 $PROJECT [0-9][0-9a-z.-]*<br>
 $PROJECT $VERSION<br>
 
-Copyright in HTML and JS comments
-^Copyright (c) [0-9-]* Susam Pal
+Copyright in comments
+none
+none
+Copyright (c) [0-9][0-9-]* Susam Pal
 Copyright (c) $START_YEAR-$CURRENT_YEAR Susam Pal
 
-Copyright in shell script comments
-^# Copyright (c) [0-9-]* Susam Pal
-# Copyright (c) $START_YEAR-$CURRENT_YEAR Susam Pal
+Copyright in HTML
+none
+none
+&copy; [0-9][0-9-]*
+\&copy; $START_YEAR-$CURRENT_YEAR
 
-Copyright in footer
-&copy; [0-9-]* <a
-\&copy; $START_YEAR-$CURRENT_YEAR <a
+Dev download URL and link
+$VERSION
+-\(beta\|rc\)[0-9][0-9]*$
+[0-9][0-9.]*-\(beta\|rc\)[0-9][0-9]*\(.*zip\|.*tar\)
+$VERSION\2
 
-Copyright in license
-&copy; [0-9-]* Susam Pal
-\&copy; $START_YEAR-$CURRENT_YEAR Susam Pal
+Dev release notes URL
+$VERSION
+-\(beta\|rc\)[0-9][0-9]*$
+releases.html#[0-9][0-9.]*-\(beta\|rc\)[0-9][0-9]*
+releases.html#$VERSION
+
+Dev release date
+$VERSION
+-\(beta\|rc\)[0-9][0-9]*$
+([1-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+($CURRENT_DATE)
+"
+
+
+# Each section rule is expressed in three lines.
+#
+#   1. String that must match the pattern specified below for the rule
+#      to be run. If this string does not match the pattern below it,
+#      then the rule is not run.
+#   2. Regular expression that the above string must match for the rule
+#      to be run. If the string above does not match this pattern, then
+#      the rule is not run.
+#   3. Space separated key names of sections that must be enabled.
+#   4. Space separated key names of sections that must be disabled.
+#
+# Blank lines or lines consisting only of whitespaces are ignored.
+SECTION_RULES="
+$VERSION
+^[0-9][0-9.]*$
+stable
+dev beta rc
+
+$VERSION
+-beta[0-9][0-9]*$
+dev beta
+devMissing rc
+
+$VERSION
+-rc[0-9][0-9]*$
+dev rc
+devMissing beta
 "
 
 
 # Start automatic substitution.
 main()
 {
-    printf "Updating %s %s ...\n" "$PROJECT" "$VERSION"
-    do_substitutions
-    show_current_data
+    if [ "$1" = show ]
+    then
+        printf "Showing %s %s.\n" "$PROJECT" "$VERSION"
+        show_current_data
+    else
+        printf "Updating %s %s.\n" "$PROJECT" "$VERSION"
+        run_substitution_rules
+        run_section_rules
+        printf "Update complete.\n"
+    fi
 }
 
 
-# Perform substitutions specified in $SUBSTITUTIONS.
-do_substitutions()
+# Run substitution rules specified in $SUBSTITUTION_RULES.
+run_substitution_rules()
 {
-
-    printf "Performing substitutions ...\n"
-    printf "%s" "$SUBSTITUTIONS" | grep "[[:graph:]]" |
-    while read -r comment && read -r pattern && read -r replacement
+    printf "Performing substitutions.\n"
+    printf "%s\n" "$SUBSTITUTION_RULES" | grep "[[:graph:]]" |
+    while read -r comment && read -r string && read -r matcher &&
+          read -r pattern && read -r replacement
     do
-        printf "Updating: %s ...\n" "$comment"
-        sed -i "s/$pattern/$replacement/" $FILESPEC
+        if printf "%s" "$string" | grep -- "$matcher" > /dev/null
+        then
+            printf "Substituting %s.\n" "$comment"
+            sed -i "s/$pattern/$replacement/" $FILES
+        fi
+    done
+}
+
+
+# Run section rules specified in $SECTION_RULES.
+run_section_rules()
+{
+    printf "Enabling and disabling sections.\n"
+    printf "%s\n" "$SECTION_RULES" | grep "[[:graph:]]" |
+    while read -r string && read -r matcher &&
+          read -r enable && read -r disable
+    do
+        if printf "%s" "$string" | grep -- "$matcher" > /dev/null
+        then
+            for key in $enable; do enable_section "$key"; done
+            for key in $disable; do disable_section "$key"; done
+        fi
     done
 }
 
@@ -105,9 +187,10 @@ do_substitutions()
 #   key -- Key that identifies a section.
 enable_section()
 {
+    printf "Enabling section %s.\n" "$key"
     key="$1"
-    sed -i "s/<!-- Begin $key --><!--$/<!-- Begin $key -->/" download.html
-    sed -i "s/ --><!-- End $key -->$/ <!-- End $key -->/" download.html
+    sed -i "s/\(<!-- Begin $key -->\)<!--$/\1/" $FILES
+    sed -i "s/-->\(<!-- End $key -->\)$/\1/" $FILES
 }
 
 
@@ -117,31 +200,30 @@ enable_section()
 #   key -- Key that identifies a section.
 disable_section()
 {
+    printf "Disabling section %s.\n" "$key"
     key="$1"
-    sed -i 's/<!-- Begin $key -->$/<!-- Begin $key --><!--/' download.html
-    sed -i 's/ <!-- End $key -->$/ --><!-- End $key -->/' download.html
+    sed -i "s/\(<!-- Begin $key -->\)$/\1<!--/" $FILES
+    sed -i "s/\(^\|[ \t]\)\(<!-- End $key -->\)$/\1-->\2/" $FILES
 }
 
 
 # Show variable data currently used in the project.
 show_current_data()
 {
-    printf "\nShowing current data ...\n"
-    printf "%s" "$SUBSTITUTIONS" | grep "[[:graph:]]" |
-    while read -r comment && read -r pattern && read -r replacement
-    do
-        raw_out=$(grep "$pattern" $FILESPEC)
-        clean_out=$(printf "%s" "$raw_out" | cut -d: -f2- | sort | uniq |
-                    sed 's/^ *//g')
-        printf "%s: %s\n" "$comment" "$clean_out"
+    printf "\nShowing current data.\n"
 
-        lines=$(printf "%s\n" "$clean_out" | wc -l)
-        if [ $lines -ne 1 ]
-        then
-            printf "\nWARNING: %s unique lines found:\n" $lines
-            printf "%s\n" "$raw_out"
-        fi
-        printf "%s\n" "--"
+    printf "%s\n" "$SUBSTITUTION_RULES" | grep "[[:graph:]]" |
+    while read -r comment && read -r string && read -r matcher &&
+          read -r pattern && read -r replacement
+    do
+        printf "%s:\n" "$comment"
+        out=$(grep -- "$pattern" $FILES | sed 's/^/    /')
+        printf "%s\n" "$out" | while read -r line
+        do
+            filename=$(printf "%s" "$line" | cut -d: -f1)
+            dataline=$(printf "%s" "$line" | cut -d: -f2-)
+            printf "%20s: %s\n" "$filename" "$dataline"
+        done
     done
 }
 
