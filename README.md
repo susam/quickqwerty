@@ -2,7 +2,7 @@ QuickQWERTY
 ===========
 [QuickQWERTY][1] is a touch typing tutor that runs on a web browser with
 JavaScript enabled. This software may be used to train your fingers to
-type without looking at the keys.  After completing all the units
+type without looking at the keys. After completing all the units
 available in this software, one would know the location of the keys on
 the keyboard through muscle memory, and would be able to effortlessly
 use the right finger for each key.
@@ -98,12 +98,12 @@ License
 -------
 This is free software. You are permitted to redistribute and use it in
 source and binary forms, with or without modification, under the terms
-of the Simplified BSD License. See the LICENSE.html file for the
-complete license.
+of the Simplified BSD License. See LICENSE.html for the complete
+license.
 
 This software is provided WITHOUT ANY WARRANTY; without even the implied
 warranties of MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE. See
-the LICENSE.html file for the complete disclaimer.
+LICENSE.html for the complete disclaimer.
 
 If you do not have a copy of the LICENSE.html file, please visit
 http://quickqwerty.com/LICENSE.html to obtain a copy of the license.
@@ -111,8 +111,5 @@ http://quickqwerty.com/LICENSE.html to obtain a copy of the license.
 
 Contact
 -------
-To report any bugs, or suggest any improvements, please contact
-Susam Pal <[susam@susam.in][2]>.
-
-
-  [2]: mailto:susam@susam.in
+To report any bugs, or suggest any improvements, please create a new
+issue at https://github.com/susam/quickqwerty/issues.
