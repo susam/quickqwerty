@@ -39,24 +39,24 @@ var Units = {
         {
             'title': 'asdf jkl;',
 
-            'tips': '<p>' +
-                    'All the eight fingers except the thumbs should ' +
-                    'be placed on the home row. This is done by ' +
-                    'placing the left forefinger on F and the right ' +
-                    'forefinger on J. Place the remaining fingers on ' +
-                    'the keys beside them in a natural manner. So, the ' +
-                    'left little finger would be on A and the right ' +
-                    'little finger would be on the ; (semicolon) key. ' +
-                    '</p><p>' +
-                    'To type any key, press the key with the finger over ' +
-                    'it. Use one of the thumbs to press the space bar. ' +
-                    'Keep your eyes on the screen as you type. Do not ' +
-                    'look at the keyboard.' +
-                    '</p><p>' +
-                    'Proceed to the next lesson only when you can type ' +
-                    'with 0% errors. Accuracy is more important than  ' +
-                    'speed for a beginner.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'All the eight fingers except the thumbs should ' +
+                     'be placed on the home row. This is done by ' +
+                     'placing the left forefinger on F and the right ' +
+                     'forefinger on J. Place the remaining fingers on ' +
+                     'the keys beside them in a natural manner. So, the ' +
+                     'left little finger would be on A and the right ' +
+                     'little finger would be on the ; (semicolon) key. ' +
+                     '</p><p>' +
+                     'To type any key, press the key with the finger over ' +
+                     'it. Use one of the thumbs to press the space bar. ' +
+                     'Keep your eyes on the screen as you type. Do not ' +
+                     'look at the keyboard.' +
+                     '</p><p>' +
+                     'Proceed to the next lesson only when you can type ' +
+                     'with 0% errors. Accuracy is more important than  ' +
+                     'speed for a beginner.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 1 - Grip
@@ -100,12 +100,12 @@ var Units = {
         {
             'title': 'ru',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type R and the right one ' +
-                    'to type U. After striking the R or U keys, return ' +
-                    'the forefingers back to the original position on ' +
-                    'F or J.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type R and the right one ' +
+                     'to type U. After striking the R or U keys, return ' +
+                     'the forefingers back to the original position on ' +
+                     'F or J.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 2 - Grip
@@ -153,10 +153,10 @@ var Units = {
         {
             'title': 'vm',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type V and the right one ' +
-                    'to type M.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type V and the right one ' +
+                     'to type M.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 3 - Grip
@@ -205,10 +205,10 @@ var Units = {
         {
             'title': 'ei',
 
-            'tips': '<p>' +
-                    'Use the left middle finger to type E and the right ' +
-                    'one to type I.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left middle finger to type E and the right ' +
+                     'one to type I.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 4 - Grip
@@ -262,10 +262,10 @@ var Units = {
         {
             'title': 'c,',
 
-            'tips': '<p>' +
-                    'Use the left middle finger to type C and the right ' +
-                    'one to type , (comma).' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left middle finger to type C and the right ' +
+                     'one to type , (comma).' +
+                     '</p>',
 
             'subunits': {
                 // Unit 5 - Grip
@@ -315,12 +315,12 @@ var Units = {
         {
             'title': 'gh',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type G and the right one ' +
-                    'to type H. After striking the G or H keys, return ' +
-                    'the forefingers back to the original position on ' +
-                    'F or J.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type G and the right one ' +
+                     'to type H. After striking the G or H keys, return ' +
+                     'the forefingers back to the original position on ' +
+                     'F or J.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 6 - Grip
@@ -361,8 +361,9 @@ var Units = {
                 'Test':
                 'hacker, jaguar, hire, shag, guru, garage, aggressive, ' +
                 'he, she, his, her, him, hide, guide, egg, shell, sigh, ' +
-                'high, she cracked five eggs, he likes half egg, he sighed, ' +
-                'she has a hammer, he is aggressive, give me a high five'
+                'high, she cracked five eggs, he likes half egg, ' +
+                'he sighed, she has a hammer, he is aggressive, ' +
+                'give me a high five'
             }
         },
 
@@ -370,10 +371,10 @@ var Units = {
         {
             'title': 'ty',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type T and the right one ' +
-                    'to type Y.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type T and the right one ' +
+                     'to type Y.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 7 - Grip
@@ -428,10 +429,10 @@ var Units = {
         {
             'title': 'bn',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type B and the right one ' +
-                    'to type N.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type B and the right one ' +
+                     'to type N.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 8 - Grip
@@ -480,10 +481,10 @@ var Units = {
         {
             'title': 'wo',
 
-            'tips': '<p>' +
-                    'Use the left ring finger to type W and the right one ' +
-                    'to type O.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left ring finger to type W and the right one ' +
+                     'to type O.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 9 - Grip
@@ -535,10 +536,10 @@ var Units = {
         {
             'title': 'x.',
 
-            'tips': '<p>' +
-                    'Use the left ring finger to type X and the right one ' +
-                    'to type . (dot).' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left ring finger to type X and the right one ' +
+                     'to type . (dot).' +
+                     '</p>',
 
             'subunits': {
                 // Unit 10 - Grip
@@ -589,10 +590,10 @@ var Units = {
         {
             'title': 'qp',
 
-            'tips': '<p>' +
-                    'Use the left little finger to type Q and the right one ' +
-                    'to type P (dot).' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left little finger to type Q and the ' +
+                     'right one to type P.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 11 - Grip
@@ -643,10 +644,10 @@ var Units = {
         {
             'title': 'z/',
 
-            'tips': '<p>' +
-                    'Use the left little finger to type Z and the right one ' +
-                    'to type / (slash).' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left little finger to type Z and the ' +
+                     'right one to type / (slash).' +
+                     '</p>',
 
             'subunits': {
                 // Unit 12 - Grip
@@ -696,10 +697,10 @@ var Units = {
         {
             'title': "'",
 
-            'tips': '<p>' +
-                    "Use the right little finger to type ' (single " +
-                    'quotation marks.' +
-                    '</p>',
+            'guide': '<p>' +
+                     "Use the right little finger to type ' (single " +
+                     'quotation marks.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 13 - Grip
@@ -743,27 +744,27 @@ var Units = {
         {
             'title': 'shift',
 
-            'tips': '<p>' +
-                    'Press the shift key with the little finger. To type ' +
-                    'a capital letter, first press and hold the shift key ' +
-                    'with one hand, hit the letter with the appropriate ' +
-                    'finger of the other hand and then release the shift ' +
-                    'key.' +
-                    '</p><p>' +
-                    'Do not hit the shift key and the letter key with ' +
-                    'fingers of the same hand. Before hitting the letter ' +
-                    'think which hand will be used to type the letter. ' +
-                    'Use the alternate hand to hold the shift key and ' +
-                    'then type the letter. This will will require some ' +
-                    'effort in the beginning. You will gain speed as you ' +
-                    'practice this unit.' +
-                    '</p><p>' +
-                    'For example, to type F, first press and hold the ' +
-                    'right shift key with the right little finger, hit the ' +
-                    'F key with left forefinger and then release the ' +
-                    'shift key. After this return both the fingers ' +
-                    'immediately to the home row.' +
-                    '</p><p>',
+            'guide': '<p>' +
+                     'Press the shift key with the little finger. To type ' +
+                     'a capital letter, first press and hold the shift key ' +
+                     'with one hand, hit the letter with the appropriate ' +
+                     'finger of the other hand and then release the shift ' +
+                     'key.' +
+                     '</p><p>' +
+                     'Do not hit the shift key and the letter key with ' +
+                     'fingers of the same hand. Before hitting the letter ' +
+                     'think which hand will be used to type the letter. ' +
+                     'Use the alternate hand to hold the shift key and ' +
+                     'then type the letter. This will will require some ' +
+                     'effort in the beginning. You will gain speed as you ' +
+                     'practice this unit.' +
+                     '</p><p>' +
+                     'For example, to type F, first press and hold the ' +
+                     'right shift key with the right little finger, hit ' +
+                     'the F key with left forefinger and then release the ' +
+                     'shift key. After this return both the fingers ' +
+                     'immediately to the home row.' +
+                     '</p><p>',
 
 
             'subunits': {
@@ -813,10 +814,10 @@ var Units = {
         {
             'title': 'simple passages',
 
-            'tips': '<p>' +
-                    'Type the simple passages with the correct fingers ' +
-                    'as practiced in the previous units.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Type the simple passages with the correct fingers ' +
+                     'as practiced in the previous units.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 15 - Hyperspace
@@ -851,10 +852,10 @@ var Units = {
         {
             'title': '58',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type 5 and the right one ' +
-                    'to type 8.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type 5 and the right one ' +
+                     'to type 8.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 16 - Grip
@@ -899,10 +900,10 @@ var Units = {
         {
             'title': '49',
 
-            'tips': '<p>' +
-                    'Use the left middle finger to type 4 and the right ' +
-                    'one to type 9.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left middle finger to type 4 and the right ' +
+                     'one to type 9.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 17 - Grip
@@ -945,10 +946,10 @@ var Units = {
         {
             'title': '67',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type 6 and the right one ' +
-                    'to type 7.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type 6 and the right one ' +
+                     'to type 7.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 18 - Grip
@@ -975,8 +976,8 @@ var Units = {
 
                 // Unit 18 - Sentences
                 'Sentences':
-                "67 is a prime number but 76 isn't. 679 is a multiple of 97." +
-                '676 is one less than 677. 767 is a multiple of 59.',
+                "67 is a prime number but 76 isn't. 679 is a multiple of" +
+                '97. 676 is one less than 677. 767 is a multiple of 59.',
 
                 // Unit 18 - Test
                 'Test':
@@ -990,10 +991,10 @@ var Units = {
         {
             'title': '30',
 
-            'tips': '<p>' +
-                    'Use the left ring finger to type 6 and the right ' +
-                    'one to type 7.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left ring finger to type 6 and the right ' +
+                     'one to type 7.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 19 - Grip
@@ -1026,8 +1027,8 @@ var Units = {
                 // Unit 19 - Test
                 'Test':
                 '34 30 365 70 30 90 53 80 73 50 3580 3470 9074 7030 7037; ' +
-                '30 days, 630 books, 80 tables, 83 bytes, 307 sets, 35 cars; ' +
-                'April has 30 days. There are 365 days in a year.'
+                '30 days, 630 books, 80 tables, 83 bytes, 307 sets, ' +
+                '35 cars; April has 30 days. There are 365 days in a year.'
             }
         },
 
@@ -1035,9 +1036,9 @@ var Units = {
         {
             'title': '12',
 
-            'tips': '<p>' +
-                    'Use the left little finger to type 1 as well as 2.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left little finger to type 1 as well as 2.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 20 - Grip
@@ -1069,22 +1070,22 @@ var Units = {
 
                 // Unit 20 - Test
                 'Test':
-                '12 21 52 11 22 2 121 132 82 192 21 14 511 122 811 917 261; ' +
+                '12 21 52 11 22 2 121 132 82 192 21 14 511 122 811 917; ' +
                 '12 months, 52 weeks, 121 points, 82 tosses, 192 attempts; ' +
-                'There are 12 months and 52 weeks in a year. 211 is a prime ' +
-                'number. Square of 11 is 121.'
+                'There are 12 months and 52 weeks in a year. ' + 
+                '211 is a prime number. Square of 11 is 121.'
             }
         },
         // Unit 21
         {
             'title': 'passages',
 
-            'tips': '<p>' +
-                    'Type the passages with the correct fingers as practiced ' +
-                    'in the previous units. For special symbols not covered ' +
-                    'in the previous units, it is fine to look at the ' +
-                    'keyboard and type.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Type the passages with the correct fingers as ' +
+                     'practiced in the previous units. For special ' +
+                     'symbols not covered in the previous units, it ' +
+                     'is fine to look at the keyboard and type.' +
+                     '</p>',
 
             'subunits': {
                 // Unit 21 - Relativity
@@ -1189,10 +1190,10 @@ var Units = {
         {
             'title': '47',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type 4 and the right one ' +
-                    'to type 7.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type 4 and the right one ' +
+                     'to type 7.' +
+                     '</p>',
 
             'subunits': {
                 // Alt: Unit 16 - Grip
@@ -1220,15 +1221,18 @@ var Units = {
 
                 // Alt: Unit 16 - Sentences
                 'Sentences':
-                'John has about 44 science books. There are 7 days in a week. ' +
-                '47 candidates will be selected. I have 4 pens and 7 pencils. ' +
+                'John has about 44 science books. ' +
+                'There are 7 days in a week. ' +
+                '47 candidates will be selected. ' +
+                'I have 4 pens and 7 pencils. ' +
                 "47 is a prime number but 74 isn't",
 
                 // Alt: Unit 16 - Test
                 'Test':
                 '4 47 474 74 74 47 74 74 47 477 477 744 7447 477 477 74; ' +
                 '4 books, 7 sentences, 47 words, 4747 students, 74 cars; ' +
-                'John has about 44 science books. There are  days in a week. ' +
+                'John has about 44 science books. ' +
+                'There are  days in a week. ' +
                 '47 candidates will be selected.'
             }
         },
@@ -1237,10 +1241,10 @@ var Units = {
         {
             'title': '38',
 
-            'tips': '<p>' +
-                    'Use the left middle finger to type 3 and the right ' +
-                    'one to type 8.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left middle finger to type 3 and the right ' +
+                     'one to type 8.' +
+                     '</p>',
 
             'subunits': {
                 // Alt: Unit 17 - Grip
@@ -1284,10 +1288,10 @@ var Units = {
         {
             'title': '56',
 
-            'tips': '<p>' +
-                    'Use the left forefinger to type 5 and the right one ' +
-                    'to type 6.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left forefinger to type 5 and the right one ' +
+                     'to type 6.' +
+                     '</p>',
 
             'subunits': {
                 // Alt: Unit 18 - Grip
@@ -1314,7 +1318,8 @@ var Units = {
 
                 // Alt: Unit 18 - Sentences
                 'Sentences':
-                "56 is an even number but 65 isn't. 656 is a multiple of 8. " +
+                "56 is an even number but 65 isn't. " +
+                '656 is a multiple of 8. ' +
                 '565 is one less than 566. 6566 is a multiple of 67. ' +
                 'There are 366 days in a leap year.',
 
@@ -1330,10 +1335,10 @@ var Units = {
         {
             'title': '29',
 
-            'tips': '<p>' +
-                    'Use the left ring finger to type 2 and the right ' +
-                    'one to type 9.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left ring finger to type 2 and the right ' +
+                     'one to type 9.' +
+                     '</p>',
 
             'subunits': {
                 // Alt: Unit 19 - Grip
@@ -1366,7 +1371,7 @@ var Units = {
                 // Alt: Unit 19 - Test
                 'Test':
                 '24 29 265 79 29 99 52 89 72 59 2589 2479 9974 7929 7927; ' +
-                '29 days, 629 books, 89 tables, 82 bytes, 297 sets, 25 cars; ' +
+                '29 days, 629 books, 89 tables, 82 bytes, 297 sets; ' +
                 '23 divides 92. 9 does not divide 92. 992 is 3 more than 989.'
             }
         },
@@ -1375,10 +1380,10 @@ var Units = {
         {
             'title': '10',
 
-            'tips': '<p>' +
-                    'Use the left little finger to type 1 and the right ' +
-                    'one to type 0.' +
-                    '</p>',
+            'guide': '<p>' +
+                     'Use the left little finger to type 1 and the right ' +
+                     'one to type 0.' +
+                     '</p>',
 
             'subunits': {
                 // Alt: Unit 20 - Grip
@@ -1411,9 +1416,10 @@ var Units = {
 
                 // Alt: Unit 20 - Test
                 'Test':
-                '10 01 50 11 00 0 101 130 80 190 01 14 511 100 811 917 061; ' +
-                '100 days, 101 tricks, 80 tosses, 190 attempts, 1001 notes; ' +
-                'Square of 101 is 10201. 11 and 101 are prime numbers. ' +
+                '10 01 50 11 00 0 101 130 80 190 01 14 511 100 811 917; ' +
+                '100 days, 101 tricks, 80 tosses, 190 attempts, ' +
+                '1001 notes; Square of 101 is 10201. ' +
+                '11 and 101 are prime numbers. ' +
                 '11001001 is a multiple of 11.'
             }
         },

@@ -57,11 +57,11 @@ var Tutor = function() {
             // Element to display links for main and alternate units
             alternateUnitLinks: null,
 
-            // Element to display tips link
-            tipsLink: null,
+            // Element to display guide link
+            guideLink: null,
 
-            // Element to display tips for the current unit
-            tips: null,
+            // Element to display guide for the current unit
+            guide: null,
 
             // Element that contains previous and next links along with
             // the practice pane
@@ -241,12 +241,12 @@ var Tutor = function() {
         // Initialize the user interface
         showPracticePanelWrapper()
         updateUnitFromURL()
-        hideTips()
+        hideGuide()
 
         // Event handlers
         window.onhashchange = processURLChange
         my.html.input.onkeyup = updatePracticePane
-        tipsLink.onclick = toggleTips
+        guideLink.onclick = toggleGuide
     }
 
 
@@ -532,32 +532,32 @@ var Tutor = function() {
     }
 
 
-    // Hide typing tips
-    function hideTips()
+    // Hide typing guide
+    function hideGuide()
     {
-        tips.style.display = 'none'
-        Util.setChildren(tipsLink, 'Help')
+        guide.style.display = 'none'
+        Util.setChildren(guideLink, 'Guide')
         return false
     }
 
 
-    // Display typing tips
-    function showTips()
+    // Display typing guide
+    function showGuide()
     {
-        tips.style.display = ''
-        Util.setChildren(tipsLink, 'Hide Help')
+        guide.style.display = ''
+        Util.setChildren(guideLink, 'Hide Guide')
         return false
     }
 
 
-    // Hide typing tips if they are already displayed.
-    // Show typing tips if they are hidden.
-    function toggleTips()
+    // Hide typing guide if it is already displayed.
+    // Show typing guide if it is hidden.
+    function toggleGuide()
     {
-        if (tips.style.display == 'none') {
-            return showTips()
+        if (guide.style.display == 'none') {
+            return showGuide()
         } else {
-            return hideTips()
+            return hideGuide()
         }
     }
 
@@ -619,7 +619,7 @@ var Tutor = function() {
         updateProgressTooltip()
 
         displayUnitTitle()
-        displayTips()
+        displayGuide()
 
         resetSubunit()
     }
@@ -803,9 +803,9 @@ var Tutor = function() {
     }
 
 
-    // Display tips for the current unit.
-    function displayTips() {
-       my.html.tips.innerHTML = my.current.unit.tips
+    // Display guide for the current unit.
+    function displayGuide() {
+       my.html.guide.innerHTML = my.current.unit.guide
     }
 
 

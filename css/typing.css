@@ -173,11 +173,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     width: 100%;
 }
 
-#tipsPane {
+#guidePane {
     margin-top: 3%;
 }
 
-#tips {
+#guide {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
