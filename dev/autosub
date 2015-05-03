@@ -1,0 +1,150 @@
+#!/bin/sh
+
+# SIMPLIFIED BSD LICENSE
+# 
+# Copyright (c) 2008-2015 Susam Pal
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 
+#   1. Redistributions of source code must retain the above copyright
+#      notice, this list of conditions and the following disclaimer.
+#   2. Redistributions in binary form must reproduce the above copyright
+#      notice, this list of conditions and the following disclaimer in
+#      the documentation and/or other materials provided with the
+#      distribution.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+# Automatic substitutions of variable text in code.
+#
+# A project that contains static webpages contain several pieces of text
+# that need to be updated from one release to another. For example,
+# copyright notice in each file need to be updated with the current year
+# of publication every year, version mentioned anywhere in the pages
+# need to be updated on every release, certain sections in a file may
+# need to be included or excluded depending on the release cycle, etc.
+# This script automates such updates, inclusions and exclusions.
+
+
+PROJECT=QuickQWERTY
+START_YEAR=2008
+CURRENT_YEAR=$(date +%Y)
+FILESPEC="*.html js/* css/* dev/*"
+VERSION=$(sed -n "/VERSION/ s/.*'\(.*\)'/\1/p" js/tutor.js)
+
+# Each substitution is expressed in three lines.
+#
+#   1. A short comment describing what is to be substituted.
+#   2. Regular expression that matches what is to substituted.
+#   3. Replacement expression.
+#
+# Blank lines or lines consisting only of whitespaces are ignored.
+SUBSTITUTIONS="
+Version in footer
+$PROJECT [0-9][0-9a-z.-]*<br>
+$PROJECT $VERSION<br>
+
+Copyright in HTML and JS comments
+^Copyright (c) [0-9-]* Susam Pal
+Copyright (c) $START_YEAR-$CURRENT_YEAR Susam Pal
+
+Copyright in shell script comments
+^# Copyright (c) [0-9-]* Susam Pal
+# Copyright (c) $START_YEAR-$CURRENT_YEAR Susam Pal
+
+Copyright in footer
+&copy; [0-9-]* <a
+\&copy; $START_YEAR-$CURRENT_YEAR <a
+
+Copyright in license
+&copy; [0-9-]* Susam Pal
+\&copy; $START_YEAR-$CURRENT_YEAR Susam Pal
+"
+
+
+# Start automatic substitution.
+main()
+{
+    printf "Updating %s %s ...\n" "$PROJECT" "$VERSION"
+    do_substitutions
+    show_current_data
+}
+
+
+# Perform substitutions specified in $SUBSTITUTIONS.
+do_substitutions()
+{
+
+    printf "Performing substitutions ...\n"
+    printf "%s" "$SUBSTITUTIONS" | grep "[[:graph:]]" |
+    while read -r comment && read -r pattern && read -r replacement
+    do
+        printf "Updating: %s ...\n" "$comment"
+        sed -i "s/$pattern/$replacement/" $FILESPEC
+    done
+}
+
+
+# Enable section with specified key.
+#
+# Arguments:
+#   key -- Key that identifies a section.
+enable_section()
+{
+    key="$1"
+    sed -i "s/<!-- Begin $key --><!--$/<!-- Begin $key -->/" download.html
+    sed -i "s/ --><!-- End $key -->$/ <!-- End $key -->/" download.html
+}
+
+
+# Disable section with specified key.
+#
+# Arguments:
+#   key -- Key that identifies a section.
+disable_section()
+{
+    key="$1"
+    sed -i 's/<!-- Begin $key -->$/<!-- Begin $key --><!--/' download.html
+    sed -i 's/ <!-- End $key -->$/ --><!-- End $key -->/' download.html
+}
+
+
+# Show variable data currently used in the project.
+show_current_data()
+{
+    printf "\nShowing current data ...\n"
+    printf "%s" "$SUBSTITUTIONS" | grep "[[:graph:]]" |
+    while read -r comment && read -r pattern && read -r replacement
+    do
+        raw_out=$(grep "$pattern" $FILESPEC)
+        clean_out=$(printf "%s" "$raw_out" | cut -d: -f2- | sort | uniq |
+                    sed 's/^ *//g')
+        printf "%s: %s\n" "$comment" "$clean_out"
+
+        lines=$(printf "%s\n" "$clean_out" | wc -l)
+        if [ $lines -ne 1 ]
+        then
+            printf "\nWARNING: %s unique lines found:\n" $lines
+            printf "%s\n" "$raw_out"
+        fi
+        printf "%s\n" "--"
+    done
+}
+
+
+# Start the script.
+main "$@"
