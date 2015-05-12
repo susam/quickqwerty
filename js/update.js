@@ -35,12 +35,12 @@ var Update = function() {
 
 
     // Latest stable version
-    var STABLE_VERSION = '0.4.1'
+    var STABLE_VERSION = '1.0.0'
 
 
     // Download URL for the stable version
-    var DOWNLOAD_URL = 'https://sourceforge.net/projects/quickqwerty/' +
-                       'files/QuickQWERTY/0.4.1/QuickQWERTY-0.4.1.zip/download'
+    var DOWNLOAD_URL = 'https://github.com/susam/quickqwerty/archive/' +
+                        STABLE_VERSION + '.zip'
 
 
     // Split a part of the version string into separate tokens of

@@ -34,10 +34,8 @@
 # A project that contains static webpages contain several pieces of text
 # that need to be updated from one release to another. For example,
 # copyright notice in each file need to be updated with the current year
-# of publication every year, version mentioned anywhere in the pages
-# need to be updated on every release, certain sections in a file may
-# need to be included or excluded depending on the release cycle, etc.
-# This script automates such updates, inclusions and exclusions.
+# of publication, version mentioned anywhere in the pages need to be
+# updated on every release. This script automates such updates.
 
 
 PROJECT=QuickQWERTY
@@ -46,6 +44,7 @@ CURRENT_YEAR=$(date +%Y)
 CURRENT_DATE=$(date "+%Y-%m-%d")
 FILES="*.html js/* css/* dev/*"
 VERSION=$(sed -n "/VERSION/ s/.*'\(.*\)'/\1/p" js/tutor.js)
+
 
 # Each substitution rule is expressed in five lines.
 #
@@ -72,62 +71,44 @@ $PROJECT $VERSION<br>
 Copyright in comments
 none
 none
-Copyright (c) [0-9][0-9-]* Susam Pal
+Copyright (c) [0-9][0-9]*-[0-9][0-9]* Susam Pal
 Copyright (c) $START_YEAR-$CURRENT_YEAR Susam Pal
 
 Copyright in HTML
 none
 none
-&copy; [0-9][0-9-]*
+&copy; [0-9][0-9]*-[0-9][0-9]*
 \&copy; $START_YEAR-$CURRENT_YEAR
 
-Dev download URL and link
+Download links
 $VERSION
--\(beta\|rc\)[0-9][0-9]*$
-[0-9][0-9.]*-\(beta\|rc\)[0-9][0-9]*\(.*zip\|.*tar\)
-$VERSION\2
+^[0-9][0-9.]*[0-9]$
+[0-9][0-9.]*[0-9]\(.*zip\|.*tar\)
+$VERSION\1
 
-Dev release notes URL
+Download release notes link
 $VERSION
--\(beta\|rc\)[0-9][0-9]*$
-releases.html#[0-9][0-9.]*-\(beta\|rc\)[0-9][0-9]*
+^[0-9][0-9.]*[0-9]$
+releases.html#[0-9][0-9.]*[0-9]
 releases.html#$VERSION
 
-Dev release date
+Download release date
 $VERSION
--\(beta\|rc\)[0-9][0-9]*$
-([1-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
-($CURRENT_DATE)
-"
+^[0-9][0-9.]*[0-9]$
+\(Release notes.*\)[1-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]
+\1$CURRENT_DATE
 
-
-# Each section rule is expressed in three lines.
-#
-#   1. String that must match the pattern specified below for the rule
-#      to be run. If this string does not match the pattern below it,
-#      then the rule is not run.
-#   2. Regular expression that the above string must match for the rule
-#      to be run. If the string above does not match this pattern, then
-#      the rule is not run.
-#   3. Space separated key names of sections that must be enabled.
-#   4. Space separated key names of sections that must be disabled.
-#
-# Blank lines or lines consisting only of whitespaces are ignored.
-SECTION_RULES="
+Most recent release date
 $VERSION
-^[0-9][0-9.]*$
-stable
-dev beta rc
+^[0-9][0-9.]*[0-9]$
+\(QuickQWERTY $VERSION.*\)[1-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]
+\1$CURRENT_DATE
 
+Stable update version
 $VERSION
--beta[0-9][0-9]*$
-dev beta
-devMissing rc
-
-$VERSION
--rc[0-9][0-9]*$
-dev rc
-devMissing beta
+^[0-9][0-9.]*[0-9]$
+STABLE_VERSION = '[0-9][0-9a-z.-]*'
+STABLE_VERSION = '$VERSION'
 "
 
 
@@ -141,7 +122,6 @@ main()
     else
         printf "Updating %s %s.\n" "$PROJECT" "$VERSION"
         run_substitution_rules
-        run_section_rules
         printf "Update complete.\n"
     fi
 }
@@ -161,49 +141,6 @@ run_substitution_rules()
             sed -i "s/$pattern/$replacement/" $FILES
         fi
     done
-}
-
-
-# Run section rules specified in $SECTION_RULES.
-run_section_rules()
-{
-    printf "Enabling and disabling sections.\n"
-    printf "%s\n" "$SECTION_RULES" | grep "[[:graph:]]" |
-    while read -r string && read -r matcher &&
-          read -r enable && read -r disable
-    do
-        if printf "%s" "$string" | grep -- "$matcher" > /dev/null
-        then
-            for key in $enable; do enable_section "$key"; done
-            for key in $disable; do disable_section "$key"; done
-        fi
-    done
-}
-
-
-# Enable section with specified key.
-#
-# Arguments:
-#   key -- Key that identifies a section.
-enable_section()
-{
-    printf "Enabling section %s.\n" "$key"
-    key="$1"
-    sed -i "s/\(<!-- Begin $key -->\)<!--$/\1/" $FILES
-    sed -i "s/-->\(<!-- End $key -->\)$/\1/" $FILES
-}
-
-
-# Disable section with specified key.
-#
-# Arguments:
-#   key -- Key that identifies a section.
-disable_section()
-{
-    printf "Disabling section %s.\n" "$key"
-    key="$1"
-    sed -i "s/\(<!-- Begin $key -->\)$/\1<!--/" $FILES
-    sed -i "s/\(^\|[ \t]\)\(<!-- End $key -->\)$/\1-->\2/" $FILES
 }
 
 
