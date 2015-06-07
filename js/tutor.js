@@ -219,8 +219,6 @@ var Tutor = function() {
 
             UNHAPPY: '(\u2299_\u2299)',
 
-            WORRIED: '(\u2299\ufe4f\u2299)',
-
             SAD: '(\u2299\u2054\u2299)'
         }
     }
@@ -1151,8 +1149,6 @@ var Tutor = function() {
             }
         } else if (errorRate > 0 && errorRate <= 2) {
             smiley = my.SMILEY.UNHAPPY
-        } else if (errorRate > 2 && errorRate <= 5) {
-            smiley = my.SMILEY.WORRIED
         } else {
             smiley = my.SMILEY.SAD
         }
