@@ -39,18 +39,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script src="js/units.js"></script>
 <script src="js/settings.js"></script>
 <script src="js/tutor.js"></script>
-<script src="http://quickqwerty.com/js/update.js"></script>
-<script src="http://susam.in/onepixel/?js"></script>
 <script>
-// Log request
-if (typeof OnePixel == 'object' && typeof OnePixel.log == 'function') {
-
-    OnePixel.log('name', 'QuickQWERTY',
-                 'version', Tutor.VERSION)
-
-    Tutor.setLogFunction(OnePixel.log)
-}
-
 // Canonicalize URL
 ;(function() {
     var webMode = /^https?:$/i.test(window.location.protocol)
@@ -177,7 +166,6 @@ window.onload = function()
         <div id="noscriptWrapper">
             <div id="noscript">
             JavaScript should be enabled to run this application.
-            <img src="http://susam.in/onepixel/?name=QuickQWERTY&NOSCRIPT">
             </div>
         </div>
         </noscript>
