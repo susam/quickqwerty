@@ -1,5 +1,6 @@
 QuickQWERTY
 ===========
+
 [QuickQWERTY][1] is a touch typing tutor that runs on a web browser with
 JavaScript enabled. This software may be used to train your fingers to
 type without looking at the keys. After completing all the units
@@ -12,6 +13,7 @@ use the right finger for each key.
 
 Contents
 --------
+
 * [Units](#units)
 * [5–6 split vs. 6–7 split](#56-split-vs-67-split)
 * [Commands](#commands)
@@ -21,6 +23,7 @@ Contents
 
 Units
 -----
+
 The typing lessons available in this software are divided into units and
 subunits. Each unit introduces a new set of keys to be practiced. For
 example, the first unit trains the fingers on how to press the keys in
@@ -46,6 +49,7 @@ finger to the home row immediately after striking that key.
 
 5–6 split vs. 6–7 split
 -----------------------
+
 There are two popular ways to type the ten number keys on the top row.
 
   1. In a nontraditional style, '1' is typed with the little finger of
@@ -74,6 +78,7 @@ to switch between the two styles.
 
 Commands
 --------
+
 At any point while typing in the input box, you can type an input
 command. The following is a list of the supported commands along with a
 description of what each command does.
@@ -96,20 +101,18 @@ as you complete typing the command, your command would be executed.
 
 License
 -------
-This is free software. You are permitted to redistribute and use it in
-source and binary forms, with or without modification, under the terms
-of the Simplified BSD License. See LICENSE.html for the complete
-license.
 
-This software is provided WITHOUT ANY WARRANTY; without even the implied
-warranties of MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE. See
-LICENSE.html for the complete disclaimer.
+This is free and open source software. You can use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of it,
+under the terms of the MIT License. You can obtain a copy of the
+MIT License at <http://quickqwerty.com/LICENSE.html>.
 
-If you do not have a copy of the LICENSE.html file, please visit
-http://quickqwerty.com/LICENSE.html to obtain a copy of the license.
+This software is provided "AS IS", WITHOUT WARRANTY OF ANY KIND,
+express or implied. See the MIT License for details.
 
 
 Contact
 -------
+
 To report any bugs, or suggest any improvements, please create a new
 issue at https://github.com/susam/quickqwerty/issues.
