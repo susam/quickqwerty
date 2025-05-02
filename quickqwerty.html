@@ -1,0 +1,3483 @@
+<!DOCTYPE html>
+<!--
+    The MIT License (MIT)
+
+    Copyright (c) 2008-2025 Susam Pal
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+<html lang="en">
+  <head>
+    <title>QuickQWERTY - Touch Typing Tutor</title>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        background: #2e0854;
+        margin: 0;
+        padding: 0;
+        font-family: helvetica, arial, sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        color: #333333;
+        min-width: 1024px;
+      }
+      a:link, a:visited {
+        color: #0000ff;
+        text-decoration: none;
+      }
+      a:focus, a:hover, a:active {
+        text-decoration: underline;
+      }
+      #header {
+        padding: 0 2%;
+        line-height: 80px;
+        overflow: hidden;
+      }
+      #header h1 {
+        margin: 0;
+        float: left;
+        width: 27%;
+        color: #eeeeee;
+        font-size: 32px;
+      }
+      #header h2 {
+        margin: 0;
+        float: left;
+        width: 46%;
+        color: #eeeeee;
+        font-size: 30px;
+        text-align: center;
+      }
+      #header #navigation {
+        float: right;
+        width: 27%;
+        text-align: right;
+      }
+      #header #navigation a {
+        margin-left: 1em;
+      }
+      #header a:link, #header a:visited {
+        color: #dddddd;
+        text-decoration: none;
+      }
+      #header a:focus, #header a:hover, #header a:active {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+      #header h1 a:link, h1 a:visited, h1 a:focus, h1 a:hover, h1 a:active {
+        text-decoration: none;
+      }
+      #mainWrapper {
+        background: #ffffff;
+        padding: 2%;
+      }
+      #main {
+        overflow: hidden;
+      }
+      #content {
+        float: left;
+        width: 80%;
+      }
+      #sidebar {
+        float: right;
+        width: 20%;
+        text-align: center;
+      }
+      #footer {
+        border-top: 2px double #0c0632;
+        color: #eeeeee;
+        text-align: center;
+        padding: 2%;
+      }
+      #footer #navigation a {
+        margin-left: 2em;
+      }
+      #footer #copyright {
+        margin-top: 2%;
+        width: 50%;
+        display: inline-block;
+      }
+      #footer a:link, #footer a:visited {
+        color: #dddddd;
+        text-decoration: none;
+      }
+      #footer a:focus, #footer a:hover, #footer a:active {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+      #copyright a:link, #copyright a:visited {
+        color: #add8e6;
+        text-decoration: none;
+      }
+      #copyright a:focus, #copyright a:hover, #copyright a:active {
+        color: #cffbf8;
+        text-decoration: underline;
+      }
+      .warning {
+        display: none;
+        text-align: left;
+        border: 3px double red;
+        background: #ffe0e0;
+        padding: 0 1em;
+      }
+      #unitLinks {
+        /* #sidebar is 20% the width of #main. #unitLinks is within #content
+         * which itself is 80% the width of #main. We want #unitLinks to be
+         * 20% of the width of #main. Since #unitLinks is contained within
+         * #content, #unitLinks needs to be 25% the width of #content, so
+         * that it is 20% the width of #main. 25% of 80% is 20%. */
+        width: 25%;
+        float: left;
+        text-align: left;
+      }
+      #practicePanelWrapper {
+        width: 75%;
+        float: right;
+        text-align: center;
+        display: none;
+      }
+      #noscriptWrapper {
+        width: 75%;
+        float: right;
+        text-align: center;
+      }
+      #noscript {
+        margin: 10% 0%;
+        color: red;
+        font-weight: bold;
+        border: 5px double red;
+        padding: 1.5em;
+        display: inline-block;
+      }
+      #unitLinks div {
+        margin-bottom: 3px;
+        text-align: center;
+      }
+      #subunitLinks {
+        text-align: justify;
+        height: 24px;
+      }
+      #subunitLinks div.stretch {
+        width: 100%;
+        border: 0;
+      }
+      #subunitLinks div {
+        display: inline-block;
+        text-align: center;
+      }
+      #alternateUnitLinks div {
+        margin-right: 1em;
+        width: 20%;
+        text-align: center;
+        display: inline-block;
+      }
+      #unitLinks div, #subunitLinks div, #alternateUnitLinks div {
+        background: #e0d0f0;
+        border: 1px solid #807090;
+        border-radius: 2px;
+      }
+      #unitLinks div.selected,
+      #subunitLinks div.selected,
+      #alternateUnitLinks div.selected {
+        background: #e0ffff;
+        border: 1px solid #108080;
+      }
+      #practicePanel {
+        display: inline-block;
+        margin-top: 5%;
+      }
+      #previousLink, #nextLink {
+        width: 0.5em;
+        display: inline-block;
+        vertical-align: top;
+        font-family: verdana;
+      }
+      #practicePane {
+        display: inline-block;
+      }
+      #target {
+        margin-top: 3%;
+        font-family: monospace;
+        display: inline-block;
+        padding: 5px;
+        font-size: 40px;
+        line-height: 48px;
+      }
+      #target, span.targetChar {
+        border: 3px solid #333333;
+        border-radius: 2px;
+      }
+      #feedbackPane {
+        margin: 3% 0;
+        overflow: hidden;
+      }
+      #statusPane {
+        display: inline-block;
+        width: 30%;
+        text-align: left;
+        vertical-align: top;
+      }
+      #progressPane {
+        display: inline-block;
+        width: 30%;
+      }
+      #resultPane {
+        display: inline-block;
+        width: 30%;
+        text-align: right;
+        vertical-align: top;
+      }
+      #status {
+        color: #008000;
+        font-weight: bold;
+      }
+      #restartLink {
+        visibility: hidden;
+      }
+      #input {
+        width: 95%;
+      }
+      #progressBar {
+        width: 100%;
+      }
+      #guidePane {
+        margin-top: 3%;
+      }
+      #guide {
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        text-align: justify;
+      }
+      /* State changes */
+      .error #target {
+        background: #ff8888;
+      }
+      .completed #target, .completed #input {
+        background: #dddddd;
+      }
+      .completed span.targetChar {
+        border: 3px solid #dddddd;
+      }
+      .error #status {
+        color: #ff0000;
+      }
+      #smiley {
+        font-family: verdana;
+      }
+      #alternateUnitLinks {
+        width: 95%;
+        margin-top: 1%;
+        display: inline-block;
+      }
+      #update {
+        width: 80%;
+      }
+      #update a {
+        margin-right: 2em;
+      }
+    </style>
+    <script>
+var Util = function() {
+
+    'use strict'
+
+
+    // Determine how many characters in the beginning of string a
+    // are common with that of string b.
+    //
+    // Arguments:
+    //   a -- A string
+    //   b -- Another string
+    //
+    // Return:
+    //   The number of common characters in the beginning of both
+    //   strings
+    function common(a, b)
+    {
+        var minLength = Math.min(a.length, b.length)
+        for (var i = 0; i < minLength; i++) {
+            if (a.charAt(i) != b.charAt(i)) {
+                return i
+            }
+        }
+        return i
+    }
+
+
+    // Return a random element from the specified a.
+    //
+    // Argument:
+    //   a -- An array
+    //
+    // Return:
+    //   An element selected randomly from the array a
+    function random(a, b)
+    {
+        if (typeof a == 'number') {
+            if (typeof b == 'number') {
+                a = Math.floor(a)
+                b = Math.floor(b)
+                return Math.floor(Math.random() * (b - a + 1)) + a
+            } else {
+                return Number.NaN
+            }
+        } else if (a instanceof Array) {
+            return a[Math.floor(Math.random() * a.length)]
+        }
+    }
+
+
+    // Convert the specified duration specified as the number of
+    // milliseconds into a string that specifies the duration in days,
+    // hours, minutes and seconds.
+    //
+    // Argument:
+    //   milliseconds -- Duration specified as number of milliseconds
+    //                   (type: number)
+    //
+    // Return:
+    //   Duration specified in days, hours, minutes and seconds
+    //   (type: string)
+    function prettyTime(milliseconds, showMilliseconds)
+    {
+        if (typeof showMilliseconds == 'undefined') {
+            showMilliseconds = true
+        }
+
+        seconds = Math.floor(milliseconds / 1000)
+        minutes = Math.floor(seconds / 60)
+        hours = Math.floor(minutes / 60)
+        days = Math.floor(hours / 24)
+
+
+        milliseconds %= 1000
+        seconds %= 60
+        minutes %= 60
+        hours %= 24
+
+        seconds += (milliseconds / 1000)
+
+        var s = ''
+
+        if (days != 0) {
+            s += days + ' day' + (days > 1 ? 's' : '') + ' '
+        }
+
+        if (hours != 0) {
+            s += hours + ' hour' + (hours > 1 ? 's' : '') + ' '
+        }
+
+        if (minutes != 0) {
+            s += minutes + ' minute' + (minutes > 1 ? 's' : '') + ' '
+        }
+
+        if (seconds != 0) {
+            s += seconds.toFixed(showMilliseconds ? 3 : 0) +
+                 ' second' + (seconds > 1 ? 's' : '') + ' '
+        }
+
+        if (s.length == 0) {
+            return '0 second'
+        } else {
+            // Remove the trailing space and return the string
+            return s.substring(0, s.length - 1)
+        }
+    }
+
+
+    // Return a visual representation of the specified string.
+    //
+    // In the returned string, all occurrences of spaces are replaced
+    // with no-break space, and all occurrences of newlines are replaced
+    // with return symbol.
+    //
+    // Argument:
+    //   s -- a string (type: string)
+    //
+    // Return:
+    //  Visual representation of the string (type: string)
+    function visual(s)
+    {
+        return s.replace(/ /g, '\u00a0').replace(/\n/g, '\u23ce')
+    }
+
+
+    // Add children to a DOM node.
+    //
+    // This function accepts a variable number of arguments. The first
+    // argument must be a parent node to which the child nodes are to be
+    // added. The first argument is followed by one or more arguments,
+    // one argument each for every child node that must be added to the
+    // parent node.
+    //
+    // If any child node argument is not found to be an instance of
+    // Node, then a Text node is created from this argument after
+    // converting it into a string.
+    //
+    // If this function is called with 0 or 1 arguments, then this
+    // function does nothing.
+    //
+    // Arguments:
+    //   node -- Parent node (type: Node)
+    //   childNode, ... -- One or more child nodes (type: Node ...)
+    function addChildren()
+    {
+        // If no children nodes are specified, then there is nothing to
+        // do.
+        if (arguments.length <= 1) {
+            return
+        }
+
+        var node = arguments[0]
+        var childNodes = Array.prototype.slice.call(arguments, 1)
+        var childNode
+        var i
+
+        for (i = 0; i < childNodes.length; i++) {
+            childNode = childNodes[i]
+
+            if (childNode instanceof Node) {
+                node.appendChild(childNode)
+            } else {
+                node.appendChild(document.createTextNode(childNode + ''))
+            }
+        }
+    }
+
+
+    // Remove all children of a DOM node.
+    //
+    // Argument:
+    //   node -- Node in a DOM (type: Node)
+    function removeChildren(node)
+    {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild)
+        }
+    }
+
+
+    // Set children of a DOM node.
+    //
+    // This function removes the existing children of a DOM node and
+    // adds the specified child nodes.
+    //
+    // A call to the following function
+    //
+    //     setChildren(node, childNode1, childNode2)
+    //
+    // is equivalent to calls to the following two functions
+    //
+    //     removeChildren(node)
+    //     addChildren(node, childNode1, childNode2)
+    //
+    // Arguments:
+    //   node -- Parent node (type: Node)
+    //   childNode, ... -- One or more child nodes (type: Node ...)
+    function setChildren()
+    {
+        // If no children nodes are specified, then there is nothing to
+        // do.
+        if (arguments.length <= 1) {
+            return
+        }
+
+        // Remove existing children and add new children
+        removeChildren(arguments[0])
+        addChildren.apply(null, arguments)
+    }
+
+
+    // Util object
+    return {
+        common: common,
+        random: random,
+        prettyTime: prettyTime,
+        addChildren: addChildren,
+        setChildren: setChildren,
+        removeChildren: removeChildren,
+        visual: visual
+    }
+}()
+var Units = {
+    // 6-7 split (6 with left hand)
+    'main': [
+        // Unit 1
+        {
+            'title': 'asdf jkl;',
+
+            'guide': '<p>' +
+                     'All the eight fingers except the thumbs should ' +
+                     'be placed on the home row. This is done by ' +
+                     'placing the left forefinger on F and the right ' +
+                     'forefinger on J. Place the remaining fingers on ' +
+                     'the keys beside them in a natural manner. So, the ' +
+                     'left little finger would be on A and the right ' +
+                     'little finger would be on the ; (semicolon) key. ' +
+                     '</p><p>' +
+                     'To type any key, press the key with the finger over ' +
+                     'it. Use one of the thumbs to press the space bar. ' +
+                     'Keep your eyes on the screen as you type. Do not ' +
+                     'look at the keyboard.' +
+                     '</p><p>' +
+                     'Proceed to the next lesson only when you can type ' +
+                     'with 0% errors. Accuracy is more important than  ' +
+                     'speed for a beginner.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 1 - Grip
+                'Grip':
+                'asdf ;lkj asdf ;lkj asdf ;lkj asdf ;lkj asdf ;lkj ' +
+                'fdsa jkl; fdsa jkl; fdsa jkl; fdsa jkl; fdsa jkl; ' +
+                'asdf fdsa ;lkj jkl; asdf fdsa ;lkj jkl; ' +
+                'asdf jkl; ;lkj fdsa asdf jkl; ;lkj fdsa ' +
+                'ksl; jak; fk;s asl; jas; ;sl; fjas fjk; ' +
+                'askl kjf; asdj ;fal dfla ;;ls ;ja; l;ds',
+
+                // Unit 1 - Words
+                'Words':
+                'a a a; as as as; all all all; fall fall fall; ' +
+                'lad lad lad; dad dad dad; fad fad fad; ass ass ass; ' +
+                'salad salad salad; alfalfa alfalfa alfalfa; sa sa sa; ' +
+                'add add add;',
+
+                // Unit 1 - Control
+                'Control':
+                'd da dad; a al alf alfa alfal alfalf alfalfa; f fa fad; ' +
+                's sa sal sala salad; a al all; a as ass; f fa fal fall;',
+
+                // Unit 1 - Sentences
+                'Sentences':
+                'ask sall; ask sall; ask sall; ' +
+                'a lad asks sall; a lad asks sall; a lad asks sall; ' +
+                'ask dad; ask dad; ask dad; ' +
+                'all lads fall; all lads fall; all lads fall;',
+
+                // Unit 1 - Test
+                'Test':
+                'as all alfalfa; lad salad lad all dad; lad sall a ask; ' +
+                'sall salad alfalfa; ask dad fad lad; all as a; dad fad ' +
+                'alfalfa ass salad all as a dad; a lad asks sall; ' +
+                'ask sall; ask dad; all lads fall;'
+            }
+        },
+
+        // Unit 2
+        {
+            'title': 'ru',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type R and the right one ' +
+                     'to type U. After striking the R or U keys, return ' +
+                     'the forefingers back to the original position on ' +
+                     'F or J.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 2 - Grip
+                'Grip':
+                'frfr juju frfr juju frfr juju; ' +
+                'rfrf ujuj rfrf ujuj rfrf ujuj; ' +
+                'jrjr fufu jrjr fufu jrjr fufu; ' +
+                'rjrj ufuf rjrj ufuf rjrj ufuf; ' +
+                'asdfr ;lkju asdfr ;lkju asdfr ;lkju ' +
+                'rfdsa ujkl; rfdsa ujkl; rfdsa ujkl; ' +
+                'asdfr ujkl; asdfr ujkl; asdfr ujkl; ' +
+                'asdfr rfdsa ;lkju ujkl; asdfr rfdsa ' +
+                'asdfr ujkl; ;lkju rfdsa asdfr ujkl; ' +
+                'urfu ujku rfur luru rjur arru ursr druj drur arsufr ' +
+                'frrur jurru urrsu uusrr drlursu uslru frsusl arfu jfru',
+
+                // Unit 2 - Words
+                'Words':
+                'far far far; fur fur fur; rar rar rar; lark lark lark; ' +
+                'radar radar radar; surf surf surf; dull dull dull; ' +
+                'urdu urdu urdu; full full full; rural rural rural; ' +
+                'us us us; usual usual usual; laura laura laura; ' +
+                'russ russ russ;',
+
+                // Unit 2 - Control
+                'Control':
+                's su sur surf; r ra rad rada radar; f fu ful full; ' +
+                'f fu fur; l la lar lark; u ur urd urdu; f fu fur; ' +
+                'l la lau laur laura; f fa far; r ru rur rura rural;',
+
+                // Unit 2 - Sentences
+                'Sentences':
+                'laura surfs as usual; laura surfs as usual; ' +
+                'laura surfs as usual; ask russ; ask russ; ask russ;',
+
+                // Unit 2 - Test
+                'Test':
+                'radar rural laura russ fur lark rar surf; ' +
+                'far usual russ full lark laura dull; ' +
+                'laura surfs as usual; ask russ;'
+            }
+        },
+
+        // Unit 3
+        {
+            'title': 'vm',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type V and the right one ' +
+                     'to type M.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 3 - Grip
+                'Grip':
+                'fvfv jmjm fvfv jmjm fvfv jmjm; ' +
+                'vfvf mjmj vfvf mjmj vfvf mjmj; ' +
+                'jvjv fmfm jvjv fmfm jvjv fmfm; ' +
+                'vjvj mfmf vjvj mfmf vjvj mfmf; ' +
+                'fvrm jmuv fvrm jmuv fvrm jmuv; ' +
+                'asdfv ;lkjm asdfrv ;lkjum asdfvr ;lkjmu ' +
+                'avrm mvum mmvm mvlv vvmuv vrmv vmrlm svmvmk avsm ' +
+                'rvasm svlmr svmvr dvmkv kmvlv rvlmv amvvm vvma mvmm',
+
+                // Unit 3 - Words
+                'Words':
+                'madam madam madam; lava lava lava; malva malva malva; ' +
+                'slam slam slam; mars mars mars; mask mask mask; ' +
+                'uv uv uv; murmur murmur murmur; slum slum slum; ' +
+                'mark mark mark; vasu vasu vasu; larva larva larva; ' +
+                'dam dam dam; sam sam sam; vum vum vum; ' +
+                'arm arm arm; mall mall mall; alarm alarm alarm;',
+
+                // Unit 3 - Control
+                'Control':
+                'm ma mad mada madam; l la lav lava; m ma mas mask; ' +
+                'm mu mur mur murm murmu murmur; v va vas vasu; ' +
+                'l la lar larv larva; d da dam; v vu vum; u uv; ' +
+                'm ma mar mars; s sl sla slam; a al ala alar alarm;',
+
+                // Unit 3 - Sentences
+                'Sentences':
+                'madam murmurs; madam murmurs; madam murmurs; ' +
+                'a mad vassal murmurs; a mad vassal murmurs; ' +
+                'a mad vassal murmurs; ' +
+                'mark all vassals; mark all vassals; mark all vassals;',
+
+                // Unit 3 - Test
+                'Test':
+                'madam lava slum slam mask vasu sam alarm vum uv; ' +
+                'mall alarm arm larva adam malva vum vasu mask; ' +
+                'madam murmurs; a mad vassal murmurs; mark all vassals;'
+            }
+        },
+
+        // Unit 4
+        {
+            'title': 'ei',
+
+            'guide': '<p>' +
+                     'Use the left middle finger to type E and the right ' +
+                     'one to type I.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 4 - Grip
+                'Grip':
+                'dede kiki dede kiki dede kiki; ' +
+                'eded ikik eded ikik eded ikik; ' +
+                'fefe jiji fefe jiji fefe jiji; ' +
+                'efef ijij efef ijij efef ijij; ' +
+                'deki iked deki iked deki iked; ' +
+                'ekid dike ekid dike ekid dike; ' +
+                'idek kedi idek kedi idek iked; ' +
+                'aeds fers iukj iuea ediu edil; ' +
+                'aeiru iuerr juiee ireel aerij afeei iieei eeeii eieie; ' +
+                'iesdi sdiei aidef lijue iuefr ifese eikis iaser uieie;',
+
+                // Unit 4 - Words
+                'Words':
+                'fire fire fire; field field field; are are are; ' +
+                'riddle riddle riddle; killer killer killer; is is is; ' +
+                'file file file; rise rise rise; side side side; ' +
+                'read seed feed leave veal seal visa veer smear; ' +
+                'lime slime dime vide save vase live vile ride free; ' +
+                'smile simile familiar similar mere merrier',
+
+                // Unit 4 - Control
+                'Control':
+                'r ri rid ridd riddl riddle; k ki kil kill kille killer; ' +
+                's si sim simi simil simile; f fi fie fiel field; ' +
+                'f fa fam fami famil famili familia familiar; ' +
+                'v vi vil vile; l li liv live; s sm sme smea smear; ' +
+                'l li lime lime; s sm smi smil smile; i is; a ar are;',
+
+                // Unit 4 - Sentences
+                'Sentences':
+                'mike is a serial killer; mike is a serial killer; ' +
+                'mike is a serial killer; dave is a skilled riddler; ' +
+                'dave is a skilled riddler; dave is a skilled riddler; ' +
+                'sam served a meal; see a fire drill; jim feeds a deer;',
+
+                // Unit 4 - Test
+                'Test':
+                'fire field are riddle killer is file rise side read; ' +
+                'rise side visa live dime vide ride vile smile familiar; ' +
+                'slime skilled similar drill simile serial is see are; ' +
+                'mike is a serial killer; dave is a skilled riddler; ' +
+                'sam served a meal; see a fire drill; jim feeds a deer;',
+            }
+        },
+
+        // Unit 5
+        {
+            'title': 'c,',
+
+            'guide': '<p>' +
+                     'Use the left middle finger to type C and the right ' +
+                     'one to type , (comma).' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 5 - Grip
+                'Grip':
+                'dcdc k,k, dcdc k,k, dcdc k,k, ' +
+                'cdcd ,k,k cdcd ,k,k cdcd ,k,k ' +
+                'fcfc j,j, fcfc j,j, fcfc j,j, ' +
+                'cfcf ,j,j cfcf ,j,j cfcf ,j,j ' +
+                'dck, ,kcd dck, ,kcd dck, ,kcd ' +
+                'ck,d d,kc ck,d d,kc ck,d d,kc ' +
+                ',dck kcd, ,dck kcd, ,dck ,kcd ' +
+                ',,cc cc,, c,c, ,c,c ,ic, c,ac, c,r;c ac;,; s,c;fd a,cd, ' +
+                ';,,cv vc,a; cv,sk; ;l,vdj vcm, ,mdc cvi, ;i,c m,fc ec;,',
+
+                // Unit 5 - Words
+                'Words':
+                'receive, circus, circle, maverick, class, mice; ice; ' +
+                'fulcrum, care, cure, cafe, face, lace, race, claim; ' +
+                'card, lack, service, car, camera, recursive, recess; ' +
+                'cease, civil, camel, cave, cake, case, decade, crack;',
+
+                // Unit 5 - Control
+                'Control':
+                'm ma mav mave maver maveri maveric maverick, ' +
+                'f fu ful fulc fulcr fulcru fulcrum, m mi mic mice, ' +
+                'r re rec rece recei receiv receive, c ca cas case, ' +
+                'c ci cir circ circu circus, r re rec rece reces recess, ' +
+                'c ce cea ceas cease, c ca cam came camer camera, ' +
+                'r re rec recu recur recurs recursi recursiv recursive',
+
+                // Unit 5 - Sentences
+                'Sentences':
+                'cecilia received a mail, carr likes camels, ' +
+                'use a camera, calla kills mice, use a fulcrum, ' +
+                'callula cured carlie',
+
+                // Unit 5 - Test
+                'Test':
+                'maverick, fulcrum, cecilia, camera, recursive, camels, ' +
+                'mice, lace, race, case, face, cave, civil, care, lace, ' +
+                'claim, decade, cecilia received a mail, use a camera, ' +
+                'calla kills mice, use a fulcrum, carr likes camels'
+            }
+        },
+
+        // Unit 6
+        {
+            'title': 'gh',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type G and the right one ' +
+                     'to type H. After striking the G or H keys, return ' +
+                     'the forefingers back to the original position on ' +
+                     'F or J.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 6 - Grip
+                'Grip':
+                'fgfg jhjh fgfg jhjh fgfg jhjh; ' +
+                'gfgf hjhj gfgf hjhj gfgf hjhj; ' +
+                'fhfh gjgj fhfh gjgj fhfh gjgj; ' +
+                'hfhf jgjg hfhf jgjg hfhf jgjg; ' +
+                'asdfg ;lkjh asdfg ;lkjh asdfg ;lkjh asdfg ;lkh;' +
+                'gfdsa hjkl; gfdsa hjkl; gfdsa hjkl; gfdsa hjkl; ' +
+                'arhg, igdh, ikhvg, lcvhg, mgcfm, ehcgm, lhsgh, uhrgh; ' +
+                'igghs, ghmvh, hchga, guehg, lchhg, ghcih, gilgh;',
+
+                // Unit 6 - Words
+                'Words':
+                'hacker, cage, hair, jaguar, his, her, he, she, hire, ' +
+                'shag, girl, egg, guru, greek, hum, ham, gum, drug, ' +
+                'hug, giggle, hush, garage, aggressive, high, sigh, ' +
+                'grave, glacier, heal, him, hide, guide, has, had, ' +
+                'have, hear, here, flag, give, glad, shell, march',
+
+                // Unit 6 - Control
+                'Control':
+                'g gi gig gigg giggl giggle, h hu hus hush, e eg egg, ' +
+                'a ag agg aggr aggre aggre aggres aggress aggressi ' +
+                'aggressiv aggressive, g gu gui guid guide, s sh she, ' +
+                'h hi hig high, s si sig sigh, s sh sha shag, h he, ' +
+                's sh she, g gi giv give, g ga gar gara garag garage',
+
+                // Unit 6 - Sentences
+                'Sentences':
+                'she cracked five eggs, he likes half egg, she used drugs, ' +
+                'gerard is a hacker, she has a hammer, he is aggressive, ' +
+                'he hid himself here, guide him, he sighed, ' +
+                'give me a high five',
+
+                // Unit 6 - Test
+                'Test':
+                'hacker, jaguar, hire, shag, guru, garage, aggressive, ' +
+                'he, she, his, her, him, hide, guide, egg, shell, sigh, ' +
+                'high, she cracked five eggs, he likes half egg, ' +
+                'he sighed, she has a hammer, he is aggressive, ' +
+                'give me a high five'
+            }
+        },
+
+        // Unit 7
+        {
+            'title': 'ty',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type T and the right one ' +
+                     'to type Y.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 7 - Grip
+                'Grip':
+                'ftft jyjy ftft jyjy ftft jyjy; ' +
+                'tftf yjyj tftf yjyj tftf yjyj; ' +
+                'fyfy tjtj fyfy tjtj fyfy tjtj; ' +
+                'yfyf jtjt yfyf jtjt yfyf jtjt; ' +
+                'ertyui iuytre ertyui iuytre ertyui iuytre; ' +
+                'asdft ;lkjy asdfy ;lkjt aedtf ;ikyj adert ;kiuy ' +
+                'afty ;jyt tety yjkt lyjt gyht athy sytg lhyg shdt svtm ' +
+                'ctym vtyy, ,gytyv crttys sctyt l;tiy, kyhat sytay sytty ' +
+                'lttys yytym mtyty syght ymtsy yctvy lytvy ;mtcvy sytaty',
+
+                // Unit 7 - Words
+                'Words':
+                'harry, tight, light, very, merry, dry, height, try; ' +
+                'sight, might, fry, cry, family, sally, mathematics; ' +
+                'chemistry, fight, tyre, yell, the, there, this, them; ' +
+                'jury, hay, heavy, lyre, tram, yacht, tuesday; ' +
+                'thursday, friday, saturday, target, hit, fit, tackle; ' +
+                'sky, year, thirsty, yet, may, july, august',
+
+                // Unit 7 - Control
+                'Control':
+                't th thi thir thirs thirst thirsty, ' +
+                'c ch che chem chemi chemis chemist chemistr chemistry, ' +
+                't tu tue tues tuesd tuesda tuesday, t th thi this, ' +
+                't th the ther there, t th the them, t ty tyr tyre, ' +
+                'm ma mat math mathe mathem mathema mathemat mathemati ' +
+                'mathematic mathematics',
+
+                // Unit 7 - Sentences
+                'Sentences':
+                'harry studied mathematics yesterday, this is the tyre, ' +
+                'sally likes chemistry, he hit them, let us fit it, ' +
+                'hit the target accurately, let us catch the tram, ' +
+                'matt has a yacht, she yelled at him, ' +
+                'the teachers met everyday, this is my yacht',
+
+                // Unit 7 - Test
+                'Test':
+                'harry, tight, light, merry, try, chemistry, tyre, yacht; ' +
+                'tuesday, thursday, saturday, thirsty, year, hay, yet; ' +
+                'the, this, there, them, thus; this is the tyre, ' +
+                'harry studied mathematics yesterday, he hit them, ' +
+                'this is my yacht, the teachers met everyday'
+            }
+        },
+
+        // Unit 8
+        {
+            'title': 'bn',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type B and the right one ' +
+                     'to type N.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 8 - Grip
+                'Grip':
+                'fbfb jnjn fbfb jnjn fbfb jnjn; ' +
+                'bfbf njnj bfbf njnj bfbf njnj; ' +
+                'fnfn bjbj fnfn bjbj fnfn bjbj; ' +
+                'nfnf jbjb nfnf jbjb nfnf jbjb; ' +
+                'cvbnm, ,mnbvc cvbnm, ,mnbvc cvbnm, ,mnbvc; ' +
+                'asdfb ;lkjn asdfn ;lkjb aedbf ;iknj aderb ;kiun ' +
+                'afbn ;jnb bebn njkb lnjb gnhb abhn snbg lhng shdb svbm ' +
+                'mhnb ,ibmn senbm nbmvn tnvnm dvln; lsvnm avnsm lsvne',
+
+                // Unit 8 - Words
+                'Words':
+                'bean, bin, night, nifty, nibble, scrabble, be, best; ' +
+                'banana, january, february, june, band, land, bind; ' +
+                'december, sunday, blind, bend, abundance, benign; ' +
+                'minimal, begin, bank, savant, urban, nebula, science',
+
+                // Unit 8 - Control
+                'Control':
+                'a ab abu abun abund abunda abundan abundanc abundance, ' +
+                'n ne neb nebu nebul nebula, b ba ban bana banan banana, ' +
+                'b bl bli blin blind, b be beg begi begin, b bi bin, ' +
+                'b be ben beni benig benign, b be ben bend',
+
+                // Unit 8 - Sentences
+                'Sentences':
+                'nine blind men sat beside the bank, bill ate a banana, ' +
+                'this city receives abundant rainfall in january, ' +
+                'let us see a diffused nebula at night, ' +
+                'crab nebula can be seen in tauras at night',
+
+                // Unit 8 - Test
+                'Test':
+                'nine, men, nebula, remarkable, saturn, blind, benign, ' +
+                'banana, bill, minimal, bank, night, bend, bean, bin, ' +
+                'nine blind men sat beside the bank, ' +
+                'crab nebula can be seen in tauras at night, ' +
+                'this city receives abundant rainfall in january'
+            }
+        },
+
+        // Unit 9
+        {
+            'title': 'wo',
+
+            'guide': '<p>' +
+                     'Use the left ring finger to type W and the right one ' +
+                     'to type O.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 9 - Grip
+                'Grip':
+                'swsw lolo swsw lolo swsw lolo; ' +
+                'wsws olol wsws olol wsws olol; ' +
+                'fwfw jojo fwfw jojo fwfw jojo; ' +
+                'wfwf ojoj wfwf ojoj wfwf ojoj; ' +
+                'swlo olws swlo olws swlo olws; ' +
+                'wlos solw wlos solw wlos solw; ' +
+                'oswl lwso oswl lwso oswl olws; ' +
+                'awss fwrs oulj ouwa wsou wsol;',
+
+                // Unit 9 - Words
+                'Words':
+                'what who why when which whom, wheel wind, good moot, ' +
+                'sworn sow saw soot loot, war won welcome office will, ' +
+                'world worse vow word, biology economics sociology, ' +
+                'would whole sword wolf worm, now how orwelian work, ' +
+                'owe onus new dew stew too to, weblog wobble womble, ' +
+                'you we, monday wednesday, october november, wonder',
+
+                // Unit 9 - Control
+                'Control':
+                'w we wel welc welco welcom welcome, w wo wor work, ' +
+                'o or orw orwe orwel orweli orwelia orwelian, h ho how, ' +
+                'w wh who whol whole, w we web webl weblo weblog, ' +
+                's so soc soci socio sociol sociolo sociolog sociology, ' +
+                's sw swo swor sword, w wh who whom',
+
+                // Unit 9 - Sentences
+                'Sentences':
+                'do not introduce orwellian notions into this work, ' +
+                'work for the good of the world, will you come to office ' +
+                'tomorrow, how many swords do you have, ' +
+                'do you know the new seven wonders of the world',
+
+                // Unit 9 - Test
+                'Test':
+                'who how word world wonder would whole sword wolf worm, ' +
+                'orwellian work owe weblog wobble womble wonder tomorrow, ' +
+                'shower mower lower, will you come to office tomorrow, ' +
+                'use the lawn mower, work for the good of the world, ' +
+                'how many swords do you have'
+            }
+        },
+
+        // Unit 10
+        {
+            'title': 'x.',
+
+            'guide': '<p>' +
+                     'Use the left ring finger to type X and the right one ' +
+                     'to type . (dot).' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 10 - Grip
+                'Grip':
+                'sxsx l.l. sxsx l.l. sxsx l.l.; ' +
+                'xsxs .l.l xsxs .l.l xsxs .l.l; ' +
+                'fxfx j.j. fxfx j.j. fxfx j.j.; ' +
+                'xfxf .j.j xfxf .j.j xfxf .j.j; ' +
+                'sxl. .lxs sxl. .lxs sxl. .lxs; ' +
+                'xl.s s.lx xl.s s.lx xl.s s.lx; ' +
+                '.sxl lxs. .sxl lxs. .sxl .lxs; ' +
+                'axss fxrs .ulj .uxa xs.u xs.l;',
+
+                // Unit 10 - Words
+                'Words':
+                'axe axiom. latex maximum. axial exile. axion borax; ' +
+                'codex excel. six. mix xenon. toxin tax. linux unix; ' +
+                'hoax fax. fox reflex. wax extra. xerox fedex. ox text; ' +
+                'exist exit. exert helix. galaxy hexadecimal. maxim tex; ' +
+                'next relax. texas exam. exclude lexical;',
+
+
+                // Unit 10 - Control
+                'Control':
+                'a ax axi axio axiom. x xe xen xeno xenon. s si six. ' +
+                'e ex ext extr extra. g ga gal gala galax galaxy. ' +
+                'h he hex hexa hexad hexade hexadec hexadeci hexadecim ' +
+                'hexadecima hexadecimal. t te tex texa texas. b bo box. ' +
+                'f fe fed fede fedex. t ta tax.',
+
+                // Unit 10 - Sentences
+                'Sentences':
+                'there is a lexical analysis examination tomorrow. ' +
+                'each dot is written as six hexadecimal digits. ' +
+                'alex has six axes and sixteen oxen. ' +
+                'the next exam is on number theory axioms.',
+
+                // Unit 10 - Test
+                'Test':
+                'axe axiom exam exclude text next ox linux fedex alex. ' +
+                'tax relax fedex texas exclude lexical maximum linux. ' +
+                'there is a lexical analysis examination tomorrow. ' +
+                'each dot is written as six hexadecimal digits.'
+            }
+        },
+
+        // Unit 11
+        {
+            'title': 'qp',
+
+            'guide': '<p>' +
+                     'Use the left little finger to type Q and the ' +
+                     'right one to type P.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 11 - Grip
+                'Grip':
+                'aqaq opop aqaq opop aqaq opop. ' +
+                'qaqa popo qaqa popo qaqa popo, ' +
+                'fqfq jpjp fqfq jpjp fqfq jpjp; ' +
+                'qfqf pjpj qfqf pjpj qfqf pjpj. ' +
+                'aqop poqa aqop poqa aqop poqa, ' +
+                'qopa apoq qopa apoq qopa apoq; ' +
+                'paqo oqap paqo oqap paqo poqa. ' +
+                'aqaa fqra puoj puqa qapu qapo.',
+
+                // Unit 11 - Words
+                'Words':
+                'quick qwerty qualm qualify play phone people pupil. ' +
+                'queen equip equiprobable quakeproof quilt pique qed. ' +
+                'period quasi quantum queue lap paint expert equator. ' +
+                'pen pencil pin quote quadruple paddle quirky prince. ' +
+                'pint quart prime september quit whip plate piano page.',
+
+                // Unit 11 - Control
+                'Control':
+                'q qu qui quic quick, p pe peri perio period, q qe qed. ' +
+                'q qu qua quak quake quakep quakep quakepr quakepro ' +
+                'quakeproo quakeproof, p pi piq piqu pique, p pe pen. ' +
+                'q qu qua quad quadr quadru quadrup quadrupl quadruple, ' +
+                'e eq equ equi equip.',
+
+                // Unit 11 - Sentences
+                'Sentences':
+                'both events are equally probable. peter is a professor. ' +
+                'procure the appropriate equipment. it is quakeproof. ' +
+                'richard p. feynman is an expert in quantum physics. ' +
+                'there are two cups in a pint and two pints in a quart. ' +
+                'do not ask personal questions.',
+
+                // Unit 11 - Test
+                'Test':
+                'qualify quality quantity plaque plate pique equip qed. ' +
+                'both events are equally probable. it is quakeproof. ' +
+                'there are two cups in a pint and two pints in a quart. ' +
+                'procure the appropriate equipment.'
+            }
+        },
+
+        // Unit 12
+        {
+            'title': 'z/',
+
+            'guide': '<p>' +
+                     'Use the left little finger to type Z and the ' +
+                     'right one to type / (slash).' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 12 - Grip
+                'Grip':
+                'azaz o/o/ azaz o/o/ azaz o/o/. ' +
+                'zaza /o/o zaza /o/o zaza /o/o, ' +
+                'fzfz j/j/ fzfz j/j/ fzfz j/j/; ' +
+                'zfzf /j/j zfzf /j/j zfzf /j/j. ' +
+                'azo/ /oza azo/ /oza azo/ /oza, ' +
+                'zo/a a/oz zo/a a/oz zo/a a/oz; ' +
+                '/azo oza/ /azo oza/ /azo /oza. ' +
+                'azaa fzra /uoj /uza za/u za/o.',
+
+                // Unit 12 - Words
+                'Words':
+                'jazz wizard lazy / ooze zeal quiz / ablaze bazar buzz / ' +
+                'czar cozy dozen / dazzle enzyme gaze / maze size zeta / ' +
+                'zigzag zoo zinc / zoom fizz puzzle / nozzle pizza zip / ' +
+                'zero zioty zit / zone seize doze / ozone frieze frizz / ' +
+                'maximize minimize organize / realize prize quantize /',
+
+                // Unit 12 - Control
+                'Control':
+                'z zi zig zigz zigza zigzag / p pi piz pizz pizza / ' +
+                'n no noz nozz nozzl nozzle / o oz ozo ozon ozone / ' +
+                'm ma max maxi maxim maximi maximiz maximize / ' +
+                'o or org orga organ organi organiz organize / ' +
+                'c cz cza czar / z zi zin zinc / f fi fiz fizz',
+
+                // Unit 12 - Sentences
+                'Sentences':
+                'a zephyr client called tzc is available for gnu/linux / ' +
+                'we should minimize pollution to save the ozone layer / ' +
+                'pizzeria is a shop where pizzas are made and sold / ' +
+                'we have ordered a dozen pizzas for the quiz participants',
+
+                // Unit 12 - Test
+                'Test':
+                'zigzag, nozzle, minimize, maximize, fizz, zinc, czar, ' +
+                'pizza, zoo, boy/girl, single/married, m/f, gnu/linux, ' +
+                'we should minimize pollution to save the ozone layer, ' +
+                'we have ordered a dozen pizzas for the quiz participants'
+            }
+        },
+
+        // Unit 13
+        {
+            'title': "'",
+
+            'guide': '<p>' +
+                     "Use the right little finger to type ' (single " +
+                     'quotation marks.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 13 - Grip
+                'Grip':
+                "'cla 'mai 'lsi 'kji 'mne 'uyz 'oxb 'gar 'vmn 'xzl 'ovc " +
+                "js'a pa'u do'a uy'b si'n ym'l pj's yn's wv'u ug'x tn'p " +
+                "ymo' aqo' wqp' pws' wip' yts' irm' ika' lkw' lrx' oip' " +
+                "fj'a mi's n'hs la'i w'by si'b 'ivk 'd'p '//' ''p/ ap/' " +
+                "'pa/ 'ox/ /aq' 'ixr ;';' ';p/ a';q rpx' g;x' b'y; e/d'",
+
+                // Unit 13 - Words
+                'Words':
+                "we're you're, he's, she's, it's, they're; isn't wasn't; " +
+                "we'd, you'd, he'd, she'd, they'd; can't couldn't; " +
+                "you'll, he'll, she'll, they'll; here's there's; " +
+                "aren't, weren't; what's where's; don't, didn't;",
+
+                // Unit 13 - Control
+                'Control':
+                "w we we' we'r we're, y yo you you' you'r you're, " +
+                "y yo you you' you'l you'll, s sh she she' she'l she'll, " +
+                "i is isn isn' isn't, h he he' he'l he'll",
+
+                // Unit 13 - Sentences
+                'Sentences':
+                "it's raining. i don't read jack's blogs. he'll come now. " +
+                "mumbai isn't the capital of india. don't shout here. " +
+                "that's the book we need to learn bernoulli's principle. " +
+                "hilbert's paradox of the grand hotel deals with infinity.",
+
+                // Unit 13 - Test
+                'Test':
+                "we're you're she'll he'll isn't don't didn't can't " +
+                "i don't read jack's blogs. don't shout here. " +
+                "that's the book we need to learn bernoulli's principle. " +
+                "hilbert's paradox of the grand hotel deals with infinity."
+            }
+        },
+
+        // Unit 14
+        {
+            'title': 'shift',
+
+            'guide': '<p>' +
+                     'Press the shift key with the little finger. To type ' +
+                     'a capital letter, first press and hold the shift key ' +
+                     'with one hand, hit the letter with the appropriate ' +
+                     'finger of the other hand and then release the shift ' +
+                     'key.' +
+                     '</p><p>' +
+                     'Do not hit the shift key and the letter key with ' +
+                     'fingers of the same hand. Before hitting the letter ' +
+                     'think which hand will be used to type the letter. ' +
+                     'Use the alternate hand to hold the shift key and ' +
+                     'then type the letter. This will will require some ' +
+                     'effort in the beginning. You will gain speed as you ' +
+                     'practice this unit.' +
+                     '</p><p>' +
+                     'For example, to type F, first press and hold the ' +
+                     'right shift key with the right little finger, hit ' +
+                     'the F key with left forefinger and then release the ' +
+                     'shift key. After this return both the fingers ' +
+                     'immediately to the home row.' +
+                     '</p><p>',
+
+
+            'subunits': {
+                // Unit 14 - Grip
+                'Grip':
+                'aAbB cCdD eEfF gGhH aAbB cCdD eEfF gGhH; ' +
+                'iIjJ kKlL mMnN oOpP iIjJ kKlL mMnN oOpP; ' +
+                'qQrR sStT uUvV wWxX qQrR sStT uUvV wWxX; ' +
+                'yYzZ yYzZ QWERT YUIOP; ASDFG LKJH; ZXCVB MN; ' +
+                'ABCD EFGH ABCD EFGH IJKL MNOP IJKL MNOP; ' +
+                'QRST UVWX QRST UVWX YZ YZ; UxWm YwnF VpAs BiKv CoGl ' +
+                'DbJc QeZr HkXy LpOq EuzT MfNg RhjS tIBd',
+
+                // Unit 14 - Words
+                'Words':
+                'January February March April May June July August ' +
+                'September October November December, USA UAE India UK ' +
+                'Sri Lanka Egypt, New Delhi New York Moscow Brisbane ' +
+                'Donald E. Knuth, Dennis M. Ritchie, S. Ramanujan',
+
+                // Unit 14 - Control
+                'Control':
+                'U US USA, U UA UAE, U UK, M Ma Mar Marc Marc March, ' +
+                'D Do Don Dona Donal Donald Donald, I In Ind Indi India, ' +
+                'O Oc Oct Octo Octob Octobe October, E Eg Egy Egyp Egypt, ' +
+                'M Mo Mos Mosc Mosco Moscow',
+
+                // Unit 14 - Sentences
+                'Sentences':
+                'New Delhi is the capital of India. I am intelligent. ' +
+                'You should finish the work by June. I love music. ' +
+                'Dennis M. Ritchie developed the C programming language. ' +
+                'TeX was developed by Donald E. Knuth.' +
+                'GNU/Linux is a free and open source operating system.',
+
+                // Unit 14 - Test
+                'Test':
+                'USA UK UAE March India ZIP PIN SSL SSN PAN GNU/Linux ' +
+                'Donald E. Knuth, Dennis M. Ritchie, Richard Stallman, ' +
+                'I love music. New Delhi is the capital of India. ' +
+                'Dennis M. Ritchie developed the C programming language. ' +
+                'TeX was developed by Donald E. Knuth.'
+            }
+        },
+
+        // Unit 15
+        {
+            'title': 'simple passages',
+
+            'guide': '<p>' +
+                     'Type the simple passages with the correct fingers ' +
+                     'as practiced in the previous units.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 15 - Hyperspace
+                'Hyperspace':
+                "To Riemann, Euclid's geometry was particularly sterile " +
+                'when compared with the rich diversity of the world. ' +
+                'Nowhere in the natural world do we see the flat, ' +
+                'idealized geometric figures of Euclid. Mountain ranges, ' +
+                'ocean waves, clouds, and whirlpools are not perfect ' +
+                'circles, triangles, and squares, but are curved objects ' +
+                'that bend and twist in infinite diversity.',
+
+                // Unit 15 - Vedanta
+                'Vedanta':
+                'Maya is a statement of the fact of this universe, of ' +
+                'how it is going on. People generally get frightened ' +
+                'when these things are told to them. But bold we must ' +
+                'be. Hiding facts is not the way to remedy.',
+
+                // Unit 15 - On Painting
+                'On Painting':
+                'The first thing to know is that a point is a sign which ' +
+                'one might say is not divisible into parts. I call a ' +
+                'sign anything which exists on a surface so that it is ' +
+                'visible to the eye. No one will deny that things which ' +
+                'are not visible do not concern the painter, for he ' +
+                'strives to represent only the things that are seen.'
+            }
+        },
+
+        // Unit 16
+        {
+            'title': '58',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type 5 and the right one ' +
+                     'to type 8.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 16 - Grip
+                'Grip':
+                'f5f5 j8j8 f5f5 j8j8 f5f5 j8j8; ' +
+                '5f5f 8j8j 5f5f 8j8j 5f5f 8j8j; ' +
+                'j5j5 f8f8 j5j5 f8f8 j5j5 f8f8; ' +
+                '5j5j 8f8f 5j5j 8f8f 5j5j 8f8f; ' +
+                'f5r8 j8u5 f5r8 j8u5 f5r8 j8u5; ' +
+                'asdf5 ;lkj8 asdfr5 ;lkju8 asdf5r ;lkj8u ' +
+                'a5r8 85u8 8858 85l5 558u5 5r85 58rl8 s5858k a5s8 ' +
+                'r5as8 s5l8r s585r d58k5 k85l5 r5l85 a8558 558a 8588',
+
+                // Unit 16 - Words
+                'Words':
+                '5 books, 8 sentences, 58 words, 5858 students, 85 cars, ' +
+                '88 constellations, 55 journals, 5 laptops, 58 bottles, ' +
+                '85 cities, 855 buildings, 588 pens, 858 trains, ' +
+                '585 buses',
+
+                // Unit 16 - Control
+                'Control':
+                '5 58 585 5858 58585 585858 8 88 885 8855 88558 885585 ' +
+                '8 85 858 8585 85858 858585 5 55 558 5588 55885 558858',
+
+                // Unit 16 - Sentences
+                'Sentences':
+                'John has about 55 science books. There are 8 planets. ' +
+                'There are 88 constellations. Area code 585 is a state ' +
+                'of New York area code. 58 candidates will be selected.',
+
+                // Unit 16 - Test
+                'Test':
+                '5 58 585 85 85 58 85 85 58 588 588 855 8558 588 588 85; ' +
+                '5 books, 8 sentences, 58 words, 5858 students, 85 cars; ' +
+                'There are 88 constellations. John has about 55 science ' +
+                'books.'
+            }
+        },
+
+        // Unit 17
+        {
+            'title': '49',
+
+            'guide': '<p>' +
+                     'Use the left middle finger to type 4 and the right ' +
+                     'one to type 9.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 17 - Grip
+                'Grip':
+                'd4d4 k9k9 d4d4 k9k9 d4d4 k9k9; ' +
+                '4d4d 9k9k 4d4d 9k9k 4d4d 9k9k; ' +
+                'k4k4 d9d9 k4k4 d9d9 k4k4 d9d9; ' +
+                '4k4k 9d9d 4k4k 9d9d 4k4k 9d9d; ' +
+                'd4r9 k9u4 d4r9 k9u4 d4r9 k9u4; ' +
+                'd4r8 k9u4 d4r8 k9u4 d8r9 k9u4; ' +
+                'a8dd4 8akk9 as5dr4 5akku9 5s8d4r 8a5k9u ' +
+                'a4r9 94u8 9549 94s4 489u4 4r95 49rd5 s4549k a4s98 ' +
+                'r4as9 s4a98 s594r d49k5 k98a4 r5a94 a9849 849a 949598',
+
+                // Unit 17 - Words
+                'Words':
+                '4 pens, 9 pencils, 49 buses, 5945 items, 99 words, ' +
+                '44 hens, 45 tests, 94 samples, 9454 roads, 94 sticks, ' +
+                '545 villages, 954 seats, 598 labels, 549 calls',
+
+                // Unit 17 - Control
+                'Control':
+                '4 44 449 4499 44998 449985 9 94 948 9488 94885 948859 ' +
+                '9 98 984 9844 98445 984459 4 48 489 4899 48994 489945',
+
+                // Unit 17 - Sentences
+                'Sentences':
+                'The sum of 44 and 55 is 99. 44 is one less than 45. ' +
+                '89 is one more than 99. 45 is a multiple of 9.',
+
+                // Unit 17 - Test
+                'Test':
+                '4 49 94 9445 9844 9845 4589 9845 4458 4459 449 984 995; ' +
+                '4 pens, 45 tests, 5945 items, 99 words, 94 samples; ' +
+                'The sum of 44 and 55 is 99. 44 is one less than 45.'
+            }
+        },
+
+        // Unit 18
+        {
+            'title': '67',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type 6 and the right one ' +
+                     'to type 7.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 18 - Grip
+                'Grip':
+                'f6f6 j7j7 f6f6 j7j7 f6f6 j7j7; ' +
+                '6f6f 7j7j 6f6f 7j7j 6f6f 7j7j; ' +
+                'j6j6 f7f7 j6j6 f7f7 j6j6 f7f7; ' +
+                '6j6j 7f7f 6j6j 7f7f 6j6j 7f7f; ' +
+                'f6r7 j7u6 f6r7 j7u6 f6r7 j7u6; ' +
+                'asff6 ;ljj7 asffr6 ;ljju7 asff6r ;ljj7u ' +
+                'a6r7 76u7 7767 76l6 667u6 6r76 67rl7 s6767j a6s7 ' +
+                'r6as7 s6l7r s676r f67j6 j76l6 r6l76 a7667 667a 7677',
+
+                // Unit 18 - Words
+                'Words':
+                '6 horses, 7 days, 77 elephants, 67 pipes, 76 stones, ' +
+                '776 eggs, 765 pages, 46 chapters, 78 questions, ' +
+                '56 answers, 664 schools, 779 tricks, 68 pins, 687 bins',
+
+                // Unit 18 - Control
+                'Control':
+                '6 66 667 6677 66774 667745 7 76 768 7688 76885 768857 ' +
+                '7 78 786 7896 78965 789657 6 68 687 6877 68776 687769',
+
+                // Unit 18 - Sentences
+                'Sentences':
+                "67 is a prime number but 76 isn't. 679 is a multiple of" +
+                '97. 676 is one less than 677. 767 is a multiple of 59.',
+
+                // Unit 18 - Test
+                'Test':
+                '66 76 77 78 677 769 976 975 9756 568 485 9478 4588 465; ' +
+                '6 horses, 7 days, 664 schools, 779 tricks, 56 answers; ' +
+                "67 is a prime number but 76 isn't. 676 is one less than 677."
+            }
+        },
+
+        // Unit 19
+        {
+            'title': '30',
+
+            'guide': '<p>' +
+                     'Use the left ring finger to type 6 and the right ' +
+                     'one to type 7.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 19 - Grip
+                'Grip':
+                's3s3 l0l0 s3s3 l0l0 s3s3 l0l0; ' +
+                '3s3s 0l0l 3s3s 0l0l 3s3s 0l0l; ' +
+                'l3l3 s0s0 l3l3 s0s0 l3l3 s0s0; ' +
+                '3l3l 0s0s 3l3l 0s0s 3l3l 0s0s; ' +
+                's3r0 l0u3 s3r0 l0u3 s3r0 l0u3; ' +
+                'asss3 ;lll0 asssr3 ;lllu0 asss3r ;lll0u ' +
+                'a3r0 03u0 0030 03l3 330u3 3r03 30rl0 s3030l a3s0 ' +
+                'q3ks0 s3l0n s303o w30l3 o03l3 m3l03 a0330 330a 0300',
+
+                // Unit 19 - Words
+                'Words':
+                '30 days, 300 lions, 303 buses, 367 numbers, 70 years, ' +
+                '73 goals, 40 names, 83 bytes, 50 tables, 80 tables, ' +
+                '35 cars, 307 sets, 360 mails, 630 books, 305 diaries',
+
+                // Unit 19 - Control
+                'Control':
+                '3 34 340 3400 34003 340035 0 03 038 0387 03870 038703 ' +
+                '0 07 076 0763 07633 076330 3 30 309 3093 30930 309303',
+
+                // Unit 19 - Sentences
+                'Sentences':
+                'April has 30 days. There are 365 days in a year. ' +
+                '390 is a multiple of 3. 37 is a prime number.',
+
+                // Unit 19 - Test
+                'Test':
+                '34 30 365 70 30 90 53 80 73 50 3580 3470 9074 7030 7037; ' +
+                '30 days, 630 books, 80 tables, 83 bytes, 307 sets, ' +
+                '35 cars; April has 30 days. There are 365 days in a year.'
+            }
+        },
+
+        // Unit 20
+        {
+            'title': '12',
+
+            'guide': '<p>' +
+                     'Use the left little finger to type 1 as well as 2.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 20 - Grip
+                'Grip':
+                'a1a1 q2q2 a1a1 q2q2 a1a1 q2q2; ' +
+                '1a1a 2q2q 1a1a 2q2q 1a1a 2q2q; ' +
+                'q1q1 a2a2 q1q1 a2a2 q1q1 a2a2; ' +
+                '1q1q 2a2a 1q1q 2a2a 1q1q 2a2a; ' +
+                'a1z2 p2q1 a1p2 p2u1 a1z2 q2p1; ' +
+                'aaaa1 ;qqq2 aaaar1 ;p1qu2 a2ap1r ;1pq2u ' +
+                'a1p2 21z2 2212 21q1 112u1 1r21 12rq2 a1212q a1a2 ' +
+                'q1ka2 a1q2n a121o j12q1 o21q1 m1q21 a2112 112a 2122',
+
+                // Unit 20 - Words
+                'Words':
+                '12 months, 21 days, 52 weeks, 11 books, 22 notes, 2 pens, ' +
+                '121 points, 132 trials, 82 tosses, 192 attempts, 21 pins, ' +
+                '14 stories, 511 passengers, 122 bottles, 811 buildings',
+
+                // Unit 20 - Control
+                'Control':
+                '1 12 121 1218 12182 121822 2 27 271 2719 27192 271922 ' +
+                '2 24 241 2415 24158 241581 1 18 182 1821 18211 182112',
+
+                // Unit 20 - Sentences
+                'Sentences':
+                'There are 12 months and 52 weeks in a year. Square of 11 ' +
+                'is 121. 22 is one more than 21. 211 is a prime number.',
+
+                // Unit 20 - Test
+                'Test':
+                '12 21 52 11 22 2 121 132 82 192 21 14 511 122 811 917; ' +
+                '12 months, 52 weeks, 121 points, 82 tosses, 192 attempts; ' +
+                'There are 12 months and 52 weeks in a year. ' +
+                '211 is a prime number. Square of 11 is 121.'
+            }
+        },
+        // Unit 21
+        {
+            'title': 'passages',
+
+            'guide': '<p>' +
+                     'Type the passages with the correct fingers as ' +
+                     'practiced in the previous units. For special ' +
+                     'symbols not covered in the previous units, it ' +
+                     'is fine to look at the keyboard and type.' +
+                     '</p>',
+
+            'subunits': {
+                // Unit 21 - Relativity
+                'Relativity':
+                'Lightning has struck the rails on our railway embankment ' +
+                'at two places A and B far distant from each other. I ' +
+                'make the additional assertion that these two lightning ' +
+                'flashes occurred simultaneously. If I ask you whether ' +
+                'there is sense in this statement, you will answer my ' +
+                'question with a decided "Yes." But if I now approach ' +
+                'you with the request to explain to me the sense of the ' +
+                'statement more precisely, you find after some ' +
+                'consideration that the answer to this question is not ' +
+                'so easy as it appears at first sight.',
+
+                // Unit 21 - Mathematical Mysteries
+                'Mathematical Mysteries':
+                'The instructor was incredulous that this new student ' +
+                'could add 100 terms so quickly and he assumed that answer ' +
+                'would be wrong. However, when all the other students ' +
+                'had finally finished their work and placed their ' +
+                "slates upon the table, the instructor turned Gauss' " +
+                'slate over and read the correct answer: 5050. How had ' +
+                'Gauss done it? Gauss noticed that the first term, 1, ' +
+                'and the last term, 100, added together to be 101. Then ' +
+                'he realized that the second term, 2, and the next-to-last ' +
+                'term, 99, also added together to be 101. In fact, if he ' +
+                'kept adding pairs of terms in this manner, he would get ' +
+                '50 pairs of sums, each sum equal to 101. Fifty multiplied ' +
+                'by 101 is 5050!',
+
+                // Unit 21 - The Code Book
+                'The Code Book':
+                'The next morning, Rivest handed the paper to Adleman, ' +
+                'who went through his usual process of trying to tear ' +
+                'it apart, but this time he could find no faults. His ' +
+                'only criticism was with the list of authors. "I told ' +
+                'Ron to take my name off this paper," recalls Adleman. ' +
+                '"I told him that it was his invention, not mine. But ' +
+                'Ron refused and we got into a discussion about it. We ' +
+                'agreed that I would go home and contemplate it for one ' +
+                'night, and consider what I wanted to do. I went back the ' +
+                'next day and suggested Ron that I be the third author. I ' +
+                'recall thinking that this paper would be the least ' +
+                'interesting paper that I will ever be on." Adleman could ' +
+                'not have been more wrong. The system, dubbed RSA ' +
+                '(Rivest, Shamir, Adleman) as opposed to ARS, went on to ' +
+                'become the most influential cipher in modern cryptography.'
+            }
+        }
+    ],
+
+    // Label to be used to identify the main units
+    'mainLabel': '6-7 split',
+
+    // The message to be displayed to the user to make sure he really
+    // wants to move to the main units
+    'mainConfirmMessage':
+        'You are about to choose the 6-7 split style to type the ' +
+        'number keys. This means you are choosing to type the ' +
+        'numbers 1 to 6 with the left hand and the numbers 7 to 0 ' +
+        'with the right hand.\n\n' +
+        'This is the traditional style of typing the number keys, ' +
+        'and most ergonomic split keyboards support this style, i.e ' +
+        'they have the 6 key on the left side of the split and 7 on ' +
+        'the right side of the split.\n\n' +
+        'It is recommended that you learn only one split style and ' +
+        'stick with it. If you choose this style, there is no ' +
+        'need to learn the 5-6 style later.\n\n' +
+        'Do you want to proceed with learning to touch type the ' +
+        'number keys with the 6-7 split style?',
+
+    // The message to be displayed to the user to make sure he really
+    // wants to move to the main units
+    'alternateConfirmMessage':
+        'You are about to choose the 5-6 split style to type the ' +
+        'number keys. This means you are choosing to type the ' +
+        'numbers 1 to 5 with the left hand and the numbers 6 to 0 ' +
+        'with the right hand.\n\n' +
+        'Note that most ergonomic split keyboards have the 6 key ' +
+        'on the left side of the split. Also, most normal keyboards ' +
+        'have the 6 key closer to the F key than it is to the J key ' +
+        'Therefore, 6-7 split style is the recommended style to ' +
+        'learn typing the number keys. However, it is perfectly ' +
+        'fine to learn the 5-6 style if it is more convenient for ' +
+        'your keyboard.\n\n' +
+        'It is recommended that you learn only one split style and ' +
+        'stick with it. If you choose this style, there is no ' +
+        'need to learn the 6-7 style later.\n\n' +
+        'Do you want to proceed with learning to touch type the ' +
+        'number keys with the 5-6 split style?',
+
+    // Label to be used to identify the alternate units
+    'alternateLabel': '5-6 split',
+
+    // Unit number where the alternate unit begins
+    'alternateStart': 16,
+
+    // 5-6 split style (6 with right hand)
+    'alternate': [
+        // Alt: Unit 16
+        {
+            'title': '47',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type 4 and the right one ' +
+                     'to type 7.' +
+                     '</p>',
+
+            'subunits': {
+                // Alt: Unit 16 - Grip
+                'Grip':
+                'f4f4 j7j7 f4f4 j7j7 f4f4 j7j7; ' +
+                '4f4f 7j7j 4f4f 7j7j 4f4f 7j7j; ' +
+                'j4j4 f7f7 j4j4 f7f7 j4j4 f7f7; ' +
+                '4j4j 7f7f 4j4j 7f7f 4j4j 7f7f; ' +
+                'f4r7 j7u4 f4r7 j7u4 f4r7 j7u4; ' +
+                'asdf4 ;lkj7 asdfr4 ;lkju7 asdf4r ;lkj7u ' +
+                'a4r7 74u7 7747 74l4 447u4 4r74 47rl7 s4747k a4s7 ' +
+                'r4as7 s4l7r s474r d47k4 k74l4 r4l74 a7447 447a 7477',
+
+                // Alt: Unit 16 - Words
+                'Words':
+                '4 books, 7 sentences, 47 words, 4747 students, 74 cars, ' +
+                '44 journals, 4 laptops, 47 bottles, 74 days, 44 years, ' +
+                '74 cities, 744 buildings, 477 pens, 747 trains, ' +
+                '474 buses',
+
+                // Alt: Unit 16 - Control
+                'Control':
+                '4 47 474 4747 47474 474747 7 77 774 7744 77447 774474 ' +
+                '7 74 747 7474 74747 747474 4 44 447 4477 44774 447747',
+
+                // Alt: Unit 16 - Sentences
+                'Sentences':
+                'John has about 44 science books. ' +
+                'There are 7 days in a week. ' +
+                '47 candidates will be selected. ' +
+                'I have 4 pens and 7 pencils. ' +
+                "47 is a prime number but 74 isn't",
+
+                // Alt: Unit 16 - Test
+                'Test':
+                '4 47 474 74 74 47 74 74 47 477 477 744 7447 477 477 74; ' +
+                '4 books, 7 sentences, 47 words, 4747 students, 74 cars; ' +
+                'John has about 44 science books. ' +
+                'There are  days in a week. ' +
+                '47 candidates will be selected.'
+            }
+        },
+
+        // Alt: Unit 17
+        {
+            'title': '38',
+
+            'guide': '<p>' +
+                     'Use the left middle finger to type 3 and the right ' +
+                     'one to type 8.' +
+                     '</p>',
+
+            'subunits': {
+                // Alt: Unit 17 - Grip
+                'Grip':
+                'd3d3 k8k8 d3d3 k8k8 d3d3 k8k8; ' +
+                '3d3d 8k8k 3d3d 8k8k 3d3d 8k8k; ' +
+                'k3k3 d8d8 k3k3 d8d8 k3k3 d8d8; ' +
+                '3k3k 8d8d 3k3k 8d8d 3k3k 8d8d; ' +
+                'd3r8 k8u3 d3r8 k8u3 d3r8 k8u3; ' +
+                'asdd3 ;lkk8 asddr3 ;lkku8 asdd3r ;lkk8u ' +
+                'a3r8 83u8 8838 83l3 338u3 3r83 38rl8 s3838k a3s8 ' +
+                'r3as8 s3l8r s383r d38k3 k83l3 r3l83 a8338 338a 8388',
+
+                // Alt: Unit 17 - Words
+                'Words':
+                '3 pens, 8 pencils, 38 buses, 4834 items, 88 words, ' +
+                '33 hens, 34 tests, 83 samples, 8343 roads, 83 sticks, ' +
+                '434 villages, 843 seats, 88 constellations, 438 calls',
+
+                // Alt: Unit 17 - Control
+                'Control':
+                '3 33 338 3388 33888 338884 8 83 838 8388 83884 838848 ' +
+                '8 88 883 8833 88334 883348 3 38 388 3888 38883 388834',
+
+                // Alt: Unit 17 - Sentences
+                'Sentences':
+                'The sum of 33 and 44 is 77. 33 is one less than 34. ' +
+                '88 is one more than 87. 48 is a multiple of 3. ' +
+                'There are 88 constellations.',
+
+                // Alt: Unit 17 - Test
+                'Test':
+                '3 38 83 8334 8833 8834 3488 8834 3348 3348 338 883 884; ' +
+                '3 pens, 34 tests, 4834 items, 88 words, 83 samples; ' +
+                'The sum of 33 and 44 is 77. 48 is a multiple of 3. ' +
+                'There are 88 constellations.'
+            }
+        },
+
+        // Alt: Unit 18
+        {
+            'title': '56',
+
+            'guide': '<p>' +
+                     'Use the left forefinger to type 5 and the right one ' +
+                     'to type 6.' +
+                     '</p>',
+
+            'subunits': {
+                // Alt: Unit 18 - Grip
+                'Grip':
+                'f5f5 j6j6 f5f5 j6j6 f5f5 j6j6; ' +
+                '5f5f 6j6j 5f5f 6j6j 5f5f 6j6j; ' +
+                'j5j5 f6f6 j5j5 f6f6 j5j5 f6f6; ' +
+                '5j5j 6f6f 5j5j 6f6f 5j5j 6f6f; ' +
+                'f5r6 j6u5 f5r6 j6u5 f5r6 j6u5; ' +
+                'asff5 ;ljj6 asffr5 ;ljju6 asff5r ;ljj6u ' +
+                'a5r6 65u6 6656 65l5 556u5 5r65 56rl6 s5656j a5s6 ' +
+                'r5as6 s5l6r s565r f56j5 j65l5 r5l65 a6556 556a 6566',
+
+                // Alt: Unit 18 - Words
+                'Words':
+                '5 horses, 6 dogs, 66 elephants, 56 pipes, 65 stones, ' +
+                '665 eggs, 655 pages, 45 chapters, 68 questions, ' +
+                '55 answers, 554 schools, 667 tricks, 58 pins, 586 bins',
+
+                // Alt: Unit 18 - Control
+                'Control':
+                '5 55 556 5566 55664 556645 6 65 658 6588 65885 658856 ' +
+                '6 68 685 6875 68755 687556 5 58 586 5866 58665 586657',
+
+                // Alt: Unit 18 - Sentences
+                'Sentences':
+                "56 is an even number but 65 isn't. " +
+                '656 is a multiple of 8. ' +
+                '565 is one less than 566. 6566 is a multiple of 67. ' +
+                'There are 366 days in a leap year.',
+
+                // Alt: Unit 18 - Test
+                'Test':
+                '55 65 66 68 566 656 665 565 6655 558 485 6468 4588 455; ' +
+                '5 horses, 6 days, 554 schools, 665 tricks, 55 answers; ' +
+                '6566 is a multiple of 67. There are 366 days in a leap year.'
+            }
+        },
+
+        // Alt: Unit 19
+        {
+            'title': '29',
+
+            'guide': '<p>' +
+                     'Use the left ring finger to type 2 and the right ' +
+                     'one to type 9.' +
+                     '</p>',
+
+            'subunits': {
+                // Alt: Unit 19 - Grip
+                'Grip':
+                's2s2 l9l9 s2s2 l9l9 s2s2 l9l9; ' +
+                '2s2s 9l9l 2s2s 9l9l 2s2s 9l9l; ' +
+                'l2l2 s9s9 l2l2 s9s9 l2l2 s9s9; ' +
+                '2l2l 9s9s 2l2l 9s9s 2l2l 9s9s; ' +
+                's2r9 l9u2 s2r9 l9u2 s2r9 l9u2; ' +
+                'asss2 ;lll9 asssr2 ;lllu9 asss2r ;lll9u ' +
+                'a2r9 92u9 9929 92l2 229u2 2r92 29rl9 s2929l a2s9 ' +
+                'q2ks9 s2l9n s292o w29l2 o92l2 m2l92 a9229 229a 9299',
+
+                // Alt: Unit 19 - Words
+                'Words':
+                '29 days, 299 lions, 292 buses, 267 numbers, 79 years, ' +
+                '72 goals, 49 names, 82 bytes, 59 tables, 89 tables, ' +
+                '25 cars, 297 sets, 269 mails, 629 books, 295 diaries',
+
+                // Alt: Unit 19 - Control
+                'Control':
+                '2 24 249 2499 24992 249925 9 92 928 9287 92879 928792 ' +
+                '9 97 976 9762 97622 976229 2 29 299 2992 29929 299292',
+
+                // Alt: Unit 19 - Sentences
+                'Sentences':
+                "29 is a prime number but 92 isn't. 23 divides 92. " +
+                '9 does not divide 92. 992 is 3 more than 989.',
+
+                // Alt: Unit 19 - Test
+                'Test':
+                '24 29 265 79 29 99 52 89 72 59 2589 2479 9974 7929 7927; ' +
+                '29 days, 629 books, 89 tables, 82 bytes, 297 sets; ' +
+                '23 divides 92. 9 does not divide 92. 992 is 3 more than 989.'
+            }
+        },
+
+        // Alt: Unit 20
+        {
+            'title': '10',
+
+            'guide': '<p>' +
+                     'Use the left little finger to type 1 and the right ' +
+                     'one to type 0.' +
+                     '</p>',
+
+            'subunits': {
+                // Alt: Unit 20 - Grip
+                'Grip':
+                'a1a1 q0q0 a1a1 q0q0 a1a1 q0q0; ' +
+                '1a1a 0q0q 1a1a 0q0q 1a1a 0q0q; ' +
+                'q1q1 a0a0 q1q1 a0a0 q1q1 a0a0; ' +
+                '1q1q 0a0a 1q1q 0a0a 1q1q 0a0a; ' +
+                'a1z0 p0q1 a1p0 p0u1 a1z0 q0p1; ' +
+                'aaaa1 ;qqq0 aaaar1 ;p1qu0 a0ap1r ;1pq0u ' +
+                'a1p0 01z0 0010 01q1 110u1 1r01 10rq0 a1010q a1a0 ' +
+                'q1ka0 a1q0n a101o j10q1 o01q1 m1q01 a0110 110a 0100',
+
+                // Alt: Unit 20 - Words
+                'Words':
+                '100 days, 101 tricks, 10 weeks, 11 books, 1001 notes, ' +
+                '101 points, 130 trials, 80 tosses, 190 attempts, 21 pins, ' +
+                '14 stories, 511 passengers, 100 bottles, 811 buildings',
+
+                // Alt: Unit 20 - Control
+                'Control':
+                '1 10 101 1018 10180 101800 0 07 071 0719 07190 071900 ' +
+                '0 04 041 0415 04158 041581 1 18 180 1801 18011 180110',
+
+                // Alt: Unit 20 - Sentences
+                'Sentences':
+                'There are 12 months and 52 weeks in a year. Square of 101 ' +
+                'is 10201. 11 and 101 are prime numbers. 11001001 is a ' +
+                'multiple of 11.',
+
+                // Alt: Unit 20 - Test
+                'Test':
+                '10 01 50 11 00 0 101 130 80 190 01 14 511 100 811 917; ' +
+                '100 days, 101 tricks, 80 tosses, 190 attempts, ' +
+                '1001 notes; Square of 101 is 10201. ' +
+                '11 and 101 are prime numbers. ' +
+                '11001001 is a multiple of 11.'
+            }
+        },
+    ]
+}
+// Global object with tutor settings
+var Settings = {
+
+    // Length of the target text displayed to the user
+    //
+    // The value of this property should be an odd positive integer. If
+    // zero or a negative integer is specified as the value of this
+    // property, then the length of the target text is 1. If an even
+    // positive integer is specified as the value of this property, then
+    // the length of the target text is one less than the specified
+    // value.
+    TARGET_TEXT_LENGTH: 25
+}
+
+var Tutor = function() {
+
+    'use strict'
+
+    var VERSION = '1.0.1-dev'
+
+    // Global object with tutor properties shared across all functions
+    var my = {
+
+        // HTML elements used by the tutor
+        //
+        // The property names in this object should match the ID of the
+        // corresponding HTML elements. This properties would be
+        // automatically set to the corresponding HTML element in the
+        // init function.
+        html: {
+            // Element to display all unit numbers
+            unitLinks: null,
+
+            // Element to display all subunit titles
+            subunitLinks: null,
+
+            // Element to display the title of the current unit
+            unitTitle: null,
+
+            // Element to display links for main and alternate units
+            alternateUnitLinks: null,
+
+            // Element to display guide link
+            guideLink: null,
+
+            // Element to display guide for the current unit
+            guide: null,
+
+            // Element that contains previous and next links along with
+            // the practice pane
+            practicePanelWrapper: null,
+
+            // Element that contains all the practice elements
+            practicePane: null,
+
+            // Element that displays the link to the previous subunit
+            previousLink: null,
+
+            // Element that displays the link to the next subunit
+            nextLink: null,
+
+            // Element to display the target text to be typed by the
+            // user
+            target: null,
+
+            // Element where the user types the target text
+            input: null,
+
+            // Element where the status of the tutor is showed
+            status: null,
+
+            // Element where a remark about the user's performance is
+            // shown after the complete subunit text is typed
+            remark: null,
+
+            // Element where the next step is suggested as a link to the
+            // user after the complete subunit text is typed
+            advice: null,
+
+            // Element that contains the progress bar and the progress
+            // percent text
+            progress: null,
+
+            // Progress bar to display how much of the target text has
+            // been correctly typed by the user
+            progressBar: null,
+
+            // Element to display how much of the target text has
+            // been correctly typed by the user in percent
+            progressPercent: null,
+
+            // Element to display the subunit restart link
+            restartLink: null,
+
+            // Element to display the typing speed
+            speed: null,
+
+            // Element to display the errors made by the user in percent
+            error: null,
+
+            // Element to display a smiley to reflect the user's
+            // performance
+            smiley: null
+        },
+
+        // Current properties of the tutor
+        current: {
+            // Current unit number
+            unitNo: 0,
+
+            // Current subunit number
+            subunitNo: 0,
+
+            // Current unit object
+            unit: null,
+
+            // Names of the subunits of the current unit
+            subunitTitles: [],
+
+            // Subunit text for the current subunit
+            subunitText: '',
+
+            // Part of the subunit text visible in the target text just
+            // before the target character
+            targetPrefix: '',
+
+            // Character in the target text to be typed immediately by
+            // the user
+            targetChar: '',
+
+            // Part of the subunit text visible in the target text just
+            // after the target character
+            targetSuffix: '',
+
+            // Timestamp (in milliseconds) at which the user began
+            // typing the target text
+            startTime: 0,
+
+            // Number of errors made while typing the current subunit
+            // text
+            errors: 0,
+
+            // Number of characters in the target text typed correctly
+            // by the user
+            correctInputLength: 0,
+
+            // Time elapsed since the first character was typed by the
+            // user
+            timeElapsed: 0,
+
+            // Current typing speed of the user in words per minute
+            wpm: 0,
+
+            // Current typing speed of the user in characters per minute
+            cpm: 0,
+
+            // Errors made by the user expressed in percent
+            errorRate: 0,
+
+            // Current state of the tutor
+            state: null
+        },
+
+        // User settings
+        settings: {
+            // Type of unit
+            unit: '',
+        },
+
+        // Logging function
+        logFunction: null,
+
+        // Possible type of units
+        UNIT: {
+            MAIN: 'main',
+            ALTERNATE: 'alternate'
+        },
+
+        // Possible states the tutor can be in
+        STATE: {
+            // The tutor is ready to be used but the user has not
+            // entered any input yet
+            READY: "ready",
+
+            // The user has entered input and there are no errors in the
+            // input, or any errors that occurred have been deleted
+            RUNNING: "running",
+
+            // The user has entered input and there are errors in the
+            // input
+            ERROR: "error",
+
+            // The user has completed the current subunit successfully
+            COMPLETED: "completed"
+        },
+
+        // Smileys to display the performance of the user
+        SMILEY: {
+            VERY_HAPPY: '(\uff61\u0298\u203f\u0298\uff61)',
+
+            HAPPY: '(\u0298\u203f\u0298)',
+
+            UNHAPPY: '(\u2299_\u2299)',
+
+            SAD: '(\u2299\u2054\u2299)'
+        }
+    }
+
+
+    // Initialize the typing tutor
+    function init()
+    {
+        // Get all necessary HTML elements
+        for (var elementID in my.html) {
+            my.html[elementID] = document.getElementById(elementID)
+        }
+
+        // Get user settings
+        resetSettings()
+        loadSettings()
+
+        // Initialize the user interface
+        showPracticePanelWrapper()
+        updateUnitFromURL()
+        hideGuide()
+
+        // Event handlers
+        window.onhashchange = processURLChange
+        my.html.input.onkeyup = updatePracticePane
+        guideLink.onclick = toggleGuide
+    }
+
+
+    // Set the logging function to be called to write logs.
+    //
+    // Argument:
+    //   logFunction -- Logging function
+    function setLogFunction(logFunction)
+    {
+        my.logFunction = logFunction
+    }
+
+
+    // Write logs via a configured logging function.
+    //
+    // Arguments:
+    //   key, value, ... -- An even number of string arguments
+    function log()
+    {
+        if (my.logFunction == null)
+            return
+
+        var meta = ['name', 'QuickQWERTY']
+        var data = Array.prototype.slice.call(arguments)
+        my.logFunction.apply(this, meta.concat(data))
+    }
+
+
+    // Reset the user settings in my.settings to default values.
+    function resetSettings()
+    {
+        my.settings.unit = my.UNIT.MAIN
+    }
+
+
+    // Load settings from local storage to my.settings object.
+    function loadSettings()
+    {
+        if (typeof localStorage.unit != 'undefined') {
+            my.settings.unit = localStorage.unit
+        }
+    }
+
+
+    // Return unit number m.
+    //
+    // Argument:
+    //   m -- Unit number
+    //
+    // Return:
+    //   Unit object
+    function unit(m)
+    {
+        if (alternateUnitAvailable(m) &&
+            my.settings.unit == my.UNIT.ALTERNATE) {
+            return Units.alternate[m - Units.alternateStart]
+        } else {
+            return Units.main[m - 1]
+        }
+    }
+
+
+    // Return true if an alternate unit is available for unit number m.
+    //
+    // Argument:
+    //   m -- Unit number
+    //
+    // Return:
+    //   true if an alternate unit is available; false otherwise
+    function alternateUnitAvailable(m)
+    {
+        if (m >= Units.alternateStart &&
+            m < Units.alternateStart + Units.alternate.length) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+
+    // Display practice panel
+    function showPracticePanelWrapper()
+    {
+        my.html.practicePanelWrapper.style.display = 'inline-block'
+    }
+
+
+    // Display the unit links
+    function displayUnitLinks()
+    {
+        // Delete all existing unit links
+        var linksDiv = my.html.unitLinks
+        Util.removeChildren(linksDiv)
+
+        // Create new unit links
+        for (var i = 0; i < Units.main.length; i++) {
+            var label = 'Unit ' + (i + 1)
+            var selected = (i + 1 == my.current.unitNo)
+            var href = unitHref(i + 1)
+
+            var divElement = boxedLink(label, selected, href)
+            divElement.id = 'unit' + (i + 1)
+            divElement.title = unit(i + 1).title
+
+            linksDiv.appendChild(divElement)
+        }
+    }
+
+
+    // Create an HTML div element containing a label if the div element
+    // is specified as selected, and/or a hyperlink if the div element
+    // is specified as not selected.
+    //
+    // Arguments:
+    //   label -- Label to be displayed inside the div element
+    //   selected -- Whether the div element should be marked selected
+    //   href -- Fragment identifier for the link to be created
+    //   clickHandler -- Function to be invoked when the link is clicked
+    //
+    // Return:
+    //   HTML div element with the label and/or link
+    function boxedLink(label, selected, href, clickHandler)
+    {
+        var divElement = document.createElement('div')
+
+        if (selected) {
+            var spanElement = document.createElement('span')
+            Util.addChildren(spanElement, label)
+            divElement.appendChild(spanElement)
+
+            divElement.className = 'selected'
+        } else {
+            var anchorElement = document.createElement('a')
+            anchorElement.href = href
+            Util.addChildren(anchorElement, label)
+
+            if (typeof clickHandler != 'undefined') {
+                anchorElement.onclick = clickHandler
+            }
+
+            divElement.appendChild(anchorElement)
+        }
+
+        return divElement
+    }
+
+
+    // Return fragment identifier to be used in URL for the specified
+    // unit and subunit.
+    //
+    // Arguments:
+    //   m -- Unit number (number)
+    //   n -- Subunit number (number)
+    //
+    // Return value:
+    //   Fragment identifier to be used in URL (string)
+    function unitHref(m, n)
+    {
+        if (typeof m == 'undefined') {
+            return ''
+        } else if (typeof n == 'undefined') {
+            return '#' + m
+        } else {
+            return '#' + m + '.' + n
+        }
+    }
+
+
+    // Process the current URL and perform appropriate tasks.
+    //
+    // This function is called automatically when the fragment
+    // identifier in the current URL changes.
+    function processURLChange()
+    {
+        switch(window.location.hash) {
+
+            case '#restart':
+                currentSubunit()
+                break
+
+            case '#previous':
+                previousSubunit()
+                break
+
+            case '#next':
+                nextSubunit()
+                break
+
+            default:
+                updateUnitFromURL()
+        }
+    }
+
+
+    // Go to current subunit.
+    function currentSubunit()
+    {
+        var m = my.current.unitNo
+        var n = my.current.subunitNo
+
+        window.location.href = unitHref(m, n)
+    }
+
+
+    // Check if the current unit is the first subunit among all the
+    // subunits.
+    //
+    // Return:
+    //   true if the current subunit is the first subunit;
+    //   false otherwise
+    function currentSubunitIsTheFirstSubunit()
+    {
+        return my.current.unitNo == 1 && my.current.subunitNo == 1
+    }
+
+
+    // Check if the current subunit is the last subunit among all the
+    // subunits.
+    //
+    // Return:
+    //   true if the current subunit is the last subunit;
+    //   false otherwise
+    function currentSubunitIsTheLastSubunit()
+    {
+        return my.current.unitNo == Units.main.length &&
+               my.current.subunitNo == my.current.subunitTitles.length
+    }
+
+
+    // Go to previous subunit.
+    //
+    // Do nothing if the user is already at the first subunit of the
+    // first unit.
+    function previousSubunit()
+    {
+        var m = my.current.unitNo
+        var n = my.current.subunitNo
+
+        if (!currentSubunitIsTheFirstSubunit()) {
+            if (n == 1) {
+                // If the user is at unit M.1, go to unit (M - 1).L
+                // where L is the last subunit of the previous unit.
+                previousUnit = unit(m - 1)
+                var previousSubunitTitles = []
+                for (var subunitTitle in previousUnit.subunits) {
+                    previousSubunitTitles.push(subunitTitle)
+                }
+
+                m--
+                n = previousSubunitTitles.length
+            } else {
+                // If the user is at unit M.N, go to unit M.(N - 1)
+                n--
+            }
+        }
+
+        window.location.href = unitHref(m, n)
+    }
+
+
+    // Go to next subunit.
+    //
+    // Do nothing if the user is already at the last subunit of the last
+    // unit.
+    function nextSubunit()
+    {
+        var m = my.current.unitNo
+        var n = my.current.subunitNo
+
+        if (!currentSubunitIsTheLastSubunit()) {
+            if (n == my.current.subunitTitles.length) {
+                // If the user is at unit M.L where L is the last
+                // subunit of unit M, then go to unit (M + 1).1.
+                m++
+                n = 1
+            } else {
+                // If the user is at unit M.N, then go to unit M.(N + 1).
+                n++
+            }
+        }
+
+        window.location.href = unitHref(m, n)
+    }
+
+
+    // Hide typing guide
+    function hideGuide()
+    {
+        guide.style.display = 'none'
+        Util.setChildren(guideLink, 'Guide')
+        return false
+    }
+
+
+    // Display typing guide
+    function showGuide()
+    {
+        guide.style.display = ''
+        Util.setChildren(guideLink, 'Hide Guide')
+        return false
+    }
+
+
+    // Hide typing guide if it is already displayed.
+    // Show typing guide if it is hidden.
+    function toggleGuide()
+    {
+        if (guide.style.display == 'none') {
+            return showGuide()
+        } else {
+            return hideGuide()
+        }
+    }
+
+
+    // Parse the current URL and determine the current unit and subunit
+    // numbers, and display the determined subunit.
+    //
+    // The fragment identifier in the URL may contain the current unit
+    // and subunit numbers in m.n format where m is the current unit
+    // number and n is the current subunit number.
+    //
+    // If the fragment identifier is absent, then the current unit is 1
+    // and the current subunit is 1.
+    //
+    // If the fragment identifier is a single integer m only, then the
+    // current unit is m and the current subunit is 1.
+    //
+    // The following is a list of example URLs along with the unit
+    // number they translate to.
+    //
+    //   http://quickqwerty.com/      -- Unit 1.1
+    //   http://quickqwerty.com/#5    -- Unit 5.1
+    //   http://quickqwerty.com/#5.1  -- Unit 5.1
+    //   http://quickqwerty.com/#5.2  -- Unit 5.2
+    function updateUnitFromURL()
+    {
+        // Default lesson is Unit 1.1
+        var unitNo = 1
+        var subunitNo = 1
+
+        // Parse the fragment identifier in the URL and determine the
+        // unit
+        if (window.location.hash.length > 0) {
+            var fragmentID = window.location.hash.slice(1)
+            var tokens = fragmentID.split('.')
+            unitNo = parseInt(tokens[0])
+            if (tokens.length > 1)
+                subunitNo = parseInt(tokens[1])
+        }
+
+        // Default to unit 1 if unit number could not be parsed
+        // correctly from the URL
+        if (isNaN(unitNo)) {
+            unitNo = 1
+        }
+
+        // Default to subunit 1 if unit number could not be parsed
+        // correctly from the URL
+        if (isNaN(subunitNo)) {
+            subunitNo = 1
+        }
+
+        setSubunit(unitNo, subunitNo)
+
+        displayUnitLinks()
+        displaySubunitLinks()
+        displayAlternateUnitLinks()
+        updateNavigationLinks()
+        updateProgressTooltip()
+
+        displayUnitTitle()
+        displayGuide()
+
+        resetSubunit()
+    }
+
+
+    // Update the visibility of the navigation links to the previous and
+    // the next subunits. Hide the link to the previous subunit when the
+    // user is at the first subunit. Hide the link to the next
+    // subunit when the user is already at the last subunit. Display
+    // both links otherwise.
+    function updateNavigationLinks()
+    {
+        if (currentSubunitIsTheFirstSubunit()) {
+            my.html.previousLink.style.visibility = 'hidden'
+            my.html.nextLink.style.visibility = 'visible'
+        } else if (currentSubunitIsTheLastSubunit()) {
+            my.html.previousLink.style.visibility = 'visible'
+            my.html.nextLink.style.visibility = 'hidden'
+        } else {
+            my.html.previousLink.style.visibility = 'visible'
+            my.html.nextLink.style.visibility = 'visible'
+        }
+    }
+
+
+    // Display the number of characters in the current lesson as a
+    // tooltip for progress bar and progress percent.
+    function updateProgressTooltip()
+    {
+        my.html.progress.title =
+                'This lesson contains ' + my.current.subunitText.length +
+                ' characters.'
+    }
+
+
+    // Display alternate unit links for units which alternate units are
+    // available. Display nothing otherwise.
+    function displayAlternateUnitLinks()
+    {
+        // If alternate unit is not available for the current unit,
+        // hide the alternate links element
+        if (!alternateUnitAvailable(my.current.unitNo)) {
+            alternateUnitLinks.style.visibility = 'hidden'
+            return
+        }
+
+        // Delete all existing alternate unit links
+        Util.removeChildren(alternateUnitLinks)
+
+        // Create div elements for the main unit and alternate unit
+        var mainUnitElement =
+                boxedLink(Units.mainLabel,
+                          my.settings.unit == my.UNIT.MAIN,
+                          '#', toggleUnit)
+
+        var alternateUnitElement =
+                boxedLink(Units.alternateLabel,
+                          my.settings.unit == my.UNIT.ALTERNATE,
+                          '#', toggleUnit)
+
+        alternateUnitLinks.appendChild(mainUnitElement)
+        alternateUnitLinks.appendChild(alternateUnitElement)
+        alternateUnitLinks.style.visibility = 'visible'
+    }
+
+
+    // Toggle between main unit and alternate unit
+    function toggleUnit()
+    {
+        var newUnit
+        var confirmMessage
+
+        if (my.settings.unit == my.UNIT.MAIN) {
+            newUnit = my.UNIT.ALTERNATE
+            confirmMessage = Units.alternateConfirmMessage
+        } else {
+            newUnit = my.UNIT.MAIN
+            confirmMessage = Units.mainConfirmMessage
+        }
+
+        if (!confirm(confirmMessage)) {
+            return false
+        }
+
+        localStorage.unit = newUnit
+        loadSettings()
+        updateUnitFromURL()
+        return false
+    }
+
+
+    // Reset the state of the current subunit.
+    //
+    // The following activities are performed while resetting the state
+    // of the current subunit.
+    //   1. Set the state of the tutor to READY.
+    //   2. Set the number of errors made to 0.
+    //   3. Clear the input textarea element.
+    function resetSubunit()
+    {
+        my.current.state = my.STATE.READY
+        my.current.errors = 0
+        my.html.input.value = ''
+
+        log('state', my.current.state.toUpperCase(),
+            'unit', my.current.unitNo + '.' + my.current.subunitNo,
+            'type', my.settings.unit)
+
+        updatePracticePaneState()
+        updatePracticePane()
+        clearAdvice()
+        clearResultTooltips()
+    }
+
+
+    // Set the tutor properties for the specified unit and subunit
+    // numbers.
+    //
+    // Arguments:
+    //   m -- Unit number
+    //   n -- Subunit number
+    function setSubunit(m, n)
+    {
+        my.current.unitNo = m
+        my.current.subunitNo = n
+
+        my.current.unit = unit(m)
+
+        my.current.subunitTitles.length = 0
+        for (var subunitTitle in my.current.unit.subunits) {
+            my.current.subunitTitles.push(subunitTitle)
+        }
+
+        var subunitTitle = my.current.subunitTitles[n - 1]
+        my.current.subunitText = my.current.unit.subunits[subunitTitle]
+    }
+
+
+    // Display the subunit links for the current unit.
+    function displaySubunitLinks()
+    {
+        // Delete all existing subunit links
+        var linksDiv = my.html.subunitLinks
+        while (linksDiv.firstChild &&
+               linksDiv.firstChild.className != 'stretch') {
+
+            linksDiv.removeChild(linksDiv.firstChild)
+        }
+
+        // Create new subunit links for the unit m
+        var numberOfSubunits = my.current.subunitTitles.length
+        for (var i = numberOfSubunits - 1; i >= 0; i--) {
+            // Insert whitespaces between div elements, otherwise they
+            // would not be justified
+            var whitespace = document.createTextNode('\n')
+            linksDiv.insertBefore(whitespace, linksDiv.firstChild)
+
+            var label = my.current.subunitTitles[i]
+            var selected = (i + 1 == my.current.subunitNo)
+            var href = unitHref(my.current.unitNo, i + 1)
+
+            var subunitDiv = boxedLink(label, selected, href)
+            subunitDiv.id = 'subunit' + (i + 1)
+            subunitDiv.style.width = (95 / numberOfSubunits) + '%'
+
+            linksDiv.insertBefore(subunitDiv, linksDiv.firstChild)
+        }
+    }
+
+
+    // Display title for the current unit.
+    function displayUnitTitle() {
+
+        // Parts of the unit title
+        var unitNo = 'Unit ' + my.current.unitNo +
+                     '.' + my.current.subunitNo
+        var space = '\u00a0\u00a0'
+        var title = '[' + my.current.unit.title + ']'
+
+        Util.setChildren(my.html.unitTitle, unitNo, space, title)
+    }
+
+
+    // Display guide for the current unit.
+    function displayGuide() {
+       my.html.guide.innerHTML = my.current.unit.guide
+    }
+
+
+    // Set the target text to be typed.
+    //
+    // The target text consits of three parts:
+    //   1. Prefix
+    //   2. Target character
+    //   3. Suffix
+    //
+    // The target character is the character the user should type to
+    // move ahead in the subunit. The prefix and the suffix offer some
+    // context around the target character to be typed. These three
+    // parts combined, in the specified order above, is a substring from
+    // the subunit's text from units.js.
+    function setTargetText() {
+
+        // The target text should display at least one character
+        var targetLength = Settings.TARGET_TEXT_LENGTH
+        if (targetLength < 1) {
+            targetLength = 1
+        }
+
+        // Length of the target text should be odd as equal number of
+        // characters should be displayed on either side of the
+        // character to be typed
+        if (targetLength % 2 == 0) {
+            targetLength--
+        }
+
+        // Number of characters on either side of the character to be
+        // typed, assuming that the character to be typed is at the
+        // centre
+        var prefixLength = (targetLength - 1) / 2
+
+        // Calculate the start index and the end index of the substring
+        // to be selected from the subunit text to display as the target
+        // text
+        var i = my.current.correctInputLength
+        var textLength = my.current.subunitText.length
+        if (i <= prefixLength) {
+            var startIndex = 0
+        } else if (i >= textLength - 1 - prefixLength) {
+            var startIndex = textLength - targetLength
+        } else {
+            var startIndex = i - prefixLength
+        }
+        var endIndex = startIndex + targetLength
+
+        // Select prefix string
+        var s = my.current.subunitText.substring(startIndex, i)
+        my.current.targetPrefix = Util.visual(s)
+
+        // Select target character
+        if (i < textLength) {
+            s = my.current.subunitText.charAt(i)
+            my.current.targetChar = Util.visual(s)
+        } else {
+            my.current.targetChar = ''
+        }
+
+        // Select suffix string
+        s = my.current.subunitText.substring(i + 1, endIndex)
+        my.current.targetSuffix = Util.visual(s)
+    }
+
+
+    // Display the current target text
+    function displayTargetText()
+    {
+        // Create target character element
+        var targetCharElement = document.createElement('span')
+        var targetChar = document.createTextNode(my.current.targetChar)
+        targetCharElement.className = 'targetChar'
+        targetCharElement.appendChild(targetChar)
+
+        // Set new target text
+        Util.setChildren(my.html.target, my.current.targetPrefix,
+                                         targetCharElement,
+                                         my.current.targetSuffix)
+    }
+
+
+    // Update practice pane after evaluating the user's input.
+    //
+    // The input typed by the user is evaluated for correctness and then
+    // the practice pane is updated.
+    function updatePracticePane()
+    {
+        evaluateInput()
+        setTargetText()
+        displayTargetText()
+        updateProgress()
+        updateSpeed()
+        updateError()
+        updateSmiley()
+
+        if (my.current.state == my.STATE.COMPLETED) {
+            displayAdvice()
+            setResultTooltips()
+
+            log('state', my.current.state.toUpperCase(),
+                'unit', my.current.unitNo + '.' + my.current.subunitNo,
+                'type', my.settings.unit,
+                'wpm', my.current.wpm,
+                'error', my.current.errorRate.toFixed(1))
+        }
+    }
+
+
+    // Evaluate the input typed by the user and change the practice
+    // panel state if necessary.
+    function evaluateInput()
+    {
+        var inputText = my.html.input.value
+        var inputLength = inputText.length
+
+        // If the tutor is in READY state, and input has been entered,
+        // then set it to RUNNING STATE.
+        if (my.current.state == my.STATE.READY && inputLength > 0) {
+
+            my.current.startTime = new Date().getTime()
+            my.current.state = my.STATE.RUNNING
+            updatePracticePaneState()
+
+            log('state', my.current.state.toUpperCase(),
+                'unit', my.current.unitNo + '.' + my.current.subunitNo,
+                'type', my.settings.unit)
+        }
+
+        // Number of characters correctly typed by the user
+        var goodChars = Util.common(my.current.subunitText, inputText)
+        my.current.correctInputLength = goodChars
+
+        // Validate the input
+        if (goodChars == inputLength) {
+
+            // Clear error if any
+            if (my.current.state == my.STATE.ERROR) {
+
+                my.current.state = my.STATE.RUNNING
+                updatePracticePaneState()
+            }
+        } else {
+
+            // Set and display error
+            if (my.current.state == my.STATE.RUNNING) {
+                my.current.state = my.STATE.ERROR
+                my.current.errors++
+                updatePracticePaneState()
+            } else if (my.current.state == my.STATE.ERROR) {
+                processInputCommand()
+            }
+        }
+
+        // Update error rate
+        if (goodChars == 0) {
+            if (my.current.errors == 0) {
+                my.current.errorRate = 0
+            } else {
+                my.current.errorRate = Number.POSITIVE_INFINITY
+            }
+        } else {
+            my.current.errorRate = 100 * my.current.errors / goodChars
+        }
+
+        // Check if the complete target text has been typed successfully
+        if (goodChars == my.current.subunitText.length) {
+            my.current.state = my.STATE.COMPLETED
+            updatePracticePaneState()
+        }
+    }
+
+
+    // Update the state of the practice pane according to the current
+    // state of the unit.
+    function updatePracticePaneState()
+    {
+        switch (my.current.state) {
+
+            case my.STATE.READY:
+                my.html.practicePane.className = ''
+                my.html.input.disabled = false
+                my.html.input.focus()
+                Util.setChildren(my.html.status, 'READY')
+                my.html.status.title = 'Type in the input box below ' +
+                                       'to begin this lesson.'
+                my.html.restartLink.style.visibility = 'hidden'
+                break
+
+            case my.STATE.RUNNING:
+                my.html.practicePane.className = ''
+                my.html.input.disabled = false
+                my.html.input.focus()
+                Util.setChildren(my.html.status, '')
+                my.html.status.title = ''
+                my.html.restartLink.style.visibility = 'visible'
+                break
+
+            case my.STATE.ERROR:
+                my.html.practicePane.className = 'error'
+                my.html.input.disabled = false
+                my.html.input.focus()
+                my.html.restartLink.style.visibility = 'visible'
+                Util.setChildren(my.html.status, 'ERROR!')
+                my.html.status.title = 'Fix errors in the input box ' +
+                                       'by pressing the backspace key.'
+                break
+
+            case my.STATE.COMPLETED:
+                my.html.practicePane.className = 'completed'
+                my.html.input.disabled = true
+                my.html.input.blur()
+                my.html.restartLink.style.visibility = 'visible'
+                Util.setChildren(my.html.status, 'COMPLETED')
+                my.html.status.title = 'You have completed this lesson.'
+                break
+        }
+
+    }
+
+
+    // Clear advice.
+    function clearAdvice()
+    {
+        Util.removeChildren(my.html.remark)
+        Util.removeChildren(my.html.advice)
+    }
+
+
+    // Update remark and advice link according to the current state of
+    // the tutor and the performance of the user.
+    function displayAdvice()
+    {
+        // Calculate error rate (in percent)
+        var error = Math.round(my.current.errorRate)
+
+        var repeatSubunit = error > 0
+
+        // Update remark and advice
+        var anchorElement = document.createElement('a')
+        if (repeatSubunit) {
+            Util.addChildren(my.html.remark, 'Reduce error')
+            my.html.remark.title = 'Your error rate should not ' +
+                                   'exceed 0%.'
+
+            Util.addChildren(anchorElement, 'Try again')
+            anchorElement.href = '#restart'
+            anchorElement.title = 'Please practice this lesson again.'
+        } else {
+            Util.addChildren(my.html.remark, 'Well done!')
+            my.html.remark.title = 'You have satisfactorily ' +
+                                   'completed this lesson.'
+
+            Util.addChildren(anchorElement, 'Next lesson')
+            anchorElement.href = '#next'
+            anchorElement.title = 'Please proceed with the next lesson.'
+        }
+
+        // Do not display 'Next lesson' advice if the user is at the
+        // last subunit; display advice otherwise
+        if (repeatSubunit || !currentSubunitIsTheLastSubunit()) {
+            my.html.advice.appendChild(anchorElement)
+            anchorElement.focus()
+        }
+    }
+
+
+    // Update progress bar.
+    function updateProgress()
+    {
+        var goodChars = my.current.correctInputLength
+        var textLength = my.current.subunitText.length
+
+        var progress = Math.round(100 * goodChars / textLength)
+
+        my.html.progressBar.value = progress
+        Util.setChildren(my.html.progressPercent, progress + '%')
+    }
+
+
+    // Update the typing speed.
+    function updateSpeed()
+    {
+        // WPM and CPM does not need to be calculated on error
+        if (my.current.state == my.STATE.ERROR) {
+            return
+        }
+
+        var goodChars = my.current.correctInputLength
+
+        // Determine the time elapsed since the user began typing
+        var currentTime = new Date().getTime()
+        var timeElapsed = currentTime - my.current.startTime
+        my.current.timeElapsed = timeElapsed
+
+        // Calculate WPM and CPM
+        var wpm
+        if (timeElapsed == 0) {
+            wpm = goodChars == 0 ? 0 : '\u221e'
+        } else {
+            wpm = Math.round(60000 * goodChars / 5 / timeElapsed)
+            my.current.wpm = wpm
+            my.current.cpm = Math.round(60000 * goodChars / timeElapsed)
+        }
+
+        // Display WPM
+        Util.setChildren(my.html.speed, wpm + ' wpm')
+    }
+
+    // Update the error rate.
+    function updateError()
+    {
+        var goodChars = my.current.correctInputLength
+
+        var errorRate
+        var errorRateTooltip
+        var accuracyTooltip
+
+        // Update error rate
+        if (my.current.errorRate == Number.POSITIVE_INFINITY) {
+            errorRate = '\u221e'
+        } else {
+            errorRate = Math.round(my.current.errorRate)
+        }
+
+        // Display error rate
+        Util.setChildren(my.html.error, errorRate + '% error')
+    }
+
+
+    // Update the smiley to reflect the user's performance.
+    function updateSmiley()
+    {
+        var errorRate = Math.round(my.current.errorRate)
+        var smiley
+
+        if (errorRate == 0) {
+            if (my.current.wpm >= 40) {
+                smiley = my.SMILEY.VERY_HAPPY
+            } else {
+                smiley = my.SMILEY.HAPPY
+            }
+        } else if (errorRate > 0 && errorRate <= 2) {
+            smiley = my.SMILEY.UNHAPPY
+        } else {
+            smiley = my.SMILEY.SAD
+        }
+        Util.setChildren(my.html.smiley, smiley)
+    }
+
+
+    // Clear the tooltips in the result pane.
+    function clearResultTooltips()
+    {
+        my.html.speed.title = ''
+        my.html.error.title = ''
+    }
+
+    // Set the tooltips in the result pane.
+    function setResultTooltips()
+    {
+        var textLength = my.current.subunitText.length
+        var charNoun = textLength == 1 ? 'character' : 'characters'
+
+        // Speed tooltip
+        my.html.speed.title =
+                'You have typed ' + textLength + ' ' + charNoun +
+                ' in\n' +
+                Util.prettyTime(my.current.timeElapsed) + '.\n\n' +
+                'Your typing speed is\n' +
+                my.current.wpm + ' words per minute, or\n' +
+                my.current.cpm + ' characters per minute.'
+
+
+        // Error rate tooltip
+        var errorRateTooltip
+        var accuracyTooltip
+
+        // Update error rate
+        if (my.current.errorRate == Number.POSITIVE_INFINITY) {
+            errorRateTooltip = '\u221e'
+            accuracyTooltip = 0
+        } else {
+            errorRateTooltip = parseFloat(my.current.errorRate.toFixed(1))
+            accuracyTooltip = 100 - errorRateTooltip
+        }
+
+        var errorNoun = my.current.errors == 1 ? 'error' : 'errors'
+
+        var title =
+                'You have typed ' + textLength + ' ' + charNoun +
+                '.\n' +
+                'You have made ' + my.current.errors + ' ' +
+                errorNoun + '.\n' +
+                'Your error rate is ' + errorRateTooltip + '%.\n' +
+                'Your accuracy is ' + accuracyTooltip + '%.\n'
+
+        my.html.error.title = title
+    }
+
+
+    // Process command entered by the user in the input textarea
+    // element when the tutor is in error state. Once the tutor enters
+    // the error state, the supported commands are searched at the end
+    // of the erroneous input. If a supported command is found at the
+    // end of the erroneous input, the command is processed.
+    //
+    // The following is a list of the supported commands:
+    //   restart  restart the current subunit
+    //   reset    same as the 'restart' command
+    //   fix      remove errors from the input text
+    //   xxx      same as the 'fix' command
+    function processInputCommand()
+    {
+        var inputText = my.html.input.value
+        var goodChars = my.current.correctInputLength
+
+        if (inputCommandIs('restart') || inputCommandIs('rst')) {
+            location.href = '#restart'
+        } else if (inputCommandIs('fix') || inputCommandIs('xxx')){
+            my.html.input.value = inputText.substring(0, goodChars)
+            updatePracticePane()
+        } else if (inputCommandIs('qtpi')) {
+            qtpi()
+        }
+    }
+
+
+    // Check if the input entered by the user contains the specified
+    // command. The specified command is considered to be contained in
+    // the input if the input ends with the specified command.
+    //
+    // Return:
+    //   true if the specified command is present in the input;
+    //   false otherwise
+    function inputCommandIs(command)
+    {
+        var input = my.html.input.value
+        return input.substring(input.length - command.length) == command
+    }
+
+
+    // Create an HTML element to display a pink heart and add it to the
+    // HTML page.
+    //
+    // Return:
+    //   HTML element with containing the heart
+    function createHeart()
+    {
+        var span = document.createElement('span')
+
+        span.style.position = 'absolute'
+        span.style.color = '#f52887'
+        span.style.opacity = '0'
+        Util.addChildren(span, '\u2665')
+
+        document.body.appendChild(span)
+        return span
+    }
+
+
+    // Display growing hearts all over the page.
+    function growingHearts()
+    {
+        var ox = 0
+        var oy = 80
+
+        var w = document.body.clientWidth - ox - 200
+        var h = document.body.clientHeight - oy - 200
+
+        var newInterval = Util.random(200, 2000)
+
+        window.setInterval(function()
+        {
+
+            var heart = createHeart()
+            heart.style.fontSize = '0%'
+            heart.style.left = Util.random(ox, ox + w) + 'px'
+            heart.style.top = Util.random(oy, oy + h) + 'px'
+
+            var growInterval = Util.random(10, 50)
+            var size = Util.random(200, 2000)
+            var i = 0
+            var id = window.setInterval(function()
+            {
+                i += 20
+                heart.style.fontSize = i + '%'
+
+                if (i < size / 2 ) {
+                    heart.style.opacity = '1'
+                } else {
+                    heart.style.opacity = (1 - (2 * i - size) / size ) + ''
+                }
+
+                if (i >= size) {
+                    window.clearInterval(id)
+                    document.body.removeChild(heart)
+                }
+            }, growInterval)
+        }, newInterval)
+    }
+
+
+    // Display hearts rising across the page
+    function risingHearts()
+    {
+        var ox = 0
+        var oy = 80
+
+        var w = document.body.clientWidth - ox - 200
+        var h = document.body.clientHeight - oy - 200
+
+        var newInterval = Util.random(200, 2000)
+
+        window.setInterval(function()
+        {
+            var x = Util.random(ox, ox + w)
+            var y = Util.random(oy + h - 100, oy + h)
+
+            var heart = createHeart()
+            heart.style.fontSize = Util.random(100, 2000) + '%'
+            heart.style.left = x + 'px'
+            heart.style.top = y + 'px'
+
+            var riseInterval = Util.random(10, 50)
+            var rise = Util.random(h / 4, h)
+            var drift = Util.random(-1, 1)
+            var i = 0
+            var id = window.setInterval(function()
+            {
+                i++
+                if (Util.random(1, 100) <= 1) {
+                    drift = (drift == Util.random(-1, 1) ? 1 : 0)
+                }
+
+                x = Math.min(Math.max(x + drift, ox), ox + w)
+
+                heart.style.left = x + 'px'
+                heart.style.top = (y - i) + 'px'
+
+                if (i < rise / 4) {
+                    heart.style.opacity = (4 * i / rise) + ''
+                } else if (i < rise / 2 ) {
+                    heart.style.opacity = '1'
+                } else {
+                    heart.style.opacity = (1 - (2 * i - rise) / rise ) + ''
+                }
+
+                if (i >= rise) {
+                    window.clearInterval(id)
+                    document.body.removeChild(heart)
+                }
+            }, riseInterval)
+        }, newInterval)
+    }
+
+
+    // Return a message selected randomly or a message selected based on
+    // time.
+    //
+    // Return:
+    //   Randomly selected message
+    function qtpiLetter()
+    {
+        var pLeft = '<p style="text-align: left">'
+        var pCenter = '<p style="text-align: center">'
+        var pRight = '<p style="text-align: right">'
+        var pEnd = '</p>'
+
+        var d = new Date()
+        var meridiem = d.getHours() < 12 ? 'a.m.' : 'p.m.'
+
+        if (d.getMinutes() == 14 && (d.getHours() == 3 ||
+                                     d.getHours() == 15)) {
+
+            return pLeft + 'Cutie Pai,' + pEnd + pCenter +
+                   'Happy <big style="font-family: serif">&pi;</big> ' +
+                   meridiem + pEnd + pRight + '&mdash; Susam' + pEnd
+        }
+
+        var letters = [
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'I <span style="color: #f52887; font-size: 130%">&hearts;' +
+            '</span> U!' + pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            'I love you! <span style="color: #f52887;">' +
+            '<span style="font-size: 60%">&hearts;</span>' +
+            '<span style="font-size: 100%">&hearts;</span></span>' +
+            pEnd + pRight + '&mdash; Susam' + pEnd,
+
+            pLeft + 'Cutie Pai,' + pEnd + pLeft +
+            'Your smile is the most beautiful thing in the ' +
+            'world to me. <big style="color: #a53364">&#x263a;</big>' +
+            pEnd + pRight + '&mdash; Susam' + pEnd,
+        ]
+
+        return Util.random(letters)
+    }
+
+
+    // Display letter.
+    function qtpi()
+    {
+        // Hide content and sidebar
+        document.getElementById('content').style.display = 'none'
+
+        var letterDiv = document.createElement('div')
+        letterDiv.style.width = '50%'
+        letterDiv.style.marginLeft = 'auto'
+        letterDiv.style.marginRight = 'auto'
+        letterDiv.style.borderColor = '#2e0854'
+        letterDiv.style.borderWidth = '5px'
+        letterDiv.style.borderStyle = Util.random(['solid', 'double',
+                                                   'ridge', 'groove'])
+        var fontSize = 32
+        letterDiv.style.fontSize = fontSize + 'px'
+        letterDiv.style.lineHeight = (1.5 * fontSize) + 'px'
+        letterDiv.style.paddingLeft = fontSize + 'px'
+        letterDiv.style.paddingRight = fontSize + 'px'
+        letterDiv.style.color = '#2e0854'
+        Util.addChildren(letterDiv, qtpiLetter())
+
+        var letter = qtpiLetter()
+        letterDiv.innerHTML = letter
+
+        var mainDiv = document.getElementById('main')
+        mainDiv.appendChild(letterDiv)
+
+        var verticalMargin = (window.innerHeight -
+                              0.04 * window.innerWidth -
+                              letterDiv.offsetHeight - 160) / 2
+
+        if (verticalMargin <= 20) {
+            verticalMargin = '2%'
+        } else {
+            verticalMargin = Math.round(verticalMargin) + 'px'
+        }
+
+        letterDiv.style.marginTop = verticalMargin
+        letterDiv.style.marginBottom = verticalMargin
+
+        Util.random([growingHearts, risingHearts, function(){}])()
+        log('qtpi', letter.replace(/(<([^>]+)>)/ig, ' '))
+    }
+
+
+    // Tutor object
+    return {
+        VERSION: VERSION,
+        init: init,
+        setLogFunction: setLogFunction
+    }
+                                      }()
+                                      window.addEventListener('load', Tutor.init)
+                                      </script>
+  </head>
+  <body>
+
+    <!-- Header -->
+    <div id="header">
+      <h1><a href="quickqwerty.html">QuickQWERTY</a></h1>
+      <h2 id="unitTitle"></h2>
+      <div id="navigation">
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div id="mainWrapper">
+      <div id="main">
+        <div id="content">
+          <div id="unitLinks"></div>
+
+          <div id="practicePanelWrapper">
+            <div id="update" class="warning">
+              <p>
+                A new version of QuickQWERTY is available. You are using
+                <strong>QuickQWERTY&nbsp;<span id="thisVersion"></span></strong>.
+                The latest stable version of this application is
+                <strong>QuickQWERTY&nbsp;<span id="stableVersion"></span></strong>.
+              </p><p>
+                <a id="downloadUpdate" href="#">Download</a>
+                <a id="ignoreUpdate" href="#">Hide this message</a>
+              </p>
+            </div>
+            <div id="practicePanel">
+              <div id="previousLink">
+                <a href="#previous">&laquo;</a>
+              </div>
+
+              <div id="practicePane">
+
+                <div id="subunitLinks">
+                  <div class="stretch"></div>
+                </div> <!-- End subunitLinks -->
+
+                <div id="target"></div>
+
+                <div id="feedbackPane">
+                  <div id="statusPane">
+                    <div id="status"></div>
+                    <div id="remark"></div>
+                    <div id="advice"></div>
+                  </div>
+                  <div id="progressPane">
+                    <div id="progress">
+                      <progress id="progressBar" value="0" max="100">
+                      </progress>
+                      <div>
+                        <span id="progressPercent"></span>
+                      </div>
+                    </div>
+                    <div id="restartLink">
+                      <a href="#restart" title="Start over">Restart</a>
+                    </div>
+                  </div>
+                  <div id="resultPane">
+                    <div id="speed"></div>
+                    <div id="error"></div>
+                    <div id="smiley"></div>
+                  </div>
+                </div> <!-- End feedbackPane -->
+
+                <div id="inputPane">
+                  <textarea id="input" rows="5" autocomplete="off"
+                            spellcheck="false"></textarea>
+                </div> <!-- End inputPane -->
+
+                <div id="alternateUnitLinks">
+                </div>
+
+              </div> <!-- End practicePane -->
+
+              <div id="nextLink">
+                <a href="#next">&raquo;</a>
+              </div>
+            </div> <!-- End practicePanel -->
+
+            <div id="guidePane">
+              <div>
+                <a id="guideLink" href="#"></a>
+              </div>
+              <div id="guide"></div>
+            </div> <!-- End guidePane -->
+          </div> <!-- End practicePanelWrapper -->
+
+          <noscript>
+            <div id="noscriptWrapper">
+              <div id="noscript">
+                JavaScript should be enabled to run this application.
+              </div>
+            </div>
+          </noscript>
+
+        </div> <!-- End content -->
+      </div> <!-- End main -->
+    </div> <!-- End mainWrapper -->
+
+    <!-- Footer -->
+    <div id="footer">
+      <div id="navigation">
+        <a href="quickqwerty.html">Tutor</a>
+        <a href="https://github.com/susam/quickqwerty">GitHub</a>
+        <a href="https://mastodon.social/@susam">Mastodon</a>
+        <a href="https://github.com/susam/quickqwerty#readme">About</a>
+      </div> <!-- End navigation -->
+      <div id="copyright">
+        <p>
+          QuickQWERTY 2.0.0-dev<br>
+          &copy; 2008-2025 <a href="https://susam.net/">Susam Pal</a>
+        </p>
+        <p>
+          This is free and open source software. You can use, copy,
+          modify, merge, publish, distribute, sublicense, and/or sell
+          copies of it, under the terms of the
+          <a href="https://github.com/susam/quickqwerty/blob/main/LICENSE.md">MIT License</a>.
+        </p>
+      </div> <!-- End copyright -->
+    </div> <!-- End footer -->
+  </body>
+</html>
