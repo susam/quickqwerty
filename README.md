@@ -8,7 +8,7 @@ units available in this software, one would know the location of the
 keys on the keyboard through muscle memory, and would be able to
 effortlessly use the right finger for each key.
 
-[1]: http://quickqwerty.com/
+[1]: https://susam.net/quickqwerty.html
 
 
 Contents
