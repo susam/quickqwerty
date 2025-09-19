@@ -112,3 +112,30 @@ Contact
 
 To report any bugs, or suggest any improvements, please create a new
 issue at https://github.com/susam/quickqwerty/issues.
+
+<!--
+Release Checklist
+-----------------
+
+- Update version in package.json.
+- Update version in HTML (1 place).
+- Update copyright in HTML (1 place).
+- Update copyright in LICENSE.md.
+- Disable logging.
+- Update CHANGES.md.
+- Run: the following commands:
+
+  npm run lint
+  git status
+  git add -p
+
+  VER=<VER>
+  git commit -em "Set version to $VER"
+  git tag $VER -m "QuickQWERTY $VER"
+  git push origin main $VER
+
+  git remote add cb https://codeberg.org/susam/quickqwerty.git
+  git push cb --all
+  git push cb --tags
+  git push cb main:pages
+-->
