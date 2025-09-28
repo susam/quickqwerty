@@ -1,6 +1,40 @@
 Changelog
 =========
 
+1.1.0 (UNRELEASED)
+------------------
+
+### Added
+
+- Input command `reset` has been added as a synonym of `restart` and
+  `rst`.
+
+### Changed
+
+- The entire application has been rewritten as a single standalone
+  HTML file with no external dependencies.
+- Words per minute (WPM) and characters per minute (CPM) calculation
+  no longer count the first character since the first character sets
+  off the timer which means that the entry of the first character
+  itself is not timed.
+- Format keys to be pressed conspicuously in the guides.
+- Guides are more detailed now with reminders to return the fingers to
+  their original positions.
+- The dialog box to confirm switching from 6-7 split style to 5-6
+  split style and vice versa is now implemented with the HTML
+  `<dialog>` element.
+- When visiting the application page without a fragment identifier in
+  the URL, the most recently practised lesson now loads by default.
+
+### Removed
+
+- Removed previous and next links (`«` and `»` links) to navigate
+  between lessons.  It served little purpose and made the user
+  interface layout more complicated.  The advice link labelled "Next
+  lesson" still exists and this can be used to move to the next lesson
+  when the current lesson is completed satisfactorily.
+
+
 1.0.0 (2015-05-12)
 ------------------
 

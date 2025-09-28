@@ -1,0 +1,28 @@
+{
+  "name": "quickqwerty",
+  "version": "1.1.0",
+  "description": "QuickQWERTY: Web-based touch typing tutor",
+  "main": "quickqwerty.html",
+  "files": [
+    "quickqwerty.html"
+  ],
+  "keywords": [
+    "browser",
+    "keyboard",
+    "qwerty",
+    "typing",
+    "tutor"
+  ],
+  "homepage": "https://github.com/susam/quickqwerty",
+  "bugs": "https://github.com/susam/quickqwerty/issues",
+  "license": "MIT",
+  "author": "Susam Pal (https://susam.net/)",
+  "repository": "github:susam/quickqwerty",
+  "devDependencies": {
+    "standard": "latest",
+    "eslint-plugin-html": "latest"
+  },
+  "scripts": {
+    "lint": "standard --plugin html *.html"
+  }
+}
