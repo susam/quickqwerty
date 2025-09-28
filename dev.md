@@ -5,8 +5,8 @@ Release Checklist
 -----------------
 
  1. Update version in [package.json][].
- 2. Update version in [quickqwerty.html][] (two places).
- 3. Update copyright in [quickqwerty.html][] (two places).
+ 2. Update version in [quickqwerty.html][] at 2 places.
+ 3. Update copyright in [quickqwerty.html][] at 2 places.
  4. Update copyright in [LICENSE.md][].
  5. Set `LOGGING = false` in [quickqwerty.html][].
  6. Update [CHANGES.md][].
