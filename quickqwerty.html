@@ -289,7 +289,7 @@
         altMessage = document.getElementById('altMessage')
 
         const prevUnit = window.localStorage.getItem('unit')
-        if (window.location.hash === '' && prevUnit !== null) {
+        if (window.location.hash === '' && prevUnit !== null && prevUnit !== '#1') {
           log('no location hash; redirecting to unit', prevUnit)
           window.location.hash = prevUnit
         }
