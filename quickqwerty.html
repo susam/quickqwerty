@@ -413,6 +413,7 @@
         const msg = alt ? UNITS.mainConfirmMsg : UNITS.altConfirmMsg
         const newAlt = alt ? 'no' : 'yes'
         altMessage.innerHTML = msg
+        altDialog.returnValue = 'no'
         altDialog.showModal()
         altDialog.addEventListener('close', function () {
           log('alt dialog return value:', altDialog.returnValue)
