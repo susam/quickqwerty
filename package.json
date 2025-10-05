@@ -1,6 +1,6 @@
 {
   "name": "quickqwerty",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "QuickQWERTY: Web-based touch typing tutor",
   "main": "quickqwerty.html",
   "files": [

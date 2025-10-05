@@ -28,6 +28,10 @@ Release Checklist
     git push cb main:pages
     ```
 
+ 8. Go to GitHub and make a release.
+ 9. Go to Codeberg and make a release.
+10. Publish to website.
+
 [package.json]: package.json
 [quickqwerty.html]: quickqwerty.html
 [LICENSE.md]: LICENSE.md

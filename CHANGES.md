@@ -1,6 +1,31 @@
 Changelog
 =========
 
+1.2.0 (2025-10-05)
+------------------
+
+### Changed
+
+- Avoid redundant redirect to Unit 1.1 when it was the last practised
+  lesson and the application is revisited without a location hash.
+
+### Fixed
+
+- Units 7.2 and 7.3 previously used the British spelling "tyre". This
+  has been removed so that the lessons no longer include spelling
+  specific to either American or British English.
+- Units 9.2 and 9.3 misspelled the word "orwellian" as "orwelian" in
+  the typing lessons.  This has been fixed.
+- Unit 17.4 had the following sentence in the typing lesson: "89 is
+  one more than 99."  This was factually incorrect.  This has been
+  fixed to the following: "89 is one more than 88."
+- In units 16 to 20, while switching between 5-6 split and 6-7 split,
+  if the dialogue box confirming the switch was cancelled by pressing
+  `Esc`, the switch still occurred.  This has been fixed now, so that
+  if the dialogue is cancelled by pressing `Esc`, the switch does not
+  occur.
+
+
 1.1.0 (2025-09-28)
 ------------------
 
@@ -13,10 +38,9 @@ Changelog
 
 - The entire application has been rewritten as a single standalone
   HTML file with no external dependencies.
-- Words per minute (WPM) and characters per minute (CPM) calculation
-  no longer count the first character since the first character sets
-  off the timer which means that the entry of the first character
-  itself is not timed.
+- Words per minute (WPM) calculation no longer count the first
+  character since the first character sets off the timer which means
+  that the entry of the first character itself is not timed.
 - Format keys to be pressed conspicuously in the guides.
 - Guides are more detailed now with reminders to return the fingers to
   their original positions.
@@ -25,6 +49,9 @@ Changelog
   `<dialog>` element.
 - When visiting the application page without a fragment identifier in
   the URL, the most recently practised lesson now loads by default.
+- Typing lessons have been updated to avoid spellings specific to
+  American English.
+- Now licensed under the MIT License.
 
 ### Removed
 
@@ -33,6 +60,10 @@ Changelog
   interface layout more complicated.  The advice link labelled "Next
   lesson" still exists and this can be used to move to the next lesson
   when the current lesson is completed satisfactorily.
+- Tooltips that showed additional typing metrics have been removed.
+  These features were obscure and not easily discoverable.
+- Characters per minute (CPM) calculation has been removed since it
+  was hidden away in a tooltip and it was not easily discoverable.
 
 
 1.0.0 (2015-05-12)
@@ -60,10 +91,8 @@ Changelog
 
 ### Fixed
 
-- Ensure lessons do not use characters that have not been introduced
-  yet.
+- Ensure lessons do not use characters that have not been introduced yet.
 - Fix an issue that caused the lessons bar to shrink in Google Chrome.
-
 
 
 0.3.0 (2010-05-09)
