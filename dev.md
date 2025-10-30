@@ -25,11 +25,10 @@ Release Checklist
     git remote add cb https://codeberg.org/susam/quickqwerty.git
     git push cb --all
     git push cb --tags
-    git push cb main:pages
     ```
 
- 8. Go to GitHub and make a release.
- 9. Go to Codeberg and make a release.
+ 8. Go to GitHub and make a release and attach `quickqwerty.html`.
+ 9. Go to Codeberg and make a release and attach `quickqwerty.html`.
 10. Publish to website.
 
 [package.json]: package.json
