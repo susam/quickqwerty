@@ -4,13 +4,12 @@ Developer Notes
 Release Checklist
 -----------------
 
- 1. Update version in [package.json][].
- 2. Update version in [quickqwerty.html][] at 2 places.
- 3. Update copyright in [quickqwerty.html][] at 2 places.
- 4. Update copyright in [LICENSE.md][].
- 5. Set `LOGGING = false` in [quickqwerty.html][].
- 6. Update [CHANGES.md][].
- 7. Run: the following commands:
+ 1. Update version in [quickqwerty.html][] at 2 places.
+ 2. Update copyright in [quickqwerty.html][] at 2 places.
+ 3. Update copyright in [LICENSE.md][].
+ 4. Set `LOGGING = false` in [quickqwerty.html][].
+ 5. Update [CHANGES.md][].
+ 6. Run: the following commands:
 
     ```sh
     make checks
@@ -27,11 +26,10 @@ Release Checklist
     git push cb --tags
     ```
 
- 8. Go to GitHub and make a release and attach `quickqwerty.html`.
- 9. Go to Codeberg and make a release and attach `quickqwerty.html`.
-10. Publish to website.
+ 7. Go to GitHub and make a release and attach `quickqwerty.html`.
+ 8. Go to Codeberg and make a release and attach `quickqwerty.html`.
+ 9. Publish to website.
 
-[package.json]: package.json
 [quickqwerty.html]: quickqwerty.html
 [LICENSE.md]: LICENSE.md
 [CHANGES.md]: CHANGES.md

@@ -5,7 +5,7 @@ QuickQWERTY
 with JavaScript enabled.  This software may be used to train your
 fingers to type without looking at the keys.  After completing all the
 units available in this software, one would know the location of the
-keys on the keyboard through muscle memory, and would be able to
+keys on the keyboard through muscle memory and would be able to
 effortlessly use the right finger for each key.
 
 [1]: https://susam.net/quickqwerty.html
@@ -18,7 +18,7 @@ Contents
 * [Units](#units)
 * [5–6 split vs 6–7 split](#56-split-vs-67-split)
 * [Commands](#commands)
-* [License](#license)
+* [Licence](#licence)
 * [Contact](#contact)
 
 
@@ -70,13 +70,13 @@ There are two popular ways to type the ten number keys on the top row.
 
   1. In the traditional style, `1` and `2` are typed with the little
      finger of the left hand, `6` is typed with the forefinger of the
-     left hand, and `7` is typed with the forefinger of the right
-     hand.  In other words, the number keys are split at 6–7 between
-     the left hand and the right hand.
+     left hand and `7` is typed with the forefinger of the right hand.
+     In other words, the number keys are split at 6–7 between the left
+     hand and the right hand.
 
   1. In a non-traditional style, `1` is typed with the little finger
      of the left hand, `2` is typed with the ring finger of the left
-     hand, `5` is typed with the forefinger of the left hand, and `6`
+     hand, `5` is typed with the forefinger of the left hand and `6`
      is typed with the forefinger of the right hand.  Thus, the number
      keys are split at 5–6 between the left hand and the right hand.
 
@@ -85,7 +85,7 @@ keyboards, the `6` key is more accessible to the left hand than the
 right hand.  Therefore, many people prefer the traditional style with
 6–7 split.  However, there are also many people who prefer the
 non-traditional style with 5–6 split.  Which style you choose depends
-on your taste, convenience, and the kind of keyboard you have.  If you
+on your taste, convenience and the kind of keyboard you have.  If you
 are confused about which style to choose, choose the traditional style
 with 6–7 split.
 
@@ -114,15 +114,15 @@ and you can ignore the error and continue to type the command.  As soon
 as you complete typing the command, your command would be executed.
 
 
-License
+Licence
 -------
 
 This is free and open source software.  You can use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell copies of it,
-under the terms of the MIT License.  See [LICENSE.md][L] for details.
+merge, publish, distribute, sublicence and/or sell copies of it, under
+the terms of the MIT Licence.  See [LICENSE.md][L] for details.
 
 This software is provided "AS IS", WITHOUT WARRANTY OF ANY KIND,
-express or implied. See [LICENSE.md][L] for details.
+express or implied.  See [LICENSE.md][L] for details.
 
 [L]: LICENSE.md
 

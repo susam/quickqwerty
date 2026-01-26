@@ -11,7 +11,7 @@ Changelog
 
 ### Fixed
 
-- Units 7.2 and 7.3 previously used the British spelling "tyre". This
+- Units 7.2 and 7.3 previously used the British spelling "tyre".  This
   has been removed so that the lessons no longer include spelling
   specific to either American or British English.
 - Units 9.2 and 9.3 misspelled the word "orwellian" as "orwelian" in
@@ -51,7 +51,7 @@ Changelog
   the URL, the most recently practised lesson now loads by default.
 - Typing lessons have been updated to avoid spellings specific to
   American English.
-- Now licensed under the MIT License.
+- Now licenced under the MIT Licence.
 
 ### Removed
 
@@ -79,7 +79,7 @@ Changelog
 
 - Source code management and release management have moved from
   SourceForge to GitHub.
-- Licensed under the Simplified BSD License (BSD-2-Clause).
+- Licenced under the Simplified BSD Licence (BSD-2-Clause).
 
 
 0.4.0 (2010-05-23)
@@ -145,4 +145,4 @@ Changelog
 ### Added
 
 - Initial draft with 15 units consisting of 73 lessons.
-- Licensed under the GNU General Public License, version 3.
+- Licenced under the GNU General Public Licence, version 3.

@@ -2,7 +2,7 @@
     QuickQWERTY 1.2.0
     Copyright (c) 2008-2025 Susam Pal
     Source: https://github.com/susam/quickqwerty
-    License: MIT
+    Licence: MIT
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -427,7 +427,7 @@
       function getTargetText (unit, section, alt) {
         const sections = pickUnit(unit, alt).sections
         const texts = Object.values(sections)
-        const text = texts[section - 1]
+        const text = texts[section - 1].replaceAll('  ', ' ')
         log('text:', text)
         return text
       }
@@ -751,21 +751,21 @@
       function qtpi () {
         function main () {
           const pLeft = '<p style="text-align: left">'
-          const pCenter = '<p style="text-align: center">'
+          const pCentre = '<p style="text-align: center">'
           const pRight = '<p style="text-align: right">'
           const pEnd = '</p>'
           const letters = [
-            pLeft + 'Cutie Pai,' + pEnd + pCenter +
+            pLeft + 'Cutie Pai,' + pEnd + pCentre +
               'I <span style="color: #e28; font-size: 1.25em">&hearts;</span> U!' +
               pEnd + pRight + '&mdash; Susam' + pEnd,
-            pLeft + 'Cutie Pai,' + pEnd + pCenter +
-              'I love you! <span style="color: #e28;">' +
+            pLeft + 'Cutie Pai,' + pEnd + pCentre +
+              'I love you!  <span style="color: #e28;">' +
               '<span style="font-size: 0.6em">&hearts;</span>' +
               '<span style="font-size: 1em">&hearts;</span></span>' +
               pEnd + pRight + '&mdash; Susam' + pEnd,
             pLeft + 'Cutie Pai,' + pEnd + pLeft +
               'Your smile is the most beautiful thing in the ' +
-              'world to me. <big style="color: #a36">&#x263a;</big>' +
+              'world to me.  <big style="color: #a36">&#x263a;</big>' +
               pEnd + pRight + '&mdash; Susam' + pEnd
           ]
           const main = document.querySelector('main')
@@ -872,15 +872,15 @@
 
       const UNITS = {
         mainLabel: '6-7 split',
-        mainConfirmMsg: '<h3>Switch to 6-7 split?</h3><p>You are about to choose the 6-7 split style for typing the number keys. In this style, you type the numbers <kbd>1</kbd> to <kbd>6</kbd> with the left hand and <kbd>7</kbd> to <kbd>0</kbd> with the right hand.</p><p>This is the traditional way of typing number keys and many ergonomic split keyboards are designed for it. In this layout, the <kbd>6</kbd> key is placed on the left side of the split and the <kbd>7</kbd> key on the right.</p><p>It is recommended that you learn one split style and stay with it. If you choose the 6-7 split, there is no need to learn the 5-6 split later.</p><p>Do you want to continue with learning to touch type the number keys using the 6-7 split style?</p>',
-        altConfirmMsg: '<h3>Switch to 5-6 split?</h3><p>You are about to choose the 5-6 split style for typing the number keys. In this style, you type the numbers <kbd>1</kbd> to <kbd>5</kbd> with the left hand and <kbd>6</kbd> to <kbd>0</kbd> with the right hand.</p><p>Many ergonomic split keyboards place the <kbd>6</kbd> key on the left side of the split and the <kbd>7</kbd> key on the right, although not all follow this layout. On most standard keyboards, the <kbd>6</kbd> key is also closer to the <kbd>F</kbd> key than to the <kbd>J</kbd> key. For these reasons, the 6-7 split style is the recommended way to learn typing the number keys. However, it is perfectly fine to use the 5-6 split if it suits your keyboard better.</p><p>It is recommended that you learn one split style and stay with it. If you choose the 5-6 split, there is no need to learn the 6-7 split later.</p><p>Do you want to continue with learning to touch type the number keys using the 5-6 split style?</p>',
+        mainConfirmMsg: '<h3>Switch to 6-7 split?</h3><p>You are about to choose the 6-7 split style for typing the number keys.  In this style, you type the numbers <kbd>1</kbd> to <kbd>6</kbd> with the left hand and <kbd>7</kbd> to <kbd>0</kbd> with the right hand.</p><p>This is the traditional way of typing number keys and many ergonomic split keyboards are designed for it.  In this layout, the <kbd>6</kbd> key is placed on the left side of the split and the <kbd>7</kbd> key on the right.</p><p>It is recommended that you learn one split style and stay with it.  If you choose the 6-7 split, there is no need to learn the 5-6 split later.</p><p>Do you want to continue with learning to touch type the number keys using the 6-7 split style?</p>',
+        altConfirmMsg: '<h3>Switch to 5-6 split?</h3><p>You are about to choose the 5-6 split style for typing the number keys.  In this style, you type the numbers <kbd>1</kbd> to <kbd>5</kbd> with the left hand and <kbd>6</kbd> to <kbd>0</kbd> with the right hand.</p><p>Many ergonomic split keyboards place the <kbd>6</kbd> key on the left side of the split and the <kbd>7</kbd> key on the right, although not all follow this layout.  On most standard keyboards, the <kbd>6</kbd> key is also closer to the <kbd>F</kbd> key than to the <kbd>J</kbd> key.  For these reasons, the 6-7 split style is the recommended way to learn typing the number keys.  However, it is perfectly fine to use the 5-6 split if it suits your keyboard better.</p><p>It is recommended that you learn one split style and stay with it.  If you choose the 5-6 split, there is no need to learn the 6-7 split later.</p><p>Do you want to continue with learning to touch type the number keys using the 5-6 split style?</p>',
         altLabel: '5-6 split',
         altStart: 16, // First unit number (not index) of units with alternate units available
         main: [
           // Unit 1
           {
             title: 'asdf jkl;',
-            guide: '<p>Place all eight fingers, excluding the thumbs, on the home row. The left forefinger should rest on the <kbd>F</kbd> key and the right forefinger on the <kbd>J</kbd> key. Position the remaining fingers naturally on the adjacent keys. For example, the left little finger rests on <kbd>A</kbd> and the right little finger on the <kbd>;</kbd> (semicolon) key.</p><p>To type a key, press it with the finger positioned over it. Use either thumb to press the space bar. Keep your eyes on the screen while typing and do not look at the keyboard.</p><p>Move on to the next lesson only when you can type without errors. For beginners, accuracy is more important than speed.</p>',
+            guide: '<p>Place all eight fingers, excluding the thumbs, on the home row.  The left forefinger should rest on the <kbd>F</kbd> key and the right forefinger on the <kbd>J</kbd> key.  Position the remaining fingers naturally on the adjacent keys.  For example, the left little finger rests on <kbd>A</kbd> and the right little finger on the <kbd>;</kbd> (semicolon) key.</p><p>To type a key, press it with the finger positioned over it.  Use either thumb to press the space bar.  Keep your eyes on the screen while typing and do not look at the keyboard.</p><p>Move on to the next lesson only when you can type without errors.  For beginners, accuracy is more important than speed.</p>',
             sections: {
               Grip: 'asdf ;lkj asdf ;lkj asdf ;lkj asdf ;lkj asdf ;lkj fdsa jkl; fdsa jkl; fdsa jkl; fdsa jkl; fdsa jkl; asdf fdsa ;lkj jkl; asdf fdsa ;lkj jkl; asdf jkl; ;lkj fdsa asdf jkl; ;lkj fdsa ksl; jak; fk;s asl; jas; ;sl; fjas fjk; askl kjf; asdj ;fal dfla ;;ls ;ja; l;ds',
               Words: 'a a a; as as as; all all all; fall fall fall; lad lad lad; dad dad dad; fad fad fad; ass ass ass; salad salad salad; alfalfa alfalfa alfalfa; sa sa sa; add add add;',
@@ -892,7 +892,7 @@
           // Unit 2
           {
             title: 'ru',
-            guide: '<p>Use the left forefinger to type <kbd>R</kbd> and the right forefinger to type <kbd>U</kbd>. After typing <kbd>R</kbd> or <kbd>U</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>R</kbd> and the right forefinger to type <kbd>U</kbd>.  After typing <kbd>R</kbd> or <kbd>U</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'frfr juju frfr juju frfr juju; rfrf ujuj rfrf ujuj rfrf ujuj; jrjr fufu jrjr fufu jrjr fufu; rjrj ufuf rjrj ufuf rjrj ufuf; asdfr ;lkju asdfr ;lkju asdfr ;lkju rfdsa ujkl; rfdsa ujkl; rfdsa ujkl; asdfr ujkl; asdfr ujkl; asdfr ujkl; asdfr rfdsa ;lkju ujkl; asdfr rfdsa asdfr ujkl; ;lkju rfdsa asdfr ujkl; urfu ujku rfur luru rjur arru ursr druj drur arsufr frrur jurru urrsu uusrr drlursu uslru frsusl arfu jfru',
               Words: 'far far far; fur fur fur; rar rar rar; lark lark lark; radar radar radar; surf surf surf; dull dull dull; urdu urdu urdu; full full full; rural rural rural; us us us; usual usual usual; laura laura laura; russ russ russ;',
@@ -904,7 +904,7 @@
           // Unit 3
           {
             title: 'vm',
-            guide: '<p>Use the left forefinger to type <kbd>V</kbd> and the right forefinger to type <kbd>M</kbd>. After typing <kbd>V</kbd> or <kbd>M</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>V</kbd> and the right forefinger to type <kbd>M</kbd>.  After typing <kbd>V</kbd> or <kbd>M</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'fvfv jmjm fvfv jmjm fvfv jmjm; vfvf mjmj vfvf mjmj vfvf mjmj; jvjv fmfm jvjv fmfm jvjv fmfm; vjvj mfmf vjvj mfmf vjvj mfmf; fvrm jmuv fvrm jmuv fvrm jmuv; asdfv ;lkjm asdfrv ;lkjum asdfvr ;lkjmu avrm mvum mmvm mvlv vvmuv vrmv vmrlm svmvmk avsm rvasm svlmr svmvr dvmkv kmvlv rvlmv amvvm vvma mvmm',
               Words: 'madam madam madam; lava lava lava; malva malva malva; slam slam slam; mars mars mars; mask mask mask; uv uv uv; murmur murmur murmur; slum slum slum; mark mark mark; vasu vasu vasu; larva larva larva; dam dam dam; sam sam sam; vum vum vum; arm arm arm; mall mall mall; alarm alarm alarm;',
@@ -916,7 +916,7 @@
           // Unit 4
           {
             title: 'ei',
-            guide: '<p>Use the left middle finger to type <kbd>E</kbd> and the right middle finger to type <kbd>I</kbd>. After typing <kbd>E</kbd> or <kbd>I</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
+            guide: '<p>Use the left middle finger to type <kbd>E</kbd> and the right middle finger to type <kbd>I</kbd>.  After typing <kbd>E</kbd> or <kbd>I</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
             sections: {
               Grip: 'dede kiki dede kiki dede kiki; eded ikik eded ikik eded ikik; fefe jiji fefe jiji fefe jiji; efef ijij efef ijij efef ijij; deki iked deki iked deki iked; ekid dike ekid dike ekid dike; idek kedi idek kedi idek iked; aeds fers iukj iuea ediu edil; aeiru iuerr juiee ireel aerij afeei iieei eeeii eieie; iesdi sdiei aidef lijue iuefr ifese eikis iaser uieie;',
               Words: 'fire fire fire; field field field; are are are; riddle riddle riddle; killer killer killer; is is is; file file file; rise rise rise; side side side; read seed feed leave veal seal visa veer smear; lime slime dime vide save vase live vile ride free; smile simile familiar similar mere merrier',
@@ -928,7 +928,7 @@
           // Unit 5
           {
             title: 'c,',
-            guide: '<p>Use the left middle finger to type <kbd>C</kbd> and the right middle finger to type <kbd>,</kbd> (comma). After typing <kbd>C</kbd> or <kbd>,</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
+            guide: '<p>Use the left middle finger to type <kbd>C</kbd> and the right middle finger to type <kbd>,</kbd> (comma).  After typing <kbd>C</kbd> or <kbd>,</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
             sections: {
               Grip: 'dcdc k,k, dcdc k,k, dcdc k,k, cdcd ,k,k cdcd ,k,k cdcd ,k,k fcfc j,j, fcfc j,j, fcfc j,j, cfcf ,j,j cfcf ,j,j cfcf ,j,j dck, ,kcd dck, ,kcd dck, ,kcd ck,d d,kc ck,d d,kc ck,d d,kc ,dck kcd, ,dck kcd, ,dck ,kcd ,,cc cc,, c,c, ,c,c ,ic, c,ac, c,r;c ac;,; s,c;fd a,cd, ;,,cv vc,a; cv,sk; ;l,vdj vcm, ,mdc cvi, ;i,c m,fc ec;,',
               Words: 'receive, circus, circle, maverick, class, mice; ice; fulcrum, care, cure, cafe, face, lace, race, claim; card, lack, service, car, camera, recursive, recess; cease, civil, camel, cave, cake, case, decade, crack;',
@@ -940,7 +940,7 @@
           // Unit 6
           {
             title: 'gh',
-            guide: '<p>Use the left forefinger to type <kbd>G</kbd> and the right forefinger to type <kbd>H</kbd>. After typing <kbd>G</kbd> or <kbd>H</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>G</kbd> and the right forefinger to type <kbd>H</kbd>.  After typing <kbd>G</kbd> or <kbd>H</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'fgfg jhjh fgfg jhjh fgfg jhjh; gfgf hjhj gfgf hjhj gfgf hjhj; fhfh gjgj fhfh gjgj fhfh gjgj; hfhf jgjg hfhf jgjg hfhf jgjg; asdfg ;lkjh asdfg ;lkjh asdfg ;lkjh asdfg ;lkh;gfdsa hjkl; gfdsa hjkl; gfdsa hjkl; gfdsa hjkl; arhg, igdh, ikhvg, lcvhg, mgcfm, ehcgm, lhsgh, uhrgh; igghs, ghmvh, hchga, guehg, lchhg, ghcih, gilgh;',
               Words: 'hacker, cage, hair, jaguar, his, her, he, she, hire, shag, girl, egg, guru, greek, hum, ham, gum, drug, hug, giggle, hush, garage, aggressive, high, sigh, grave, glacier, heal, him, hide, guide, has, had, have, hear, here, flag, give, glad, shell, march',
@@ -952,7 +952,7 @@
           // Unit 7
           {
             title: 'ty',
-            guide: '<p>Use the left forefinger to type <kbd>T</kbd> and the right forefinger to type <kbd>Y</kbd>. After typing <kbd>T</kbd> or <kbd>Y</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>T</kbd> and the right forefinger to type <kbd>Y</kbd>.  After typing <kbd>T</kbd> or <kbd>Y</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'ftft jyjy ftft jyjy ftft jyjy; tftf yjyj tftf yjyj tftf yjyj; fyfy tjtj fyfy tjtj fyfy tjtj; yfyf jtjt yfyf jtjt yfyf jtjt; ertyui iuytre ertyui iuytre ertyui iuytre; asdft ;lkjy asdfy ;lkjt aedtf ;ikyj adert ;kiuy afty ;jyt tety yjkt lyjt gyht athy sytg lhyg shdt svtm ctym vtyy, ,gytyv crttys sctyt l;tiy, kyhat sytay sytty lttys yytym mtyty syght ymtsy yctvy lytvy ;mtcvy sytaty',
               Words: 'harry, tight, light, very, merry, dry, height, try; sight, might, fry, cry, family, sally, mathematics; chemistry, fight, yell, the, there, this, them; jury, hay, heavy, lyre, tram, yacht, tuesday; thursday, friday, saturday, target, hit, fit, tackle; sky, year, thirsty, yet, may, july, august',
@@ -964,7 +964,7 @@
           // Unit 8
           {
             title: 'bn',
-            guide: '<p>Use the left forefinger to type <kbd>B</kbd> and the right forefinger to type <kbd>N</kbd>. After typing <kbd>B</kbd> or <kbd>N</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>B</kbd> and the right forefinger to type <kbd>N</kbd>.  After typing <kbd>B</kbd> or <kbd>N</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'fbfb jnjn fbfb jnjn fbfb jnjn; bfbf njnj bfbf njnj bfbf njnj; fnfn bjbj fnfn bjbj fnfn bjbj; nfnf jbjb nfnf jbjb nfnf jbjb; cvbnm, ,mnbvc cvbnm, ,mnbvc cvbnm, ,mnbvc; asdfb ;lkjn asdfn ;lkjb aedbf ;iknj aderb ;kiun afbn ;jnb bebn njkb lnjb gnhb abhn snbg lhng shdb svbm mhnb ,ibmn senbm nbmvn tnvnm dvln; lsvnm avnsm lsvne',
               Words: 'bean, bin, night, nifty, nibble, scrabble, be, best; banana, january, february, june, band, land, bind; december, sunday, blind, bend, abundance, benign; minimal, begin, bank, savant, urban, nebula, science',
@@ -976,7 +976,7 @@
           // Unit 9
           {
             title: 'wo',
-            guide: '<p>Use the left ring finger to type <kbd>W</kbd> and the right ring finger to type <kbd>O</kbd>. After typing <kbd>W</kbd> or <kbd>O</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
+            guide: '<p>Use the left ring finger to type <kbd>W</kbd> and the right ring finger to type <kbd>O</kbd>.  After typing <kbd>W</kbd> or <kbd>O</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
             sections: {
               Grip: 'swsw lolo swsw lolo swsw lolo; wsws olol wsws olol wsws olol; fwfw jojo fwfw jojo fwfw jojo; wfwf ojoj wfwf ojoj wfwf ojoj; swlo olws swlo olws swlo olws; wlos solw wlos solw wlos solw; oswl lwso oswl lwso oswl olws; awss fwrs oulj ouwa wsou wsol;',
               Words: 'what who why when which whom, wheel wind, good moot, sworn sow saw soot loot, war won welcome office will, world worse vow word, biology economics sociology, would whole sword wolf worm, now how orwellian work, owe onus new dew stew too to, weblog wobble womble, you we, monday wednesday, october november, wonder',
@@ -988,7 +988,7 @@
           // Unit 10
           {
             title: 'x.',
-            guide: '<p>Use the left ring finger to type <kbd>X</kbd> and the right ring finger to type <kbd>.</kbd> (dot). After typing <kbd>X</kbd> or <kbd>.</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
+            guide: '<p>Use the left ring finger to type <kbd>X</kbd> and the right ring finger to type <kbd>.</kbd> (dot).  After typing <kbd>X</kbd> or <kbd>.</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
             sections: {
               Grip: 'sxsx l.l. sxsx l.l. sxsx l.l.; xsxs .l.l xsxs .l.l xsxs .l.l; fxfx j.j. fxfx j.j. fxfx j.j.; xfxf .j.j xfxf .j.j xfxf .j.j; sxl. .lxs sxl. .lxs sxl. .lxs; xl.s s.lx xl.s s.lx xl.s s.lx; .sxl lxs. .sxl lxs. .sxl .lxs; axss fxrs .ulj .uxa xs.u xs.l;',
               Words: 'axe axiom. latex maximum. axial exile. axion borax; codex excel. six. mix xenon. toxin tax. linux unix; hoax fax. fox reflex. wax extra. xerox fedex. ox text; exist exit. exert helix. galaxy hexadecimal. maxim tex; next relax. texas exam. exclude lexical;',
@@ -1000,7 +1000,7 @@
           // Unit 11
           {
             title: 'qp',
-            guide: '<p>Use the left little finger to type <kbd>Q</kbd> and the right little finger to type <kbd>P</kbd>. After typing <kbd>Q</kbd> or <kbd>P</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
+            guide: '<p>Use the left little finger to type <kbd>Q</kbd> and the right little finger to type <kbd>P</kbd>.  After typing <kbd>Q</kbd> or <kbd>P</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
             sections: {
               Grip: 'aqaq opop aqaq opop aqaq opop. qaqa popo qaqa popo qaqa popo, fqfq jpjp fqfq jpjp fqfq jpjp; qfqf pjpj qfqf pjpj qfqf pjpj. aqop poqa aqop poqa aqop poqa, qopa apoq qopa apoq qopa apoq; paqo oqap paqo oqap paqo poqa. aqaa fqra puoj puqa qapu qapo.',
               Words: 'quick qwerty qualm qualify play phone people pupil. queen equip equiprobable quakeproof quilt pique qed. period quasi quantum queue lap paint expert equator. pen pencil pin quote quadruple paddle quirky prince. pint quart prime september quit whip plate piano page.',
@@ -1012,7 +1012,7 @@
           // Unit 12
           {
             title: 'z/',
-            guide: '<p>Use the left little finger to type <kbd>Z</kbd> and the right little finger to type <kbd>/</kbd> (slash). After typing <kbd>Z</kbd> or <kbd>/</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
+            guide: '<p>Use the left little finger to type <kbd>Z</kbd> and the right little finger to type <kbd>/</kbd> (slash).  After typing <kbd>Z</kbd> or <kbd>/</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
             sections: {
               Grip: 'azaz o/o/ azaz o/o/ azaz o/o/. zaza /o/o zaza /o/o zaza /o/o, fzfz j/j/ fzfz j/j/ fzfz j/j/; zfzf /j/j zfzf /j/j zfzf /j/j. azo/ /oza azo/ /oza azo/ /oza, zo/a a/oz zo/a a/oz zo/a a/oz; /azo oza/ /azo oza/ /azo /oza. azaa fzra /uoj /uza za/u za/o.',
               Words: 'jazz wizard lazy / ooze zeal quiz / ablaze bazar buzz / czar cozy dozen / dazzle enzyme gaze / maze size zeta / zigzag zoo zinc / zoom fizz puzzle / nozzle pizza zip / zero blazer zit / zone seize doze / ozone frieze frizz / amazing benzene bronze / azimuth bonanza graze /',
@@ -1024,7 +1024,7 @@
           // Unit 13
           {
             title: "'",
-            guide: "<p>Use the right little finger to type <kbd>'</kbd> (single quotation mark). After typing <kbd>'</kbd>, return the little finger to its original position on <kbd>;</kbd>.</p>",
+            guide: "<p>Use the right little finger to type <kbd>'</kbd> (single quotation mark).  After typing <kbd>'</kbd>, return the little finger to its original position on <kbd>;</kbd>.</p>",
             sections: {
               Grip: "'cla 'mai 'lsi 'kji 'mne 'uyz 'oxb 'gar 'vmn 'xzl 'ovc js'a pa'u do'a uy'b si'n ym'l pj's yn's wv'u ug'x tn'p ymo' aqo' wqp' pws' wip' yts' irm' ika' lkw' lrx' oip' fj'a mi's n'hs la'i w'by si'b 'ivk 'd'p '//' ''p/ ap/' 'pa/ 'ox/ /aq' 'ixr ;';' ';p/ a';q rpx' g;x' b'y; e/d'",
               Words: "we're you're, he's, she's, it's, they're; isn't wasn't; we'd, you'd, he'd, she'd, they'd; can't couldn't; you'll, he'll, she'll, they'll; here's there's; aren't, weren't; what's where's; don't, didn't;",
@@ -1036,7 +1036,7 @@
           // Unit 14
           {
             title: 'shift',
-            guide: '<p>Press the <kbd>shift</kbd> key with the little finger. To type a capital letter, first press and hold the <kbd>shift</kbd> key with one hand, type the letter with the appropriate finger of the other hand, then release the <kbd>shift</kbd> key.</p><p>Do not press the <kbd>shift</kbd> key and the letter key with fingers of the same hand. Before typing the letter, decide which hand will be used to type it. Use the opposite hand to hold the <kbd>shift</kbd> key, then type the letter. This may require some effort at first, but you will gain speed with practice.</p><p>For example, to type <kbd>F</kbd>, press and hold the right <kbd>shift</kbd> key with the right little finger, type <kbd>F</kbd> with the left forefinger, then release the <kbd>shift</kbd> key. After this, return both fingers immediately to the home row.</p>',
+            guide: '<p>Press the <kbd>shift</kbd> key with the little finger.  To type a capital letter, first press and hold the <kbd>shift</kbd> key with one hand, type the letter with the appropriate finger of the other hand, then release the <kbd>shift</kbd> key.</p><p>Do not press the <kbd>shift</kbd> key and the letter key with fingers of the same hand.  Before typing the letter, decide which hand will be used to type it.  Use the opposite hand to hold the <kbd>shift</kbd> key, then type the letter.  This may require some effort at first, but you will gain speed with practice.</p><p>For example, to type <kbd>F</kbd>, press and hold the right <kbd>shift</kbd> key with the right little finger, type <kbd>F</kbd> with the left forefinger, then release the <kbd>shift</kbd> key.  After this, return both fingers immediately to the home row.</p>',
             sections: {
               Grip: 'aAbB cCdD eEfF gGhH aAbB cCdD eEfF gGhH; iIjJ kKlL mMnN oOpP iIjJ kKlL mMnN oOpP; qQrR sStT uUvV wWxX qQrR sStT uUvV wWxX; yYzZ yYzZ QWERT YUIOP; ASDFG LKJH; ZXCVB MN; ABCD EFGH ABCD EFGH IJKL MNOP IJKL MNOP; QRST UVWX QRST UVWX YZ YZ; UxWm YwnF VpAs BiKv CoGl DbJc QeZr HkXy LpOq EuzT MfNg RhjS tIBd',
               Words: 'January February March April May June July August September October November December, USA UAE India UK Sri Lanka Egypt, New Delhi New York Moscow Brisbane Donald E. Knuth, Dennis M. Ritchie, S. Ramanujan',
@@ -1058,7 +1058,7 @@
           // Unit 16
           {
             title: '58',
-            guide: '<p>Use the left forefinger to type <kbd>5</kbd> and the right forefinger to type <kbd>8</kbd>. After typing <kbd>5</kbd> or <kbd>8</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>5</kbd> and the right forefinger to type <kbd>8</kbd>.  After typing <kbd>5</kbd> or <kbd>8</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'f5f5 j8j8 f5f5 j8j8 f5f5 j8j8; 5f5f 8j8j 5f5f 8j8j 5f5f 8j8j; j5j5 f8f8 j5j5 f8f8 j5j5 f8f8; 5j5j 8f8f 5j5j 8f8f 5j5j 8f8f; f5r8 j8u5 f5r8 j8u5 f5r8 j8u5; asdf5 ;lkj8 asdfr5 ;lkju8 asdf5r ;lkj8u a5r8 85u8 8858 85l5 558u5 5r85 58rl8 s5858k a5s8 r5as8 s5l8r s585r d58k5 k85l5 r5l85 a8558 558a 8588',
               Words: '5 books, 8 sentences, 58 words, 5858 students, 85 cars, 88 constellations, 55 journals, 5 laptops, 58 bottles, 85 cities, 855 buildings, 588 pens, 858 trains, 585 buses',
@@ -1070,7 +1070,7 @@
           // Unit 17
           {
             title: '49',
-            guide: '<p>Use the left middle finger to type <kbd>4</kbd> and the right middle finger to type <kbd>9</kbd>. After typing <kbd>4</kbd> or <kbd>9</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
+            guide: '<p>Use the left middle finger to type <kbd>4</kbd> and the right middle finger to type <kbd>9</kbd>.  After typing <kbd>4</kbd> or <kbd>9</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
             sections: {
               Grip: 'd4d4 k9k9 d4d4 k9k9 d4d4 k9k9; 4d4d 9k9k 4d4d 9k9k 4d4d 9k9k; k4k4 d9d9 k4k4 d9d9 k4k4 d9d9; 4k4k 9d9d 4k4k 9d9d 4k4k 9d9d; d4r9 k9u4 d4r9 k9u4 d4r9 k9u4; d4r8 k9u4 d4r8 k9u4 d8r9 k9u4; a8dd4 8akk9 as5dr4 5akku9 5s8d4r 8a5k9u a4r9 94u8 9549 94s4 489u4 4r95 49rd5 s4549k a4s98 r4as9 s4a98 s594r d49k5 k98a4 r5a94 a9849 849a 949598',
               Words: '4 pens, 9 pencils, 49 buses, 5945 items, 99 words, 44 hens, 45 tests, 94 samples, 9454 roads, 94 sticks, 545 villages, 954 seats, 598 labels, 549 calls',
@@ -1082,7 +1082,7 @@
           // Unit 18
           {
             title: '67',
-            guide: '<p>Use the left forefinger to type <kbd>6</kbd> and the right forefinger to type <kbd>7</kbd>. After typing <kbd>6</kbd> or <kbd>7</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>6</kbd> and the right forefinger to type <kbd>7</kbd>.  After typing <kbd>6</kbd> or <kbd>7</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'f6f6 j7j7 f6f6 j7j7 f6f6 j7j7; 6f6f 7j7j 6f6f 7j7j 6f6f 7j7j; j6j6 f7f7 j6j6 f7f7 j6j6 f7f7; 6j6j 7f7f 6j6j 7f7f 6j6j 7f7f; f6r7 j7u6 f6r7 j7u6 f6r7 j7u6; asff6 ;ljj7 asffr6 ;ljju7 asff6r ;ljj7u a6r7 76u7 7767 76l6 667u6 6r76 67rl7 s6767j a6s7 r6as7 s6l7r s676r f67j6 j76l6 r6l76 a7667 667a 7677',
               Words: '6 horses, 7 days, 77 elephants, 67 pipes, 76 stones, 776 eggs, 765 pages, 46 chapters, 78 questions, 56 answers, 664 schools, 779 tricks, 68 pins, 687 bins',
@@ -1094,7 +1094,7 @@
           // Unit 19
           {
             title: '30',
-            guide: '<p>Use the left ring finger to type <kbd>3</kbd> and the right ring finger to type <kbd>0</kbd>. After typing <kbd>3</kbd> or <kbd>0</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
+            guide: '<p>Use the left ring finger to type <kbd>3</kbd> and the right ring finger to type <kbd>0</kbd>.  After typing <kbd>3</kbd> or <kbd>0</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
             sections: {
               Grip: 's3s3 l0l0 s3s3 l0l0 s3s3 l0l0; 3s3s 0l0l 3s3s 0l0l 3s3s 0l0l; l3l3 s0s0 l3l3 s0s0 l3l3 s0s0; 3l3l 0s0s 3l3l 0s0s 3l3l 0s0s; s3r0 l0u3 s3r0 l0u3 s3r0 l0u3; asss3 ;lll0 asssr3 ;lllu0 asss3r ;lll0u a3r0 03u0 0030 03l3 330u3 3r03 30rl0 s3030l a3s0 q3ks0 s3l0n s303o w30l3 o03l3 m3l03 a0330 330a 0300',
               Words: '30 days, 300 lions, 303 buses, 367 numbers, 70 years, 73 goals, 40 names, 83 bytes, 50 tables, 80 tables, 35 cars, 307 sets, 360 mails, 630 books, 305 diaries',
@@ -1106,7 +1106,7 @@
           // Unit 20
           {
             title: '12',
-            guide: '<p>Use the left little finger to type <kbd>1</kbd> as well as <kbd>2</kbd>. After typing <kbd>1</kbd> or <kbd>2</kbd>, return the little finger to its original position on <kbd>A</kbd>.</p>',
+            guide: '<p>Use the left little finger to type <kbd>1</kbd> as well as <kbd>2</kbd>.  After typing <kbd>1</kbd> or <kbd>2</kbd>, return the little finger to its original position on <kbd>A</kbd>.</p>',
             sections: {
               Grip: 'a1a1 q2q2 a1a1 q2q2 a1a1 q2q2; 1a1a 2q2q 1a1a 2q2q 1a1a 2q2q; q1q1 a2a2 q1q1 a2a2 q1q1 a2a2; 1q1q 2a2a 1q1q 2a2a 1q1q 2a2a; a1z2 p2q1 a1p2 p2u1 a1z2 q2p1; aaaa1 ;qqq2 aaaar1 ;p1qu2 a2ap1r ;1pq2u a1p2 21z2 2212 21q1 112u1 1r21 12rq2 a1212q a1a2 q1ka2 a1q2n a121o j12q1 o21q1 m1q21 a2112 112a 2122',
               Words: '12 months, 21 days, 52 weeks, 11 books, 22 notes, 2 pens, 121 points, 132 trials, 82 tosses, 192 attempts, 21 pins, 14 stories, 511 passengers, 122 bottles, 811 buildings',
@@ -1118,7 +1118,7 @@
           // Unit 21
           {
             title: 'passages',
-            guide: '<p>Type the passages using the correct fingers as practised in the previous units. Keep your eyes on the screen and do not look at the keyboard. The only exception is special symbols not covered in the previous units. For those, it is fine to look at the keyboard to type them, but use the correct fingers. If a symbol is typed with <kbd>shift</kbd> plus a digit key, use the same finger as that of the digit key to type the symbol, while pressing <kbd>shift</kbd> with the little finger of the opposite hand. For symbols further out on the keyboard, use the little finger. After typing the symbol, return immediately to touch typing.</p>',
+            guide: '<p>Type the passages using the correct fingers as practised in the previous units.  Keep your eyes on the screen and do not look at the keyboard.  The only exception is special symbols not covered in the previous units.  For those, it is fine to look at the keyboard to type them, but use the correct fingers.  If a symbol is typed with <kbd>shift</kbd> plus a digit key, use the same finger as that of the digit key to type the symbol, while pressing <kbd>shift</kbd> with the little finger of the opposite hand.  For symbols further out on the keyboard, use the little finger.  After typing the symbol, return immediately to touch typing.</p>',
             sections: {
               Hyperspace: "Some of the inspiration for Lewis Carroll's ideas most likely came from the great nineteenth-century German mathematician Georg Bernhard Riemann, who was the first to lay the mathematical foundation of geometries in higher-dimensional space. Riemann changed the course of mathematics for the next century by demonstrating that these universes, as strange as they may appear to the layperson, are completely self-consistent and obey their own inner logic.",
               Relativity: 'Lightning has struck the rails on our railway embankment at two places A and B far distant from each other. I make the additional assertion that these two lightning flashes occurred simultaneously. If I ask you whether there is sense in this statement, you will answer my question with a decided "Yes." But if I now approach you with the request to explain to me the sense of the statement more precisely, you find after some consideration that the answer to this question is not so easy as it appears at first sight.',
@@ -1130,7 +1130,7 @@
           // Alt: Unit 16
           {
             title: '47',
-            guide: '<p>Use the left forefinger to type <kbd>4</kbd> and the right forefinger to type <kbd>7</kbd>. After typing <kbd>4</kbd> or <kbd>7</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>4</kbd> and the right forefinger to type <kbd>7</kbd>.  After typing <kbd>4</kbd> or <kbd>7</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'f4f4 j7j7 f4f4 j7j7 f4f4 j7j7; 4f4f 7j7j 4f4f 7j7j 4f4f 7j7j; j4j4 f7f7 j4j4 f7f7 j4j4 f7f7; 4j4j 7f7f 4j4j 7f7f 4j4j 7f7f; f4r7 j7u4 f4r7 j7u4 f4r7 j7u4; asdf4 ;lkj7 asdfr4 ;lkju7 asdf4r ;lkj7u a4r7 74u7 7747 74l4 447u4 4r74 47rl7 s4747k a4s7 r4as7 s4l7r s474r d47k4 k74l4 r4l74 a7447 447a 7477',
               Words: '4 books, 7 sentences, 47 words, 4747 students, 74 cars, 44 journals, 4 laptops, 47 bottles, 74 days, 44 years, 74 cities, 744 buildings, 477 pens, 747 trains, 474 buses',
@@ -1142,7 +1142,7 @@
           // Alt: Unit 17
           {
             title: '38',
-            guide: '<p>Use the left middle finger to type <kbd>3</kbd> and the right middle finger to type <kbd>8</kbd>. After typing <kbd>3</kbd> or <kbd>8</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
+            guide: '<p>Use the left middle finger to type <kbd>3</kbd> and the right middle finger to type <kbd>8</kbd>.  After typing <kbd>3</kbd> or <kbd>8</kbd>, return the middle fingers to their original positions on <kbd>D</kbd> and <kbd>K</kbd>.</p>',
             sections: {
               Grip: 'd3d3 k8k8 d3d3 k8k8 d3d3 k8k8; 3d3d 8k8k 3d3d 8k8k 3d3d 8k8k; k3k3 d8d8 k3k3 d8d8 k3k3 d8d8; 3k3k 8d8d 3k3k 8d8d 3k3k 8d8d; d3r8 k8u3 d3r8 k8u3 d3r8 k8u3; asdd3 ;lkk8 asddr3 ;lkku8 asdd3r ;lkk8u a3r8 83u8 8838 83l3 338u3 3r83 38rl8 s3838k a3s8 r3as8 s3l8r s383r d38k3 k83l3 r3l83 a8338 338a 8388',
               Words: '3 pens, 8 pencils, 38 buses, 4834 items, 88 words, 33 hens, 34 tests, 83 samples, 8343 roads, 83 sticks, 434 villages, 843 seats, 88 constellations, 438 calls',
@@ -1154,7 +1154,7 @@
           // Alt: Unit 18
           {
             title: '56',
-            guide: '<p>Use the left forefinger to type <kbd>5</kbd> and the right forefinger to type <kbd>6</kbd>. After typing <kbd>5</kbd> or <kbd>6</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
+            guide: '<p>Use the left forefinger to type <kbd>5</kbd> and the right forefinger to type <kbd>6</kbd>.  After typing <kbd>5</kbd> or <kbd>6</kbd>, return the forefingers to their original positions on <kbd>F</kbd> and <kbd>J</kbd>.</p>',
             sections: {
               Grip: 'f5f5 j6j6 f5f5 j6j6 f5f5 j6j6; 5f5f 6j6j 5f5f 6j6j 5f5f 6j6j; j5j5 f6f6 j5j5 f6f6 j5j5 f6f6; 5j5j 6f6f 5j5j 6f6f 5j5j 6f6f; f5r6 j6u5 f5r6 j6u5 f5r6 j6u5; asff5 ;ljj6 asffr5 ;ljju6 asff5r ;ljj6u a5r6 65u6 6656 65l5 556u5 5r65 56rl6 s5656j a5s6 r5as6 s5l6r s565r f56j5 j65l5 r5l65 a6556 556a 6566',
               Words: '5 horses, 6 dogs, 66 elephants, 56 pipes, 65 stones, 665 eggs, 655 pages, 45 chapters, 68 questions, 55 answers, 554 schools, 667 tricks, 58 pins, 586 bins',
@@ -1166,7 +1166,7 @@
           // Alt: Unit 19
           {
             title: '29',
-            guide: '<p>Use the left ring finger to type <kbd>2</kbd> and the right ring finger to type <kbd>9</kbd>. After typing <kbd>2</kbd> or <kbd>9</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
+            guide: '<p>Use the left ring finger to type <kbd>2</kbd> and the right ring finger to type <kbd>9</kbd>.  After typing <kbd>2</kbd> or <kbd>9</kbd>, return the ring fingers to their original positions on <kbd>S</kbd> and <kbd>L</kbd>.</p>',
             sections: {
               Grip: 's2s2 l9l9 s2s2 l9l9 s2s2 l9l9; 2s2s 9l9l 2s2s 9l9l 2s2s 9l9l; l2l2 s9s9 l2l2 s9s9 l2l2 s9s9; 2l2l 9s9s 2l2l 9s9s 2l2l 9s9s; s2r9 l9u2 s2r9 l9u2 s2r9 l9u2; asss2 ;lll9 asssr2 ;lllu9 asss2r ;lll9u a2r9 92u9 9929 92l2 229u2 2r92 29rl9 s2929l a2s9 q2ks9 s2l9n s292o w29l2 o92l2 m2l92 a9229 229a 9299',
               Words: '29 days, 299 lions, 292 buses, 267 numbers, 79 years, 72 goals, 49 names, 82 bytes, 59 tables, 89 tables, 25 cars, 297 sets, 269 mails, 629 books, 295 diaries',
@@ -1178,7 +1178,7 @@
           // Alt: Unit 20
           {
             title: '10',
-            guide: '<p>Use the left little finger to type <kbd>1</kbd> and the right little finger to type <kbd>0</kbd>. After typing <kbd>1</kbd> or <kbd>0</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
+            guide: '<p>Use the left little finger to type <kbd>1</kbd> and the right little finger to type <kbd>0</kbd>.  After typing <kbd>1</kbd> or <kbd>0</kbd>, return the little fingers to their original positions on <kbd>A</kbd> and <kbd>;</kbd>.</p>',
             sections: {
               Grip: 'a1a1 q0q0 a1a1 q0q0 a1a1 q0q0; 1a1a 0q0q 1a1a 0q0q 1a1a 0q0q; q1q1 a0a0 q1q1 a0a0 q1q1 a0a0; 1q1q 0a0a 1q1q 0a0a 1q1q 0a0a; a1z0 p0q1 a1p0 p0u1 a1z0 q0p1; aaaa1 ;qqq0 aaaar1 ;p1qu0 a0ap1r ;1pq0u a1p0 01z0 0010 01q1 110u1 1r01 10rq0 a1010q a1a0 q1ka0 a1q0n a101o j10q1 o01q1 m1q01 a0110 110a 0100',
               Words: '100 days, 101 tricks, 10 weeks, 11 books, 1001 notes, 101 points, 130 trials, 80 tosses, 190 attempts, 21 pins, 14 stories, 511 passengers, 100 bottles, 811 buildings',
@@ -1246,10 +1246,10 @@
         &copy; 2008-2025 <a href="https://susam.net/">Susam Pal</a>
       </p>
       <p>
-        This is free and open source software. You can use, copy,
-        modify, merge, publish, distribute, sublicense and/or sell
+        This is free and open source software.  You can use, copy,
+        modify, merge, publish, distribute, sublicence and/or sell
         copies of it, under the terms of the
-        <a href="https://github.com/susam/quickqwerty/blob/main/LICENSE.md">MIT License</a>.
+        <a href="https://github.com/susam/quickqwerty/blob/main/LICENSE.md">MIT Licence</a>.
       </p>
     </footer>
   </body>
