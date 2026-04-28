@@ -28,8 +28,8 @@ Use QuickQWERTY
 The current stable version of QuickQWERTY is available at the following links:
 
 * https://susam.net/quickqwerty.html
-* https://susam.github.io/quickqwerty.html
 * https://susam.codeberg.page/quickqwerty.html
+* https://susam.github.io/quickqwerty.html
 
 
 Units
@@ -132,4 +132,4 @@ Contact
 
 To report bugs or ask questions, [create issues][ISSUES].
 
-[ISSUES]: https://github.com/susam/quickqwerty/issues
+[ISSUES]: https://codeberg.org/susam/quickqwerty/issues

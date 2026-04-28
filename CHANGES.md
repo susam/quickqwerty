@@ -4,6 +4,10 @@ Changelog
 1.2.2 (2026-04-28)
 ------------------
 
+### Changed
+
+- Source code management has moved from GitHub to Codeberg.
+
 ### Fixed
 
 - Clicking the 'Restart' link now correctly restarts the current
