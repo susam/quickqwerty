@@ -6,13 +6,13 @@ Release Checklist
 
  1. Update version in [quickqwerty.html][] at 2 places.
  2. Update copyright in [quickqwerty.html][] at 2 places.
- 3. Update copyright in [LICENSE.md][].
+ 3. Update copyright in [LICENCE.md][].
  4. Set `LOGGING = false` in [quickqwerty.html][].
  5. Update [CHANGES.md][].
  6. Run: the following commands:
 
     ```sh
-    make checks
+    make chk
     git status
     git add -p
 
@@ -31,7 +31,7 @@ Release Checklist
  9. Publish to website.
 
 [quickqwerty.html]: quickqwerty.html
-[LICENSE.md]: LICENSE.md
+[LICENCE.md]: LICENCE.md
 [CHANGES.md]: CHANGES.md
 
 

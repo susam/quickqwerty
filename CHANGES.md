@@ -28,14 +28,14 @@ Changelog
 
 ### Fixed
 
-- Units 7.2 and 7.3 previously used the British spelling "tyre".  This
+- Units 7.2 and 7.3 previously used the British spelling 'tyre'.  This
   has been removed so that the lessons no longer include spelling
   specific to either American or British English.
-- Units 9.2 and 9.3 misspelled the word "orwellian" as "orwelian" in
+- Units 9.2 and 9.3 misspelled the word 'orwellian' as 'orwelian' in
   the typing lessons.  This has been fixed.
-- Unit 17.4 had the following sentence in the typing lesson: "89 is
-  one more than 99."  This was factually incorrect.  This has been
-  fixed to the following: "89 is one more than 88."
+- Unit 17.4 had the following sentence in the typing lesson: '89 is
+  one more than 99.'  This was factually incorrect.  This has been
+  fixed to the following: '89 is one more than 88.'
 - In units 16 to 20, while switching between 5-6 split and 6-7 split,
   if the dialogue box confirming the switch was cancelled by pressing
   `Esc`, the switch still occurred.  This has been fixed now, so that
@@ -74,8 +74,8 @@ Changelog
 
 - Removed previous and next links (`«` and `»` links) to navigate
   between lessons.  It served little purpose and made the user
-  interface layout more complicated.  The advice link labelled "Next
-  lesson" still exists and this can be used to move to the next lesson
+  interface layout more complicated.  The advice link labelled 'Next
+  lesson' still exists and this can be used to move to the next lesson
   when the current lesson is completed satisfactorily.
 - Tooltips that showed additional typing metrics have been removed.
   These features were obscure and not easily discoverable.

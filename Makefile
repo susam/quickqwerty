@@ -1,6 +1,6 @@
 APP = quickqwerty.html
 
-checks: tidy lint
+chk: tidy lint
 
 tidy:
 	# Workaround: tidy-html5 does not recognise form method "dialog",
@@ -12,7 +12,7 @@ tidy:
 lint:
 	npx standard --plugin html *.html
 
-deps:
+dep:
 	npm install --no-save standard eslint-plugin-html
 	if command -v brew; then brew install tidy-html5; fi
 
