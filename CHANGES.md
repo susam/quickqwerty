@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.2.2 (2026-04-28)
+------------------
+
+### Fixed
+
+- Clicking the 'Restart' link now correctly restarts the current
+  lesson instead of incorrectly sending users back to Unit 1.1.
+
+
 1.2.1 (2026-01-27)
 ------------------
 
