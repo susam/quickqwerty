@@ -17,7 +17,4 @@ dep:
 	if command -v brew; then brew install tidy-html5; fi
 
 cp:
-	cp $(APP) ~/git/susam.net/content/tree
-
-pub: cp
-	cd ~/git/susam.net/ && make copub
+	cp $(APP) ../susam.net/content/tree/
