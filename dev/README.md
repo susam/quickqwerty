@@ -20,15 +20,9 @@ Release Checklist
     git commit -em "Set version to $VER"
     git tag $VER -m "QuickQWERTY $VER"
     git push origin main $VER
-
-    git remote add cb https://codeberg.org/susam/quickqwerty.git
-    git push cb --all
-    git push cb --tags
     ```
 
- 7. Go to GitHub and make a release and attach `quickqwerty.html`.
- 8. Go to Codeberg and make a release and attach `quickqwerty.html`.
- 9. Publish to website.
+ 7. Publish to website.
 
 [quickqwerty.html]: quickqwerty.html
 [LICENCE.md]: LICENCE.md
