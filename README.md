@@ -18,6 +18,7 @@ Contents
 * [Units](#units)
 * [5–6 split vs 6–7 split](#56-split-vs-67-split)
 * [Commands](#commands)
+* [Limitation](#limitation)
 * [Licence](#licence)
 * [Contact](#contact)
 
@@ -43,12 +44,11 @@ new unit.
 
 All units that introduce new keys have five sections:
 
-  1. Grip: Getting used to the keys
-  2. Words: Learning to type words
-  3. Control: Learning to stop abruptly in the middle of words
-  4. Sentences: Learning to type sentences
-  5. Test: Testing your proficiency level in the current unit
-
+  1. **Grip:** Getting used to the keys
+  2. **Words:** Learning to type words
+  3. **Control:** Learning to stop abruptly in the middle of words
+  4. **Sentences:** Learning to type sentences
+  5. **Test:** Testing your proficiency level in the current unit
 
 Additionally, there are two units that help you to test your
 proficiency level by typing passages chosen from popular books.
@@ -112,6 +112,18 @@ because the software would be expecting you to type the text displayed
 above the input box instead of the command you are typing.  This is okay
 and you can ignore the error and continue to type the command.  As soon
 as you complete typing the command, your command would be executed.
+
+
+Limitation
+----------
+
+QuickQWERTY, as the name indicates, teaches touch typing with the
+QWERTY layout only.  Other keyboard layouts are not supported.
+
+However, QuickQWERTY is available under the terms of the MIT licence.
+Motivated individuals may modify the tool to support another keyboard
+layout by editing the lessons defined in `const UNITS` in
+[quickqwerty.html](quickqwerty.html).
 
 
 Licence
