@@ -8,6 +8,9 @@ units available in this software, one would know the location of the
 keys on the keyboard through muscle memory and would be able to
 effortlessly use the right finger for each key.
 
+[![QuickQWERTY][IMG]][1]
+
+[IMG]: https://susam.codeberg.page/blob/img/quickqwerty/quickqwerty-1.2.2.png
 [1]: https://susam.net/quickqwerty.html
 
 

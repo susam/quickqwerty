@@ -18,3 +18,12 @@ dep:
 
 cp:
 	cp $(APP) ../susam.net/content/tree/
+
+PNG = ../blob/img/quickqwerty/quickqwerty.png
+
+ss:
+	osascript -e 'tell app "Chrome" to set bounds of front window to {0, 0, 1200, 709}'
+	osascript -e 'tell app "Chrome" to activate'
+	screencapture -w $(PNG)
+	/Applications/ImageOptim.app/Contents/MacOS/ImageOptim $(PNG)
+	open $(PNG)
