@@ -1,6 +1,16 @@
 Changelog
 =========
 
+1.2.3 (UNRELEASED)
+------------------
+
+### Fixed
+
+- Fix broken licence link in the footer.
+- Prevent the switch dialog from appearing when toggling between 6-7
+  and 5-6 split modes if the selected option is already active.
+
+
 1.2.2 (2026-04-28)
 ------------------
 
