@@ -299,6 +299,9 @@
         input.addEventListener('keydown', delayedEvaluate)
         input.addEventListener('keyup', evaluate)
         guideLink.addEventListener('click', toggleGuide)
+        const resetLink = document.getElementById('resetLink')
+        resetLink.addEventListener('click', resetProgress)
+        resetLink.hidden = false
         window.addEventListener('hashchange', setupLesson)
       }
 
@@ -342,6 +345,40 @@
         return window.localStorage.getItem('alt') === 'yes'
       }
 
+      function getPasses () {
+        return JSON.parse(window.localStorage.getItem('progress')) || {}
+      }
+
+      function passKey (unit, section, alt) {
+        return (altUnitAvailable(unit) && alt ? 'alt' : '') + unit + '.' + section
+      }
+
+      function isSectionPassed (unit, section, alt) {
+        return getPasses()[passKey(unit, section, alt)] === true
+      }
+
+      function isUnitPassed (unit, alt) {
+        const titles = Object.keys(pickUnit(unit, alt).sections)
+        // A unit is passed if its test is passed
+        if (titles.includes('Test')) {
+          return isSectionPassed(unit, titles.indexOf('Test') + 1, alt)
+        }
+        // ...or if every section of the unit is done (not all units have tests)
+        return titles.every(function (title, i) {
+          return isSectionPassed(unit, i + 1, alt)
+        })
+      }
+
+      function savePass () {
+        const alt = getAlt()
+        const [unit, section] = getLesson()
+        const passes = getPasses()
+        passes[passKey(unit, section, alt)] = true
+        window.localStorage.setItem('progress', JSON.stringify(passes))
+        showUnitLinks(unit, alt)
+        showSectionLinks(unit, section, alt)
+      }
+
       function getLesson () {
         let unit = 1
         let section = 1
@@ -374,7 +411,7 @@
       function showUnitLinks (unit, alt) {
         unitLinks.replaceChildren()
         for (let i = 1; i <= UNITS.main.length; i++) {
-          const div = boxedLink('Unit ' + i, '#' + i, i === unit)
+          const div = boxedLink('Unit ' + i, '#' + i, i === unit, isUnitPassed(i, alt))
           div.title = pickUnit(i, alt).title
           unitLinks.append(div)
         }
@@ -388,7 +425,7 @@
         for (let i = 1; i <= len; i++) {
           const href = '#' + unit + '.' + i
           const selected = (i === section)
-          const div = boxedLink(titles[i - 1], href, selected)
+          const div = boxedLink(titles[i - 1], href, selected, isSectionPassed(unit, i, alt))
           div.style.width = (95 / len) + '%'
           sectionLinks.append(div)
         }
@@ -497,8 +534,11 @@
         }
       }
 
-      function boxedLink (text, href, selected) {
+      function boxedLink (text, href, selected, passed) {
         const div = document.createElement('div')
+        if (passed) {
+          text += ' \u2713' // Check mark
+        }
         if (selected) {
           div.textContent = text
           div.className = 'selected'
@@ -555,6 +595,15 @@
         log('hiding guide')
         guideText.style.display = 'none'
         guideLink.textContent = 'Guide'
+      }
+
+      function resetProgress (e) {
+        e.preventDefault()
+        if (window.confirm('Reset progress? This removes completion marks.')) {
+          log('resetting progress')
+          window.localStorage.removeItem('progress')
+          setupLesson()
+        }
       }
 
       function visual (s) {
@@ -670,6 +719,7 @@
             practicePane.className = 'success'
             remark.textContent = 'Well done!'
             status.textContent = 'COMPLETED'
+            savePass()
             href = nextSectionHref()
             if (href !== null) {
               advice.textContent = 'Next lesson'
@@ -1243,6 +1293,7 @@
         <a href="https://codeberg.org/susam/quickqwerty">Codeberg</a>
         <a href="https://mastodon.social/@susam">Mastodon</a>
         <a href="https://codeberg.org/susam/quickqwerty#readme">About</a>
+        <a id="resetLink" href="#" hidden>Reset progress</a>
       </nav>
       <p>
         QuickQWERTY 1.2.3<br>
